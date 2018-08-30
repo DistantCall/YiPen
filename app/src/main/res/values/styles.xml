@@ -1,0 +1,19 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="mypopwindow_anim_style">
+        <!--指示显示动画
+        ExitAnimation 不要写反 写反不会出现平滑过度效果(如果写反会造成先展示个隐藏在展示button,
+        如果取消会造成在消失后再次展示)
+        popshow_anim
+            pophidden_anim 这两个是我在res下面定义的两个xml上面有说-->
+        <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
+        <!--指示消失动画    ExitAnimation    -->
+        <item name="android:windowExitAnimation">@anim/pophidden_anim</item></style>
+</resources>

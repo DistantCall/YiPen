@@ -50,8 +50,6 @@ public class RetrofitUtils {
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(new inter()).build();
         OkHttpClient okHttpClient = OkHttpInstance(client);
-
-
         Retrofit retrofit = new Retrofit
                 .Builder()
                 .baseUrl(url)

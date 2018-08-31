@@ -16,7 +16,7 @@ public class LoginBean {
     /**
      * status : 1
      * message : 登录成功
-     * result : [{"username":"用户名","code_url":"图片路径","telephone":"联系电话","create_time":"创建时间","token":"生成的token"}]
+     * result : [{"bis_id":0,"mem_id":0,"username":null,"code_url":"https://yp.dxshuju.com/static/img/5.jpg","telephone":"18810415234","create_time":"2018-08-30 16:54:53","token":"8c941b0e74928f2d4e594bc67c847e36"}]
      */
 
     private int status;
@@ -48,36 +48,45 @@ public class LoginBean {
     }
 
     public static class ResultBean {
-        @Override
-        public String toString() {
-            return "ResultBean{" +
-                    "username='" + username + '\'' +
-                    ", code_url='" + code_url + '\'' +
-                    ", telephone='" + telephone + '\'' +
-                    ", create_time='" + create_time + '\'' +
-                    ", token='" + token + '\'' +
-                    '}';
-        }
-
         /**
-         * username : 用户名
-         * code_url : 图片路径
-         * telephone : 联系电话
-         * create_time : 创建时间
-         * token : 生成的token
+         * bis_id : 0
+         * mem_id : 0
+         * username : null
+         * code_url : https://yp.dxshuju.com/static/img/5.jpg
+         * telephone : 18810415234
+         * create_time : 2018-08-30 16:54:53
+         * token : 8c941b0e74928f2d4e594bc67c847e36
          */
 
-        private String username;
+        private int bis_id;
+        private int mem_id;
+        private Object username;
         private String code_url;
         private String telephone;
         private String create_time;
         private String token;
 
-        public String getUsername() {
+        public int getBis_id() {
+            return bis_id;
+        }
+
+        public void setBis_id(int bis_id) {
+            this.bis_id = bis_id;
+        }
+
+        public int getMem_id() {
+            return mem_id;
+        }
+
+        public void setMem_id(int mem_id) {
+            this.mem_id = mem_id;
+        }
+
+        public Object getUsername() {
             return username;
         }
 
-        public void setUsername(String username) {
+        public void setUsername(Object username) {
             this.username = username;
         }
 

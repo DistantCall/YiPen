@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.administrator.yipen.bean.FileBean;
 import com.example.administrator.yipen.bean.LoginBean;
 import com.example.administrator.yipen.bean.RegBean;
+import com.example.administrator.yipen.bean.UserUpdateInfo;
 import com.example.administrator.yipen.constance.ConstanceClass;
 import com.example.administrator.yipen.mvp.presenter.Ipre;
 import com.example.administrator.yipen.server.LoginServerce;
@@ -51,6 +52,7 @@ public class Model {
 
                     @Override
                     public void onNext(RegBean regBean) {
+
                         try {
                             Log.e("view", regBean.toString());
                             presenter.Scuess(regBean, 9999);
@@ -80,7 +82,7 @@ public class Model {
 
                     @Override
                     public void onNext(LoginBean loginBean) {
-
+                        Log.e("msg",loginBean.toString());
                         presenter.LoginScuess(loginBean);
                         if (loginBean.getStatus() == 1) {
                             LoginServerce.reflag = true;
@@ -122,5 +124,24 @@ public class Model {
                 });
 
     }
+    public void updateUserInfo(String phone){
+    retrofitAPI.updateUserInfo(phone).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Subscriber<UserUpdateInfo>() {
+                @Override
+                public void onCompleted() {
 
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onNext(UserUpdateInfo userUpdateInfo) {
+                    presenter.Scuess(userUpdateInfo,10002);
+                }
+            });
+    }
 }

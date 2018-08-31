@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 
 import com.example.administrator.yipen.app.App;
+import com.example.administrator.yipen.constance.SharePUtils;
 import com.example.administrator.yipen.mvp.presenter.Presenter;
 import com.example.administrator.yipen.server.LoginServerce;
 import com.zhy.autolayout.AutoLayoutActivity;
@@ -13,6 +14,7 @@ import com.zhy.autolayout.AutoLayoutActivity;
 public abstract class BaseActivity extends AutoLayoutActivity implements Iview {
 
     public static App application;
+    public static SharePUtils user;
 
     //布局文件ID
     protected abstract int getContentViewId();
@@ -27,20 +29,32 @@ public abstract class BaseActivity extends AutoLayoutActivity implements Iview {
         setContentView(getContentViewId());
         try {
             closeTitleBar();
+            NotLoginOr();
+            loginInfo();
             initView();
             initData();
-
-            startService(new Intent(this, LoginServerce.class));
-
-
             application = (App) App.getApplication();
-            application.NotLoginOr();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
     }
+
+    private void loginInfo() {
+        String login = user.query("login");
+        if (login.equals("scuess")) {
+            LoginServerce.reflag = true;
+        } else if (login.equals("err")) {
+            LoginServerce.reflag = false;
+        }
+    }
+
+    private void NotLoginOr() {
+        user = new SharePUtils(this, "user");
+    }
+
+
 
     private void closeTitleBar() {
         App.setTitFlag(this);

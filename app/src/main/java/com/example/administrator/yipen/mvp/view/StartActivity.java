@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 
 import com.example.administrator.yipen.app.App;
+import com.example.administrator.yipen.constance.SharePUtils;
+import com.example.administrator.yipen.server.LoginServerce;
 import com.example.myapplication.R;
 
 import java.lang.ref.WeakReference;
@@ -41,6 +43,7 @@ public class StartActivity extends AppCompatActivity {
 
         public CountTime(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
+
         }
 
         @Override
@@ -62,12 +65,8 @@ public class StartActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_start);
         try {
-
             closeTitleBar();
-
-
             init();
-
             mc.start();
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,11 +1,8 @@
 package com.example.administrator.yipen.mvp.view;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,13 +15,11 @@ import android.widget.TextView;
 import com.example.administrator.yipen.app.App;
 import com.example.administrator.yipen.bean.LoginBean;
 import com.example.administrator.yipen.bean.RegBean;
-import com.example.administrator.yipen.mvp.presenter.Presenter;
+import com.example.administrator.yipen.server.LoginServerce;
 import com.example.administrator.yipen.utils.SmartroInter;
 import com.example.myapplication.R;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 
 public class RegActivity extends BaseActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener, SmartroInter {
@@ -97,18 +92,16 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
 
         if (regBean.getStatus() == 0) {
             //失败
-
             application.toastLong(regBean.getMessage() + ",请检查您的手机号");
         }
-        if (regBean.getStatus() == 0) {
-            application.toastLong("登录");
+        if (regBean.getStatus() == 2) {
+            application.toastLong("短信已发送");
+            countTimer.start();
         }
         if (regBean.getStatus() == 1) {
-
-            finishLogin("scuess");
+            application.toastLong("短信已发送");
+            countTimer.start();
         }
-
-
     }
 
 
@@ -123,22 +116,19 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
         Log.e("ss", loginBean.toString());
         if (loginBean.getStatus() == 0) {
             //失败
+            user.add("login", "err");
             application.toastLong(loginBean.getMessage());
+
         } else if (loginBean.getStatus() == 1) {
             //成功
-            Log.e("ss", "safpjaefoihaefiao");
             EventBus.getDefault().post(loginBean.getResult());
             finishLogin("scuess");
-
         }
-
     }
 
     @Override
     public void LoginErr(Throwable t) {
-
     }
-
 
     //点击注册/登录按钮响应事件
     @Override
@@ -148,30 +138,32 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
                 finishLogin("err");
                 break;
             case R.id.login_btn:
-
-               App.getPresenter(this).LoginPre(telephone.getText().toString().trim(), regCode.getText().toString().trim());
-
+                App.getPresenter(this).LoginPre(telephone.getText().toString().trim(), regCode.getText().toString().trim());
                 break;
             default:
                 App.getPresenter(this).RegPre(telephone.getText().toString().trim());
-
                 break;
         }
 
     }
 
     private void finishLogin(String function) {
-        App.getSharedP().add("login", function);
 
+        user.add("login", function);
+        if (function.equals("scuess")) {
+            LoginServerce.reflag = true;
+        } else if (function.equals("err")) {
+            LoginServerce.reflag = false;
+        }
+        Log.e("log", "user:" + function + "....reFlag:" + LoginServerce.reflag);
         finish();
+
     }
 
     //下次登录判断
     @Override
     public void setFlag(boolean flag) {
-
     }
-
 
     // timer Util
     /* 定义一个倒计时的内部类 */
@@ -196,5 +188,23 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
             reg.setText("您可以在" + (millisUntilFinished / 1000 + "秒后发送验证码"));
         }
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.e("stop", "stop");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e("stop", "pause");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("stop", "destory");
     }
 }

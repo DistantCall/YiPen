@@ -20,38 +20,22 @@ import java.util.List;
 public class App extends Application {
    private static App  app;
    private static Presenter presenter;
-    private static SharePUtils user;
-    List<Iview> list=new ArrayList<>();
-    private Intent intent;
+
+
 
     @Override
     public void onCreate() {
         super.onCreate();
         app=this;
-
+        SharePUtils user = new SharePUtils(this, "user");
+        user.add("login","err");
         Fresco.initialize(this);
     }
 
         //判断登陆后下次是否需要重新登录的操作
-    public void NotLoginOr() {
-        user = new SharePUtils(this, "user");
-        intent = new Intent(this, LoginServerce.class);
-
-        String login = user.query("login");
-        if(login.equals("scuess")){
-            LoginServerce.reflag=true;
-        }else if(login.equals("err")){
-            LoginServerce.reflag=false;
-        }
 
 
-        startService(intent);
-    }
 
-
-    public static SharePUtils getSharedP(){
-        return user;
-    }
 
     public static Application getApplication(){
         return app;
@@ -74,11 +58,7 @@ public class App extends Application {
 //        }
     }
 
-    @Override
-    public void onTerminate() {
-        super.onTerminate();
-        stopService(intent);
-    }
+
 
     public void toastLong(String msg){
     Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();

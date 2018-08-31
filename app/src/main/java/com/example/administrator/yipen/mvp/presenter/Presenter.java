@@ -37,6 +37,10 @@ public class Presenter implements Ipre {
         model.upDataIcon(f);
     }
 
+    public void updateUserInfo(String phone) {
+        model.updateUserInfo(phone);
+    }
+
     @Override
     public void Scuess(Object o, int requestCode) {
         iview.Scuess(o, requestCode);

@@ -53,24 +53,17 @@ public abstract class BaseActivity extends AutoLayoutActivity implements Iview {
     private void NotLoginOr() {
         user = new SharePUtils(this, "user");
     }
-
-
-
     private void closeTitleBar() {
         App.setTitFlag(this);
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
     }
-
     //返回键返回事件
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

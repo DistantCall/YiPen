@@ -35,7 +35,7 @@ public class Model {
     }
 
     public void RegModle(String phone) {
-
+        Log.i("phone",phone);
         retrofitAPI.requestReg(phone)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -47,6 +47,7 @@ public class Model {
 
                     @Override
                     public void onError(Throwable e) {
+                        Log.e("err",e.getMessage());
                         presenter.Error(e);
                     }
 

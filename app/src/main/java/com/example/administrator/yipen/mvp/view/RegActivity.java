@@ -3,6 +3,7 @@ package com.example.administrator.yipen.mvp.view;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.CountDownTimer;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.administrator.yipen.app.App;
 import com.example.administrator.yipen.bean.LoginBean;
@@ -69,9 +71,7 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
         reg.setOnClickListener(this);
         reg_back.setOnClickListener(this);
         login.setOnClickListener(this);
-
     }
-
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -110,6 +110,7 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
         application.toastLong(e.getMessage());
     }
 
+    //#cae2dbe2
     @Override
     public void LoginScuess(Object o) {
         LoginBean loginBean = (LoginBean) o;
@@ -117,11 +118,13 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
         if (loginBean.getStatus() == 0) {
             //失败
             user.add("login", "err");
+            setButton(1);
             application.toastLong(loginBean.getMessage());
-
         } else if (loginBean.getStatus() == 1) {
             //成功
+            application.toastLong("登陆成功,跳转登录页面");
             EventBus.getDefault().post(loginBean.getResult());
+            SystemClock.sleep(1000);
             finishLogin("scuess");
         }
     }
@@ -138,13 +141,24 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
                 finishLogin("err");
                 break;
             case R.id.login_btn:
+                setButton(0);
                 App.getPresenter(this).LoginPre(telephone.getText().toString().trim(), regCode.getText().toString().trim());
                 break;
-            default:
+            case R.id.regmax:
                 App.getPresenter(this).RegPre(telephone.getText().toString().trim());
                 break;
         }
 
+    }
+
+    public void setButton(int requestCode) {
+        if (requestCode == 0) {
+            this.getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
+            login.setBackgroundColor(Color.GRAY);
+        } else if (requestCode == 1) {
+            int parseColor = Color.parseColor("#FFFF0088");
+            login.setBackgroundColor(parseColor);
+        }
     }
 
     private void finishLogin(String function) {
@@ -175,7 +189,8 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
         @Override
         public void onFinish() {// 计时完毕时触发
             reg.setText("重新验证");
-            reg.setBackgroundColor(Color.rgb(255, 192, 203));
+            int color = Color.parseColor("#FFFF0088");
+            reg.setBackgroundColor(color);
             reg.setClickable(true);
         }
 
@@ -185,26 +200,10 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
             reg.setClickable(false);
             reg.setAlpha(150);
             reg.setBackgroundColor(Color.GRAY);
-            reg.setText("您可以在" + (millisUntilFinished / 1000 + "秒后发送验证码"));
+            reg.setText((millisUntilFinished / 1000 + "秒后发送验证码"));
         }
 
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.e("stop", "stop");
-    }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.e("stop", "pause");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.e("stop", "destory");
-    }
 }

@@ -175,10 +175,25 @@ public class MineFragment extends Fragment implements Iview {
         }
         if (resultBean != null) {
             String phone = resultBean.getTelephone();
+            String code_url = resultBean.getCode_url();
             String username = (String) resultBean.getUsername();
-            userName.setText(username);
-            userPhone.setText(phone);
-            userIcon.setImageURI(ConstanceClass.LOCTIONPATH + resultBean.getCode_url());
+            if (username!=null){
+                userName.setText(username);
+            }else{
+                userName.setText("用户");
+            }
+            if(phone!=null) {
+                userPhone.setText(phone);
+            }else{
+                userName.setText("手机号");
+            }
+            if(code_url!=null) {
+                userIcon.setImageURI(ConstanceClass.LOCTIONPATH + code_url);
+            }else{
+                userIcon.setImageResource(R.drawable.user_icon);
+            }
+
+
         }
 
     }
@@ -197,7 +212,7 @@ public class MineFragment extends Fragment implements Iview {
     @SuppressLint("ResourceType")
     private void initData() {
         presenter = App.getPresenter(this);
-        userName.setText("注册/登录");
+
 
 
     }

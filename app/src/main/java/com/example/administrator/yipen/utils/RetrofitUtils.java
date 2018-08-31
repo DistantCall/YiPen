@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.administrator.yipen.app.App;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.*;
@@ -67,7 +68,8 @@ public class RetrofitUtils {
         public Response intercept(Chain chain) throws IOException {
             HttpUrl url = chain.request().url();
             Log.e("url", url.toString());
-            return chain.proceed(chain.request());
+            Response proceed = chain.proceed(chain.request());
+            return proceed;
         }
     }
 }

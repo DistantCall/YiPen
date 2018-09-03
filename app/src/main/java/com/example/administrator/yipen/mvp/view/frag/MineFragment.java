@@ -306,20 +306,20 @@ public class MineFragment extends Fragment implements Iview {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
-                showPopwindow();
+//                startActivityForResult(new Intent(getActivity(), SetingActivity.class),4);
             }
         });
 
         userPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.updateUserInfo(userPhone.getText().toString().trim());
+//                startActivityForResult(new Intent(getActivity(), SetingActivity.class),4);
             }
         });
         userName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.updateUserInfo(userPhone.getText().toString().trim());
+//                startActivityForResult(new Intent(getActivity(), SetingActivity.class),4);
             }
         });
         msg.setOnClickListener(new View.OnClickListener() {

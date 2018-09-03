@@ -29,6 +29,7 @@ import com.example.administrator.yipen.mvp.view.Iview;
 
 import com.example.administrator.yipen.mvp.view.RegActivity;
 
+import com.example.administrator.yipen.mvp.view.SetActivity;
 import com.example.administrator.yipen.utils.OnPopListener;
 import com.example.administrator.yipen.utils.PhotoUtils;
 import com.example.administrator.yipen.utils.RewritePopwindow;
@@ -55,7 +56,7 @@ public class MineFragment extends Fragment implements Iview {
     private LoginBean.ResultBean resultBean;
     private RewritePopwindow finishProjectPopupWindows;
     private Presenter presenter;
-    private ImageView photo;
+
     private static final int  CODE_GALLERY_REQUEST = 0xa0;
     private static final int  CODE_CAMERA_REQUEST  = 0xa1;
     private static final int  CODE_RESULT_REQUEST  = 0xa2;
@@ -118,6 +119,7 @@ public class MineFragment extends Fragment implements Iview {
                     } else {
                         Toast.makeText(getActivity(), "设备没有SD卡!", Toast.LENGTH_SHORT).show();
                     }
+
                     break;
                 case CODE_RESULT_REQUEST:
                     Bitmap bitmap = PhotoUtils.getBitmapFromUri(cropImageUri, getActivity());
@@ -134,7 +136,7 @@ public class MineFragment extends Fragment implements Iview {
      * @param bitmap
      */
     private void showImages(Bitmap bitmap) {
-        photo.setImageBitmap(bitmap);
+        userIcon.setImageBitmap(bitmap);
     }
 
 
@@ -168,11 +170,11 @@ public class MineFragment extends Fragment implements Iview {
     @Override
     public void onResume() {
         super.onResume();
-        if (reflag) {
+//        if (reflag) {
             login();
-        } else {
-            notLogin();
-        }
+//        } else {
+//            notLogin();
+//        }
         if (resultBean != null) {
             String phone = resultBean.getTelephone();
             String code_url = resultBean.getCode_url();
@@ -221,6 +223,8 @@ public class MineFragment extends Fragment implements Iview {
         finishProjectPopupWindows = new RewritePopwindow(getActivity(), new OnPopListener() {
             @Override
             public void comera() {
+                takePhoto(userIcon);
+
                 File file = new File("/mnt/sdcard/Pictures/a.jpg");
                 Log.e("path", "" + file.exists());
                 presenter.fileMultPart(file);
@@ -228,7 +232,10 @@ public class MineFragment extends Fragment implements Iview {
 
             @Override
             public void compture() {
-
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_PICK);
+                getActivity().startActivityForResult(intent, CODE_GALLERY_REQUEST);
             }
 
             @Override
@@ -240,40 +247,7 @@ public class MineFragment extends Fragment implements Iview {
                 Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (requestCode == PHOTO_REQUEST_GALLERY) {
-//            // 从相册返回的数据
-//            if (data != null) {// 得到图片的全路径
-//                Uri uri = data.getData();
-//                fileMultpart.crop(uri);
-//            }
-//        } else if (requestCode == PHOTO_REQUEST_CAREMA) {//从相机返回的数据
-//            if (fileMultpart.hasSdcard()) {
-//                fileMultpart.crop(Uri.fromFile(tempFile));
-//            } else {
-//                Toast.makeText(App.getApplication(), "未找到存储卡，无法存储照片！", Toast.LENGTH_LONG).show();
-//            }
-//        } else if (requestCode == PHOTO_REQUEST_CUT) {//从剪切图片返回的数据
-//            if (data != null) {
-//                Bitmap bitmap = data.getParcelableExtra("data");
-//                //将bitmap转换为Uri
-//                Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bitmap, null, null));
-//                //对非正确的Uri处理，这类Uri存在手机的external.db中，可以查询_data字段查出对应文件的uri
-//                if (uri.getPath().contains("external")) {
-//                    uri = fileMultpart.external(uri.getPath());
-//                }
-//                //在这可以拿到裁剪后的图片Uri,然后进行你想要的操作
-//                userIcon.setImageURI(uri);
-//            }
-//            try {
-//                tempFile.delete();//将临时文件删除
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        super.onActivityResult(requestCode, resultCode, data);
-//    }
+
 
     @Override
     public void Scuess(Object o, int requestCode) {
@@ -306,26 +280,26 @@ public class MineFragment extends Fragment implements Iview {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
-                showPopwindow();
+                startActivity(new Intent(getActivity(), SetActivity.class));
             }
         });
 
         userPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.updateUserInfo(userPhone.getText().toString().trim());
-            }
+               startActivity(new Intent(getActivity(), SetActivity.class));
+                }
         });
         userName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.updateUserInfo(userPhone.getText().toString().trim());
+                startActivity(new Intent(getActivity(), SetActivity.class));
             }
         });
         msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.updateUserInfo(userPhone.getText().toString().trim());
+                startActivity(new Intent(getActivity(), SetActivity.class));
             }
         });
     }

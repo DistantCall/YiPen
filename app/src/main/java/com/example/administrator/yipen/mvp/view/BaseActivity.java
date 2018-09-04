@@ -15,6 +15,11 @@ public abstract class BaseActivity extends AutoLayoutActivity implements Iview {
 
     public static App application;
     public static SharePUtils user;
+    public static String token;
+    public static String phone;
+    public static String bis_id;
+    public static String meM_id;
+    public static String username;
 
     //布局文件ID
     protected abstract int getContentViewId();
@@ -38,14 +43,25 @@ public abstract class BaseActivity extends AutoLayoutActivity implements Iview {
             e.printStackTrace();
         }
 
-
     }
 
     private void loginInfo() {
         String login = user.query("login");
+
         if (login.equals("scuess")) {
-            LoginServerce.reflag = true;
-        } else if (login.equals("err")) {
+        if(user.query("token")!=null&&user.query("phone")!=null) {
+             token= user.query("token");
+             phone= user.query("phone");
+            bis_id = user.query("bis_id");
+            meM_id = user.query("meM_id");
+            username = user.query("userName");
+            LoginServerce.reflag=true;
+
+        }else{
+
+                LoginServerce.reflag = true;
+            }
+        }else if (login.equals("err")) {
             LoginServerce.reflag = false;
         }
     }

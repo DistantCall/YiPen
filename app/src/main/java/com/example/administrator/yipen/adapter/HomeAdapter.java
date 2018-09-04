@@ -4,6 +4,7 @@ package com.example.administrator.yipen.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import com.example.administrator.yipen.bean.HistoryPayBean;
+import com.example.administrator.yipen.bean.SelectInfo;
 import com.example.administrator.yipen.ui.CustomLinearLayoutManager;
 import com.example.myapplication.R;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -24,17 +27,20 @@ import java.util.List;
 
 
 public class HomeAdapter extends RecyclerView.Adapter {
-    private final List<String> imgs;
-    private final List<UserBean> userList;
+    private List<HistoryPayBean.ResBean> historyPayList;
+    private List<String> imgs;
+    private List<SelectInfo.ResultBean> resultBean;
     private Context context;
     private List<String> list;
+    private String ResultPrice;
 
-
-    public HomeAdapter(Context context, List<String> list, List<String> imgs,List<UserBean> userList) {
+    public HomeAdapter(Context context, List<String> list, List<String> imgs, List<SelectInfo.ResultBean> resultBean, String ResultPrice, List<HistoryPayBean.ResBean> historyPayList) {
         this.context = context;
         this.list = list;
         this.imgs = imgs;
-        this.userList=userList;
+        this.resultBean = resultBean;
+        this.ResultPrice = ResultPrice;
+        this.historyPayList = historyPayList;
     }
 
 
@@ -43,9 +49,9 @@ public class HomeAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = null;
         if (viewType == 0) {
-                view = LayoutInflater.from(context).inflate(R.layout.banner_layout, parent, false);
-                BannerHolder bannerHolder = new BannerHolder(view);
-                return bannerHolder;
+            view = LayoutInflater.from(context).inflate(R.layout.banner_layout, parent, false);
+            BannerHolder bannerHolder = new BannerHolder(view);
+            return bannerHolder;
         } else if (viewType == 1) {
             view = LayoutInflater.from(context).inflate(R.layout.fouction_layout, parent, false);
             FunctionHolder functionHolder = new FunctionHolder(view);
@@ -55,11 +61,11 @@ public class HomeAdapter extends RecyclerView.Adapter {
             HistoricaHolder historicaHolder = new HistoricaHolder(view);
             return historicaHolder;
         } else if (viewType == 2) {
-            if(view==null) {
+            if (view == null) {
                 view = LayoutInflater.from(context).inflate(R.layout.want_layout, parent, false);
                 PayHolder payHolder = new PayHolder(view);
                 return payHolder;
-            }else{
+            } else {
 
             }
         } else if (viewType == 4) {
@@ -74,58 +80,63 @@ public class HomeAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof FunctionHolder) {
 
-           ((FunctionHolder) holder).img1.setImageURI(list.get(0));
+            ((FunctionHolder) holder).img1.setImageURI(list.get(0));
             ((FunctionHolder) holder).img2.setImageURI(list.get(1));
             ((FunctionHolder) holder).img3.setImageURI(list.get(2));
             ((FunctionHolder) holder).img4.setImageURI(list.get(3));
         } else if (holder instanceof PayHolder) {
+            ((PayHolder) holder).textView2.setText(ResultPrice);
             ((PayHolder) holder).btn1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context,((PayHolder) holder).btn1.getText().toString(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, ((PayHolder) holder).btn1.getText().toString(), Toast.LENGTH_SHORT).show();
+
                 }
             });
             ((PayHolder) holder).btn2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context,((PayHolder) holder).btn2.getText().toString(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, ((PayHolder) holder).btn2.getText().toString(), Toast.LENGTH_SHORT).show();
                 }
             });
 
         } else if (holder instanceof BannerHolder) {
-            if(((BannerHolder) holder).banner!=null){
+            if (((BannerHolder) holder).banner != null) {
                 ((BannerHolder) holder).banner.removeAllViews();
             }
             setBanner(((BannerHolder) holder).banner);
-        }else if (holder instanceof HistoricaHolder){
-            HistoryAdapter historyAdapter = new HistoryAdapter(context, userList);
+        } else if (holder instanceof HistoricaHolder) {
 
-            ((HistoricaHolder) holder).time.setText(userList.get(position).getTime());
-            ((HistoricaHolder) holder).domicile.setText("地址:"+userList.get(position).getDomicile());
-            ((HistoricaHolder) holder).userName.setText("业主:"+userList.get(position).getName());
-            ((HistoricaHolder) holder).sum.setText("待缴金额:"+userList.get(position).getSun());
-        }else if (holder instanceof ShouldHolder){
-            HistoryAdapter historyAdapter = new HistoryAdapter(context, userList);
+            ((HistoricaHolder) holder).time.setText("波普中心");
+            if (resultBean.size() != 0) {
+                for (int i = 0; i < resultBean.size(); i++) {
+                    ((HistoricaHolder) holder).domicile.setText("地址:" + resultBean.get(i).getAddress());
+                    ((HistoricaHolder) holder).userName.setText("业主:" + resultBean.get(i).getTruename());
+                    ((HistoricaHolder) holder).sum.setText("待缴金额:" + resultBean.get(i).getAssessment());
+                }
+
+            }
+        } else if (holder instanceof ShouldHolder) {
+            HistoryAdapter historyAdapter = new HistoryAdapter(context, historyPayList);
             ((ShouldHolder) holder).shouldRecy.setLayoutManager(new CustomLinearLayoutManager(context));
             ((ShouldHolder) holder).shouldRecy.setAdapter(historyAdapter);
         }
     }
 
 
-
     //根据条件返回条目的类型
     @Override
     public int getItemViewType(int position) {
 
-      if (position==1){
-          return position;
-      }else if(position==2){
-          return position;
-      }else if(position==3){
-          return position;
-      }else if(position==4){
-          return position;
-      }
+        if (position == 1) {
+            return position;
+        } else if (position == 2) {
+            return position;
+        } else if (position == 3) {
+            return position;
+        } else if (position == 4) {
+            return position;
+        }
         return 0;
     }
 
@@ -137,7 +148,9 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
     private void setBanner(XBanner banner) {
         // 为XBanner绑定数据
-
+        for (int i = 0; i <imgs.size() ; i++) {
+            Log.e("第"+i+"跳",imgs.get(i));
+        }
         banner.setData(imgs, null);
         // XBanner适配数据
         banner.setmAdapter(new XBanner.XBannerAdapter() {

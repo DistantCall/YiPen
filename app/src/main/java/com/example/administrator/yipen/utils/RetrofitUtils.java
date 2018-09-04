@@ -10,6 +10,7 @@ import java.nio.charset.Charset;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.*;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -30,6 +31,12 @@ public class RetrofitUtils {
     }
 
     public static OkHttpClient OkHttpInstance(OkHttpClient okHttpClient) {
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(String message) {
+                Log.e("msg",message);
+            }
+        });
         if (okHttpClient == null) {
             okHttpClient = new OkHttpClient().newBuilder()
                     //设置连接时间
@@ -38,6 +45,7 @@ public class RetrofitUtils {
                     .readTimeout(1000, TimeUnit.MILLISECONDS)
                     //设置写时间
                     .writeTimeout(1000, TimeUnit.MILLISECONDS)
+                    .addInterceptor(httpLoggingInterceptor)
                     //设置缓存
                     .cache(new Cache(App.getApplication().getExternalCacheDir(), 10 * 1024 * 1024))
                     .build();

@@ -16,6 +16,9 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+
 
 public class App extends Application {
    private static App  app;
@@ -28,7 +31,12 @@ public class App extends Application {
         super.onCreate();
         app=this;
         SharePUtils user = new SharePUtils(this, "user");
-        user.add("login","err");
+       if(user.query("login")==null){
+           user.add("login","err");
+       }else{
+           user.add("login","scuess");
+       }
+
         Fresco.initialize(this);
     }
 
@@ -40,7 +48,10 @@ public class App extends Application {
     public static Application getApplication(){
         return app;
     }
-
+    public static RequestBody toRequestBody(String value) {
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain"),value);
+        return requestBody;
+    }
     public static void setTitFlag(Activity activity) {
         // Android4.4的沉浸式状态栏写法
         Window window = activity.getWindow();

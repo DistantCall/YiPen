@@ -33,12 +33,30 @@ public class Presenter implements Ipre {
         model.LoginModle(phone, smsCode);
     }
 
-    public void fileMultPart(File f) {
-        model.upDataIcon(f);
+    public void fileMultPart(String phone,File f,String token) {
+        model.upDataIcon(phone,f,token);
     }
 
-    public void updateUserInfo(String phone) {
-        model.updateUserInfo(phone);
+    public void updateUserInfo(String phone, String requestCode, String token) {
+        model.updateUserInfo(phone, requestCode, token);
+    }
+public void userInfoPre(String phone,String token){
+        model.userInfoModel(phone, token);
+}
+    public void selectInfo(String phone, String member_id, String token) {
+        model.seletInfo(phone, member_id, token);
+    }
+
+    public void priceCount(String phone, String member_id, String token) {
+        model.priceCount(phone, member_id, token);
+    }
+
+    public void HistoryPay(String phone, String member_id, String token) {
+        model.HistoryPay(phone, member_id, token);
+    }
+
+    public void bannerPre(String bis_id) {
+        model.bannerModel(bis_id);
     }
 
     @Override

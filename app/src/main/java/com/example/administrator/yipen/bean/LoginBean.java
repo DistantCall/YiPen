@@ -4,19 +4,11 @@ import java.util.List;
 
 public class LoginBean {
 
-    @Override
-    public String toString() {
-        return "LoginBean{" +
-                "status=" + status +
-                ", message='" + message + '\'' +
-                ", result=" + result +
-                '}';
-    }
 
     /**
      * status : 1
      * message : 登录成功
-     * result : [{"bis_id":0,"mem_id":0,"username":null,"code_url":"https://yp.dxshuju.com/static/img/5.jpg","telephone":"18810415234","create_time":"2018-08-30 16:54:53","token":"8c941b0e74928f2d4e594bc67c847e36"}]
+     * result : [{"bis_id":0,"mem_id":0,"username":null,"code_url":"https://yp.dxshuju.com/static/img/5.jpg","telephone":"18810415234","create_time":"2018-08-29 10:18:02","token":"2c476031335097250d3b4664ec35f473"}]
      */
 
     private int status;
@@ -47,15 +39,37 @@ public class LoginBean {
         this.result = result;
     }
 
+    @Override
+    public String toString() {
+        return "LoginBean{" +
+                "status=" + status +
+                ", message='" + message + '\'' +
+                ", result=" + result +
+                '}';
+    }
+
     public static class ResultBean {
+        @Override
+        public String toString() {
+            return "ResultBean{" +
+                    "bis_id=" + bis_id +
+                    ", mem_id=" + mem_id +
+                    ", username=" + username +
+                    ", code_url='" + code_url + '\'' +
+                    ", telephone='" + telephone + '\'' +
+                    ", create_time='" + create_time + '\'' +
+                    ", token='" + token + '\'' +
+                    '}';
+        }
+
         /**
          * bis_id : 0
          * mem_id : 0
          * username : null
          * code_url : https://yp.dxshuju.com/static/img/5.jpg
          * telephone : 18810415234
-         * create_time : 2018-08-30 16:54:53
-         * token : 8c941b0e74928f2d4e594bc67c847e36
+         * create_time : 2018-08-29 10:18:02
+         * token : 2c476031335097250d3b4664ec35f473
          */
 
         private int bis_id;

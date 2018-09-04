@@ -58,58 +58,6 @@ import android.support.v4.app.Fragment;
 
         /**
          * @param fragment
-         *         当前fragment
-         * @param requestCode
-         *         打开相册的请求码
-         */
-        public static void openPic(Fragment fragment, int requestCode) {
-            Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
-            photoPickerIntent.setType("image/*");
-            fragment.startActivityForResult(photoPickerIntent, requestCode);
-        }
-
-        /**
-         * @param activity
-         *         当前activity
-         * @param orgUri
-         *         剪裁原图的Uri
-         * @param desUri
-         *         剪裁后的图片的Uri
-         * @param aspectX
-         *         X方向的比例
-         * @param aspectY
-         *         Y方向的比例
-         * @param width
-         *         剪裁图片的宽度
-         * @param height
-         *         剪裁图片高度
-         * @param requestCode
-         *         剪裁图片的请求码
-         */
-        public static void cropImageUri(Activity activity, Uri orgUri,
-                                        Uri desUri, int aspectX, int aspectY,
-                                        int width, int height, int requestCode) {
-            Intent intent = new Intent("com.android.camera.action.CROP");
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            }
-            intent.setDataAndType(orgUri, "image/*");
-            intent.putExtra("crop", "true");
-      /*  intent.putExtra("aspectX", aspectX);
-        intent.putExtra("aspectY", aspectY);
-        intent.putExtra("outputX", width);
-        intent.putExtra("outputY", height);*/
-            intent.putExtra("scale", true);
-            //将剪切的图片保存到目标Uri中
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, desUri);
-            intent.putExtra("return-data", false);
-            intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-            intent.putExtra("noFaceDetection", true);
-            activity.startActivityForResult(intent, requestCode);
-        }
-
-        /**
-         * @param fragment
          *         当前activity
          * @param orgUri
          *         剪裁原图的Uri

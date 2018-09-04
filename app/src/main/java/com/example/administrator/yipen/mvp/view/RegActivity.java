@@ -72,7 +72,6 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
         reg_back.setOnClickListener(this);
         login.setOnClickListener(this);
     }
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         phoneCode = tel_uls[position];
@@ -80,7 +79,6 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
 
     //登录注册逻辑
@@ -93,23 +91,23 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
         if (regBean.getStatus() == 0) {
             //失败
             application.toastLong(regBean.getMessage() + ",请检查您的手机号");
+            LoginServerce.reflag=false;
         }
         if (regBean.getStatus() == 2) {
             application.toastLong("短信已发送");
             countTimer.start();
+            LoginServerce.reflag=false;
         }
         if (regBean.getStatus() == 1) {
             application.toastLong("短信已发送");
             countTimer.start();
+            LoginServerce.reflag=false;
         }
     }
-
-
     @Override
     public void Error(Throwable e) {
         application.toastLong(e.getMessage());
     }
-
     //#cae2dbe2
     @Override
     public void LoginScuess(Object o) {
@@ -118,10 +116,12 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
         if (loginBean.getStatus() == 0) {
             //失败
             user.add("login", "err");
+            LoginServerce.reflag=false;
             setButton(1);
             application.toastLong(loginBean.getMessage());
         } else if (loginBean.getStatus() == 1) {
             //成功
+
             application.toastLong("登陆成功,跳转登录页面");
             EventBus.getDefault().post(loginBean.getResult());
             SystemClock.sleep(1000);
@@ -169,7 +169,6 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
         } else if (function.equals("err")) {
             LoginServerce.reflag = false;
         }
-        Log.e("log", "user:" + function + "....reFlag:" + LoginServerce.reflag);
         finish();
 
     }

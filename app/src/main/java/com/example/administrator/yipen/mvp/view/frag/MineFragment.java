@@ -134,7 +134,7 @@ public class MineFragment extends Fragment implements Iview {
      * @param bitmap
      */
     private void showImages(Bitmap bitmap) {
-        photo.setImageBitmap(bitmap);
+        userIcon.setImageBitmap(bitmap);
     }
 
 
@@ -168,11 +168,11 @@ public class MineFragment extends Fragment implements Iview {
     @Override
     public void onResume() {
         super.onResume();
-        if (reflag) {
+//        if (reflag) {
             login();
-        } else {
-            notLogin();
-        }
+//        } else {
+//            notLogin();
+//        }
         if (resultBean != null) {
             String phone = resultBean.getTelephone();
             String code_url = resultBean.getCode_url();
@@ -221,6 +221,8 @@ public class MineFragment extends Fragment implements Iview {
         finishProjectPopupWindows = new RewritePopwindow(getActivity(), new OnPopListener() {
             @Override
             public void comera() {
+                takePhoto(userIcon);
+
                 File file = new File("/mnt/sdcard/Pictures/a.jpg");
                 Log.e("path", "" + file.exists());
                 presenter.fileMultPart(file);
@@ -228,7 +230,10 @@ public class MineFragment extends Fragment implements Iview {
 
             @Override
             public void compture() {
-
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_PICK);
+                getActivity().startActivityForResult(intent, CODE_GALLERY_REQUEST);
             }
 
             @Override
@@ -306,26 +311,26 @@ public class MineFragment extends Fragment implements Iview {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
-//                startActivityForResult(new Intent(getActivity(), SetingActivity.class),4);
+//                startActivity(new Intent(getActivity(), SetActivity.class));
             }
         });
 
         userPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivityForResult(new Intent(getActivity(), SetingActivity.class),4);
-            }
+             //  startActivity(new Intent(getActivity(), SetActivity.class));
+                }
         });
         userName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivityForResult(new Intent(getActivity(), SetingActivity.class),4);
+          //      startActivity(new Intent(getActivity(), SetActivity.class));
             }
         });
         msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.updateUserInfo(userPhone.getText().toString().trim());
+            //    startActivity(new Intent(getActivity(), SetActivity.class));
             }
         });
     }

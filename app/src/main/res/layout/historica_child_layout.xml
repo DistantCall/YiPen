@@ -1,28 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:padding="10px"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
 
-    <TextView android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:id="@+id/historytime"
+    <TextView
+        android:id="@+id/historytime"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="22px" />
 
-    />
-    <TextView android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:id="@+id/historydomicile"
+    <TextView
+        android:id="@+id/historydomicile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20px"
+        android:textSize="22px" />
 
-    />
-    <TextView android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:id="@+id/historyuserName"
+    <TextView
+        android:layout_marginTop="10px"
+        android:id="@+id/historyuserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22px" />
 
-    />
-    <TextView android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:id="@+id/historysum"
+    <TextView
+        android:layout_marginTop="10px"
+        android:id="@+id/historyarea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-    />
+    <TextView
+        android:layout_marginTop="10px"
+        android:id="@+id/historysum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22px" />
 </LinearLayout>

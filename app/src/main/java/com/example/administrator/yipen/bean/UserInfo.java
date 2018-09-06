@@ -1,12 +1,11 @@
-package com.example.administrator.yipen.utils;
+package com.example.administrator.yipen.bean;
 
 import java.util.List;
 
 public class UserInfo {
-
     @Override
     public String toString() {
-        return "UserInfo{" +
+        return "SelectInfo{" +
                 "status=" + status +
                 ", message='" + message + '\'' +
                 ", res=" + res +

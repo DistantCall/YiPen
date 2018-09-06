@@ -2,9 +2,12 @@ package com.example.administrator.yipen.adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,7 +17,13 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import com.example.administrator.yipen.bean.HistoryPayBean;
+import com.example.administrator.yipen.bean.SelectInfo;
+import com.example.administrator.yipen.mvp.view.DidivActivity;
+import com.example.administrator.yipen.mvp.view.PayActivity;
+import com.example.administrator.yipen.mvp.view.RegActivity;
 import com.example.administrator.yipen.ui.CustomLinearLayoutManager;
+import com.example.administrator.yipen.utils.ChatDetailItemDecoration;
 import com.example.myapplication.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.stx.xhb.xbanner.XBanner;
@@ -24,122 +33,202 @@ import java.util.List;
 
 
 public class HomeAdapter extends RecyclerView.Adapter {
-    private final List<String> imgs;
-    private final List<UserBean> userList;
+    private List<HistoryPayBean.ResBean> historyPayList;
+    private List<String> imgs;
+    private List<SelectInfo.ResultBean> resultBean;
     private Context context;
     private List<String> list;
+    private String ResultPrice;
+    private boolean reflag;
 
-
-    public HomeAdapter(Context context, List<String> list, List<String> imgs,List<UserBean> userList) {
+    public HomeAdapter(Context context, List<String> list, List<String> imgs, List<SelectInfo.ResultBean> resultBean, String ResultPrice, List<HistoryPayBean.ResBean> historyPayList, boolean reflag) {
         this.context = context;
         this.list = list;
         this.imgs = imgs;
-        this.userList=userList;
+        this.resultBean = resultBean;
+        this.ResultPrice = ResultPrice;
+        this.historyPayList = historyPayList;
+        this.reflag = reflag;
     }
 
+    public HomeAdapter(Context context, List<String> list, List<String> imgs, boolean reflag) {
+        this.context = context;
+        this.list = list;
+        this.imgs = imgs;
+        this.reflag = reflag;
+    }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = null;
-        if (viewType == 0) {
+        if (reflag) {
+            if (viewType == 0) {
                 view = LayoutInflater.from(context).inflate(R.layout.banner_layout, parent, false);
                 BannerHolder bannerHolder = new BannerHolder(view);
                 return bannerHolder;
-        } else if (viewType == 1) {
-            view = LayoutInflater.from(context).inflate(R.layout.fouction_layout, parent, false);
-            FunctionHolder functionHolder = new FunctionHolder(view);
-            return functionHolder;
-        } else if (viewType == 3) {
-            view = LayoutInflater.from(context).inflate(R.layout.historica_layout, parent, false);
-            HistoricaHolder historicaHolder = new HistoricaHolder(view);
-            return historicaHolder;
-        } else if (viewType == 2) {
-            if(view==null) {
-                view = LayoutInflater.from(context).inflate(R.layout.want_layout, parent, false);
-                PayHolder payHolder = new PayHolder(view);
-                return payHolder;
-            }else{
+            } else if (viewType == 1) {
+                view = LayoutInflater.from(context).inflate(R.layout.fouction_layout, parent, false);
+                FunctionHolder functionHolder = new FunctionHolder(view);
+                return functionHolder;
+            } else if (viewType == 3) {
+                view = LayoutInflater.from(context).inflate(R.layout.historica_layout, parent, false);
+                HistoricaHolder historicaHolder = new HistoricaHolder(view);
+                return historicaHolder;
+            } else if (viewType == 2) {
+                if (view == null) {
+                    view = LayoutInflater.from(context).inflate(R.layout.want_layout, parent, false);
+                    PayHolder payHolder = new PayHolder(view);
+                    return payHolder;
+                } else {
 
+                }
+            } else if (viewType == 4) {
+                view = LayoutInflater.from(context).inflate(R.layout.should_layout, parent, false);
+                ShouldHolder shouldHolder = new ShouldHolder(view);
+                return shouldHolder;
             }
-        } else if (viewType == 4) {
-            view = LayoutInflater.from(context).inflate(R.layout.should_layout, parent, false);
-            ShouldHolder shouldHolder = new ShouldHolder(view);
-            return shouldHolder;
+        } else {
+            if (viewType == 0) {
+                view = LayoutInflater.from(context).inflate(R.layout.banner_layout, parent, false);
+                BannerHolder bannerHolder = new BannerHolder(view);
+                return bannerHolder;
+            } else if (viewType == 1) {
+                view = LayoutInflater.from(context).inflate(R.layout.fouction_layout, parent, false);
+                FunctionHolder functionHolder = new FunctionHolder(view);
+                return functionHolder;
+            } else if (viewType == 2) {
+                if (view == null) {
+                    view = LayoutInflater.from(context).inflate(R.layout.want_layout, parent, false);
+                    PayHolder payHolder = new PayHolder(view);
+                    return payHolder;
+                } else {
+
+                }
+            } else if (viewType == 3) {
+                view = LayoutInflater.from(context).inflate(R.layout.noogin, parent, false);
+                ButtonHolder buttonHolder = new ButtonHolder(view);
+                return buttonHolder;
+            }
         }
         return null;
     }
 
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof FunctionHolder) {
+        if (reflag) {
 
-           ((FunctionHolder) holder).img1.setImageURI(list.get(0));
-            ((FunctionHolder) holder).img2.setImageURI(list.get(1));
-            ((FunctionHolder) holder).img3.setImageURI(list.get(2));
-            ((FunctionHolder) holder).img4.setImageURI(list.get(3));
-        } else if (holder instanceof PayHolder) {
-            ((PayHolder) holder).btn1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(context,((PayHolder) holder).btn1.getText().toString(),Toast.LENGTH_SHORT).show();
-                }
-            });
-            ((PayHolder) holder).btn2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(context,((PayHolder) holder).btn2.getText().toString(),Toast.LENGTH_SHORT).show();
-                }
-            });
+            if (holder instanceof FunctionHolder) {
 
-        } else if (holder instanceof BannerHolder) {
-            if(((BannerHolder) holder).banner!=null){
-                ((BannerHolder) holder).banner.removeAllViews();
+                    ((FunctionHolder) holder).img1.setImageURI(list.get(0));
+                    ((FunctionHolder) holder).img2.setImageURI(list.get(1));
+                    ((FunctionHolder) holder).img3.setImageURI(list.get(2));
+                    ((FunctionHolder) holder).img4.setImageURI(list.get(3));
+
+            } else if (holder instanceof PayHolder) {
+
+                ((PayHolder) holder).textView2.setText(ResultPrice);
+                ((PayHolder) holder).btn1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+                ((PayHolder) holder).btn2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+
+            } else if (holder instanceof BannerHolder) {
+                if (((BannerHolder) holder).banner != null) {
+                    ((BannerHolder) holder).banner.removeAllViews();
+                }
+                setBanner(((BannerHolder) holder).banner);
+            } else if (holder instanceof HistoricaHolder) {
+                    for (int i = 0; i < resultBean.size(); i++) {
+                        ((HistoricaHolder) holder).time.setText("截止日期:"+resultBean.get(i).getArea_name()+":"+resultBean.get(i).getStart_time()+"—"+resultBean.get(i).getStop_time());
+                        ((HistoricaHolder) holder).domicile.setText("地址: " + resultBean.get(i).getArea_name()+" "+resultBean.get(i).getFloor()+"单元 "+resultBean.get(i).getUnit()+"号楼 "+resultBean.get(i).getRoom()+"室");
+                        ((HistoricaHolder) holder).userName.setText("业主:" + resultBean.get(i).getTruename());
+                        ((HistoricaHolder) holder).area.setText("面积:"+resultBean.get(i).getArea()+"平方");
+                        ((HistoricaHolder) holder).sum.setText("待缴金额: " + resultBean.get(i).getAssessment()+"元");
+                    }
+
+
+            } else if (holder instanceof ShouldHolder) {
+
+                HistoryAdapter historyAdapter = new HistoryAdapter(context, historyPayList);
+               ((ShouldHolder) holder).shouldRecy.addItemDecoration(new ChatDetailItemDecoration(30));
+                ((ShouldHolder) holder).shouldRecy.setLayoutManager(new CustomLinearLayoutManager(context));
+                ((ShouldHolder) holder).shouldRecy.setAdapter(historyAdapter);
             }
-            setBanner(((BannerHolder) holder).banner);
-        }else if (holder instanceof HistoricaHolder){
-            HistoryAdapter historyAdapter = new HistoryAdapter(context, userList);
+        } else {
 
-            ((HistoricaHolder) holder).time.setText(userList.get(position).getTime());
-            ((HistoricaHolder) holder).domicile.setText("地址:"+userList.get(position).getDomicile());
-            ((HistoricaHolder) holder).userName.setText("业主:"+userList.get(position).getName());
-            ((HistoricaHolder) holder).sum.setText("待缴金额:"+userList.get(position).getSun());
-        }else if (holder instanceof ShouldHolder){
-            HistoryAdapter historyAdapter = new HistoryAdapter(context, userList);
-            ((ShouldHolder) holder).shouldRecy.setLayoutManager(new CustomLinearLayoutManager(context));
-            ((ShouldHolder) holder).shouldRecy.setAdapter(historyAdapter);
+            if (holder instanceof FunctionHolder) {
+
+                ((FunctionHolder) holder).img1.setImageURI(list.get(0));
+                ((FunctionHolder) holder).img2.setImageURI(list.get(1));
+                ((FunctionHolder) holder).img3.setImageURI(list.get(2));
+                ((FunctionHolder) holder).img4.setImageURI(list.get(3));
+            } else if (holder instanceof PayHolder) {
+
+                ((PayHolder) holder).textView2.setText("0.00元");
+                ((PayHolder) holder).btn1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context,"未登陆", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                ((PayHolder) holder).btn2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context,"未登陆", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            } else if (holder instanceof BannerHolder) {
+
+                if (((BannerHolder) holder).banner != null) {
+                    ((BannerHolder) holder).banner.removeAllViews();
+                }
+                setBanner(((BannerHolder) holder).banner);
+            } else if (holder instanceof ButtonHolder) {
+                if (((ButtonHolder) holder).NoLogin != null) {
+                    ((ButtonHolder) holder).NoLogin.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            context.startActivity(new Intent(context, RegActivity.class));
+                        }
+                    });
+                }
+            }
         }
     }
-
 
 
     //根据条件返回条目的类型
     @Override
     public int getItemViewType(int position) {
 
-      if (position==1){
-          return position;
-      }else if(position==2){
-          return position;
-      }else if(position==3){
-          return position;
-      }else if(position==4){
-          return position;
-      }
-        return 0;
+        return position;
     }
 
     @Override
     public int getItemCount() {
 
-        return 5;
+        return reflag ? 5 : 4;
     }
 
     private void setBanner(XBanner banner) {
         // 为XBanner绑定数据
 
+
         banner.setData(imgs, null);
         // XBanner适配数据
+
+
         banner.setmAdapter(new XBanner.XBannerAdapter() {
             @Override
             public void loadBanner(XBanner banner, View view, int position) {
@@ -160,6 +249,15 @@ public class HomeAdapter extends RecyclerView.Adapter {
         public BannerHolder(@NonNull View itemView) {
             super(itemView);
             banner = itemView.findViewById(R.id.banner);
+        }
+    }
+
+    class ButtonHolder extends RecyclerView.ViewHolder {
+        Button NoLogin;
+
+        public ButtonHolder(View itemView) {
+            super(itemView);
+            NoLogin = itemView.findViewById(R.id.goto_login);
         }
     }
 
@@ -212,13 +310,14 @@ public class HomeAdapter extends RecyclerView.Adapter {
         TextView domicile;
         TextView userName;
         TextView sum;
-
+        TextView area;
         public HistoricaHolder(@NonNull View itemView) {
             super(itemView);
             time = itemView.findViewById(R.id.time);
             domicile = itemView.findViewById(R.id.domicile);
             userName = itemView.findViewById(R.id.userName);
             sum = itemView.findViewById(R.id.sum);
+            area=itemView.findViewById(R.id.area);
         }
     }
 }

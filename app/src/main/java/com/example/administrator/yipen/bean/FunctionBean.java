@@ -1,4 +1,4 @@
-package com.example.administrator.yipen.constance;
+package com.example.administrator.yipen.bean;
 
 public class FunctionBean {
 private String logoText;

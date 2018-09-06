@@ -20,20 +20,13 @@ public class SharePUtils {
         edit.putString(key,value);
         edit.commit();
 }
-public  void addAll(Map<String,String> map){
-    Set<String> keys = map.keySet();
-    for (String key:keys) {
-        edit.putString(key,map.get(key));
-    }
-    edit.commit();
 
-    }
     public  void delete(String key){
         edit.remove(key);
         edit.commit();
     }
     public  String query(String str)
     {
-       return sharedPreferences.getString(str,null);
+       return sharedPreferences.getString(str,"err");
     }
 }

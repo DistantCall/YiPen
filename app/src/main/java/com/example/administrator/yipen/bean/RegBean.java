@@ -3,19 +3,11 @@ package com.example.administrator.yipen.bean;
 import java.util.List;
 
 public class RegBean {
-    @Override
-    public String toString() {
-        return "RegBean{" +
-                "status=" + status +
-                ", message='" + message + '\'' +
-                ", result=" + result +
-                '}';
-    }
 
     /**
      * status : 1
      * message : 第一次注册成功
-     * result : [{"status":0,"create_time":"2018-08-29 10:18:02"}]
+     * result : [{"status":"状态  0：普通用户  1：已注册用户","create_time":"创建时间"}]
      */
 
     private int status;
@@ -48,18 +40,18 @@ public class RegBean {
 
     public static class ResultBean {
         /**
-         * status : 0
-         * create_time : 2018-08-29 10:18:02
+         * status : 状态  0：普通用户  1：已注册用户
+         * create_time : 创建时间
          */
 
-        private int status;
+        private String status;
         private String create_time;
 
-        public int getStatus() {
+        public String getStatus() {
             return status;
         }
 
-        public void setStatus(int status) {
+        public void setStatus(String status) {
             this.status = status;
         }
 

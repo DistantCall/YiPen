@@ -31,7 +31,7 @@ import android.support.v4.app.Fragment;
          * @param requestCode
          *         调用系统相机请求码
          */
-        public static void takePicture(Fragment fragment, Uri imageUri, int requestCode) {
+        public static void takePicture(Activity fragment, Uri imageUri, int requestCode) {
             //调用系统相机
             Intent intentCamera = new Intent();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -74,7 +74,7 @@ import android.support.v4.app.Fragment;
          * @param requestCode
          *         剪裁图片的请求码
          */
-        public static void cropImageUri(Fragment fragment, Uri orgUri, Uri desUri,
+        public static void cropImageUri(Activity fragment, Uri orgUri, Uri desUri,
                                         int aspectX, int aspectY, int width,
                                         int height, int requestCode) {
             Intent intent = new Intent("com.android.camera.action.CROP");

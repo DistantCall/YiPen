@@ -2,6 +2,7 @@ package com.example.administrator.yipen.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,9 +55,9 @@ public class RewritePopwindow extends PopupWindow implements View.OnClickListene
         //设置SelectPicPopupWindow弹出窗体动画效果
         this.setAnimationStyle(R.style.mypopwindow_anim_style);
         //实例化一个ColorDrawable颜色为半透明
-        ColorDrawable dw = new ColorDrawable(0x00000000);
+
         //设置SelectPicPopupWindow弹出窗体的背景
-        this.setBackgroundDrawable(dw);
+        this.setBackgroundDrawable(new ColorDrawable(Color.CYAN));
         backgroundAlpha(context, 0.5f);//0.0-1.0
         this.setOnDismissListener(new OnDismissListener() {
 

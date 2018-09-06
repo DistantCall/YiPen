@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="30px"
+    android:background="#F5F5F5"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="#000">
+
+        <ImageView
+            android:id="@+id/history_back"
+            android:layout_margin="5px"
+            android:layout_width="48px"
+            android:layout_height="48px"
+            android:src="@mipmap/ic_back" />
+
+        <TextView
+
+            android:layout_margin="5px"
+            android:textColor="#FFF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="缴费记录"
+            android:textSize="36px" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15px">
+
+        <TextView
+            android:id="@+id/didiv_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20px"
+            android:text="@string/paystr"
+            android:textSize="24px" />
+
+        <TextView
+            android:id="@+id/countPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/didiv_history"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20px"
+            android:text="0.00元"
+            android:textSize="48px" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/countPrice"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20px"
+            android:background="@drawable/btn_selecter"
+            android:padding="10px"
+            android:text="@string/gomoney"
+            android:textColor="#0F8"
+            android:textSize="36px" />
+    </RelativeLayout>
+
+    <TabHost
+        android:id="@+id/tthost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="30px"></TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></FrameLayout>
+
+        </LinearLayout>
+
+    </TabHost>
+</LinearLayout>

@@ -16,29 +16,40 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+
 
 public class App extends Application {
-   private static App  app;
-   private static Presenter presenter;
-
+    private static App app;
+    private static Presenter presenter;
 
 
     @Override
     public void onCreate() {
         super.onCreate();
-        app=this;
+        app = this;
         SharePUtils user = new SharePUtils(this, "user");
-        user.add("login","err");
+//        user.add("phone", "18810415234");
+//        user.add("token", "4169408932ba7b3f70f2f7ba049db494");
+//        user.add("code_url", "604709");
+        if (user.query("login") == null) {
+            user.add("login", "err");
+        }
         Fresco.initialize(this);
+
     }
 
-        //判断登陆后下次是否需要重新登录的操作
+    //判断登陆后下次是否需要重新登录的操作
 
 
-
-
-    public static Application getApplication(){
+    public static Application getApplication() {
         return app;
+    }
+
+    public static RequestBody toRequestBody(String value) {
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain"), value);
+        return requestBody;
     }
 
     public static void setTitFlag(Activity activity) {
@@ -59,18 +70,18 @@ public class App extends Application {
     }
 
 
-
-    public void toastLong(String msg){
-    Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
-}
-    public void toastShow(String msg){
-        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+    public void toastLong(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
-    public static Presenter getPresenter(Iview iview){
+    public void toastShow(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    public static Presenter getPresenter(Iview iview) {
 
 
-             presenter=new Presenter(iview);
+        presenter = new Presenter(iview);
 
 
         return presenter;

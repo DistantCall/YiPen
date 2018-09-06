@@ -1,4 +1,4 @@
-package com.example.administrator.yipen.adapter;
+package com.example.administrator.yipen.bean;
 
 public class UserBean {
 private String time;

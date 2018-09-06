@@ -15,7 +15,7 @@
                    android:layout_height="wrap_content"
                    android:layout_margin="15px"
                    android:gravity="center"
-                   android:src="@mipmap/blak"
+
                    android:layout_gravity="center_vertical"
         />
         <TextView android:layout_width="match_parent"

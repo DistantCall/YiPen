@@ -3,7 +3,7 @@
     <string name="paystr">待缴费(元)</string>
     <string name="gomoney">立即缴费</string>
     <string name="server">我要分期</string>
-    <string name="countprice">当期要交费项目</string>
+    <string name="countprice">当期应交费项目</string>
     <string name="historica">历史欠费项目</string>
     <string name="reg">手机验证</string>
 

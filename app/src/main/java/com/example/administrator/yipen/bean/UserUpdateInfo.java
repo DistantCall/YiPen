@@ -3,13 +3,11 @@ package com.example.administrator.yipen.bean;
 import java.util.List;
 
 public class UserUpdateInfo {
-    @Override
-    public String toString() {
-        return "UserUpdateInfo{" +
-                "status=" + status +
-                ", message='" + message + '\'' +
-                ", result=" + result +
-                '}';
+
+    public UserUpdateInfo(int status, String message, List<ResultBean> result) {
+        this.status = status;
+        this.message = message;
+        this.result = result;
     }
 
     /**
@@ -65,6 +63,23 @@ public class UserUpdateInfo {
                     ", code_url='" + code_url + '\'' +
                     ", token='" + token + '\'' +
                     '}';
+        }
+
+        public ResultBean(String username, String nickname, String truename, String sex, String type, String email, String age, String team_status, String address, String create_time, String last_login_time, String is_fenxiao, String code_url, String token) {
+            this.username = username;
+            this.nickname = nickname;
+            this.truename = truename;
+            this.sex = sex;
+            this.type = type;
+            this.email = email;
+            this.age = age;
+            this.team_status = team_status;
+            this.address = address;
+            this.create_time = create_time;
+            this.last_login_time = last_login_time;
+            this.is_fenxiao = is_fenxiao;
+            this.code_url = code_url;
+            this.token = token;
         }
 
         /**

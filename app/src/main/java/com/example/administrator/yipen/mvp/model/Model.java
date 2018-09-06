@@ -3,17 +3,27 @@ package com.example.administrator.yipen.mvp.model;
 
 import android.util.Log;
 
+import com.example.administrator.yipen.app.App;
+import com.example.administrator.yipen.bean.BannerDataBean;
+import com.example.administrator.yipen.bean.CountPriceBena;
 import com.example.administrator.yipen.bean.FileBean;
+import com.example.administrator.yipen.bean.HistoryPayBean;
 import com.example.administrator.yipen.bean.LoginBean;
+import com.example.administrator.yipen.bean.OrderForm;
 import com.example.administrator.yipen.bean.RegBean;
+import com.example.administrator.yipen.bean.SelectInfo;
+import com.example.administrator.yipen.bean.StagesBean;
 import com.example.administrator.yipen.bean.UserUpdateInfo;
 import com.example.administrator.yipen.constance.ConstanceClass;
 import com.example.administrator.yipen.mvp.presenter.Ipre;
 import com.example.administrator.yipen.server.LoginServerce;
 import com.example.administrator.yipen.utils.RetrofitAPI;
 import com.example.administrator.yipen.utils.RetrofitUtils;
+import com.example.administrator.yipen.utils.UserInfo;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -26,6 +36,7 @@ import rx.schedulers.Schedulers;
 public class Model {
     public Ipre presenter;
     private final RetrofitAPI retrofitAPI;
+    Map<String, String> map;
 
     public Model(Ipre presenter) {
         this.presenter = presenter;
@@ -35,7 +46,7 @@ public class Model {
     }
 
     public void RegModle(String phone) {
-        Log.i("phone",phone);
+
         retrofitAPI.requestReg(phone)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -47,7 +58,7 @@ public class Model {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("err",e.getMessage());
+                        Log.e("err", e.getMessage());
                         presenter.Error(e);
                     }
 
@@ -83,7 +94,6 @@ public class Model {
 
                     @Override
                     public void onNext(LoginBean loginBean) {
-                        Log.e("msg",loginBean.toString());
                         presenter.LoginScuess(loginBean);
                         if (loginBean.getStatus() == 1) {
                             LoginServerce.reflag = true;
@@ -96,13 +106,14 @@ public class Model {
 
     }
 
-    public void upDataIcon(File file) {
-        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
+    public void upDataIcon(String phone, File file, String token) {
+        Map<String, RequestBody> params = new HashMap<>();
 
-        MultipartBody.Part part = MultipartBody.Part.createFormData("code_url", file.getName(), requestBody);
-
-
-        retrofitAPI.upload(part).subscribeOn(Schedulers.io())
+        RequestBody tokenBody = App.toRequestBody(token);
+        RequestBody phoneBody = App.toRequestBody(phone);
+        RequestBody photoRequestBody = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part photoPart = MultipartBody.Part.createFormData("code_url", file.getName(), photoRequestBody);
+        retrofitAPI.upload(tokenBody, phoneBody, photoPart).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<FileBean>() {
                     @Override
@@ -117,7 +128,7 @@ public class Model {
 
                     @Override
                     public void onNext(FileBean fileBean) {
-                        Log.e("model", fileBean.toString());
+                        Log.e("file_Bean", fileBean.toString());
                         if (fileBean.getStatus() == 1) {
                             presenter.Scuess(fileBean, 10001);
                         }
@@ -125,24 +136,186 @@ public class Model {
                 });
 
     }
-    public void updateUserInfo(String phone){
-    retrofitAPI.updateUserInfo(phone).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Subscriber<UserUpdateInfo>() {
-                @Override
-                public void onCompleted() {
 
-                }
+    public void userInfoModel(String phone, String token) {
+        retrofitAPI.userinfo(phone, token).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<UserInfo>() {
+                    @Override
+                    public void onCompleted() {
 
-                @Override
-                public void onError(Throwable e) {
+                    }
 
-                }
+                    @Override
+                    public void onError(Throwable e) {
 
-                @Override
-                public void onNext(UserUpdateInfo userUpdateInfo) {
-                    presenter.Scuess(userUpdateInfo,10002);
-                }
-            });
+                    }
+
+                    @Override
+                    public void onNext(UserInfo userInfo) {
+                        Log.i("User_log", userInfo.toString());
+                        presenter.Scuess(userInfo, 10000);
+                    }
+                });
+    }
+
+    public void updateUserInfo(String phone, String token, Map<String, String> map) {
+//        map = new HashMap<>();
+//        map.put("telephone", phone);
+//        map.put("token", token);
+
+        retrofitAPI.updateUserInfo(phone, token, map).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<UserUpdateInfo>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("userUpdate", e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(UserUpdateInfo userUpdateInfo) {
+                        Log.e("userUpdate", userUpdateInfo.getResult().get(0).toString());
+                        presenter.Scuess(userUpdateInfo, 10002);
+                    }
+                });
+
+    }
+
+    public void priceCount(String phone, String member_id, String token) {
+        map = new HashMap<>();
+        map.put("telephone", phone);
+        map.put("member_id", member_id);
+        map.put("token", token);
+        retrofitAPI.sumPay(map).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<CountPriceBena>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(CountPriceBena historyPayBean) {
+                        Log.e("data", historyPayBean.toString());
+                        presenter.Scuess(historyPayBean, 10003);
+
+                    }
+
+                });
+
+    }
+
+    public void HistoryPay(String phone, String member_id, String token) {
+        map = new HashMap<>();
+        map.put("telephone", phone);
+        map.put("member_id", member_id);
+        map.put("token", token);
+        retrofitAPI.historyPay(map).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<HistoryPayBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(HistoryPayBean historyPayBean) {
+                        Log.e("HistoryPay", historyPayBean.toString());
+                        presenter.Scuess(historyPayBean, 10005);
+
+                    }
+
+                });
+
+    }
+
+    public void seletInfo(String phone, String member_id, String token) {
+        map = new HashMap<>();
+        map.put("telephone", phone);
+        map.put("member_id", member_id);
+        map.put("token", token);
+        Log.e("data", phone + "-----" + member_id + "----" + token);
+        retrofitAPI.selsectInfo(map).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<SelectInfo>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(SelectInfo selectInfo) {
+                        Log.e("data", selectInfo.toString());
+                        presenter.Scuess(selectInfo, 10004);
+                    }
+
+                });
+
+    }
+
+    public void bannerModel(String bis_id) {
+        retrofitAPI.banner(bis_id).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<BannerDataBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(BannerDataBean bannerDataBean) {
+                        Log.e("banner", bannerDataBean.toString());
+                        presenter.Scuess(bannerDataBean, 9998);
+                    }
+                });
+    }
+
+    public void OrderForm(String phone,  String token) {
+        retrofitAPI.OrderForm(phone, token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<StagesBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(StagesBean stagesBean) {
+                        Log.e("data",stagesBean.getRes().get(0).toString());
+                        presenter.Scuess(stagesBean, 10006);
+                    }
+                });
+        ;
     }
 }

@@ -9,33 +9,45 @@
     <TextView android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:gravity="center"
+        android:textSize="24px"
               android:text="@string/countprice"
               android:layout_marginBottom="10px"
     />
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                   android:orientation="vertical"
                   android:background="@drawable/border_shape"
+
                   android:padding="15px"
     >
     <TextView android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:id="@+id/time"
-
+        android:layout_marginTop="10px"
+        android:textSize="24px"
     />
     <TextView android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:id="@+id/domicile"
-
+        android:layout_marginTop="10px"
+        android:textSize="22px"
     />
     <TextView android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:id="@+id/userName"
-
+        android:layout_marginTop="10px"
+        android:textSize="22px"
     />
+        <TextView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/area"
+            android:textSize="22px"
+            android:layout_marginTop="10px"
+            />
     <TextView android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:id="@+id/sum"
-
+        android:textSize="22px"
+        android:layout_marginTop="10px"
     />
     </LinearLayout>
 </LinearLayout>

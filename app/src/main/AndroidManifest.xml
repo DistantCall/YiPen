@@ -3,15 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.myapplication">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEM" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.MANAGE_DOCUMENTS"
-        tools:ignore="ProtectedPermissions"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.hardware.camera.autofocus"/>
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.hardware.camera.autofocus" />
 
     <application
         android:name="com.example.administrator.yipen.app.App"
@@ -21,15 +22,12 @@
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="design_width"
-            android:value="768">
-        </meta-data>
+            android:value="768" />
         <meta-data
             android:name="design_height"
-            android:value="1280">
-        </meta-data>
+            android:value="1280" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -38,34 +36,40 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
-
 
         <activity
             android:name="com.example.administrator.yipen.mvp.view.StartActivity"
             android:launchMode="singleTask">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.example.administrator.yipen.mvp.view.MainActivity"
             android:launchMode="singleTask">
             <intent-filter>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.example.administrator.yipen.mvp.view.RegActivity"
-            android:launchMode="singleTask">
-        </activity>
+            android:launchMode="singleTask" />
         <activity
-            android:name="com.example.administrator.yipen.mvp.view.HistoryicaActivity"
+            android:name="com.example.administrator.yipen.mvp.view.SetActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.example.administrator.yipen.mvp.view.UpUserInfoActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.example.administrator.yipen.mvp.view.PayActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.example.administrator.yipen.mvp.view.DidivActivity"
             android:launchMode="singleTask"></activity>
-        <activity android:name="com.example.administrator.yipen.mvp.view.SetActivity"></activity>
     </application>
 
 </manifest>

@@ -72,6 +72,7 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
         reg_back.setOnClickListener(this);
         login.setOnClickListener(this);
     }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         phoneCode = tel_uls[position];
@@ -91,23 +92,25 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
         if (regBean.getStatus() == 0) {
             //失败
             application.toastLong(regBean.getMessage() + ",请检查您的手机号");
-            LoginServerce.reflag=false;
+            LoginServerce.reflag = false;
         }
         if (regBean.getStatus() == 2) {
             application.toastLong("短信已发送");
             countTimer.start();
-            LoginServerce.reflag=false;
+            LoginServerce.reflag = false;
         }
         if (regBean.getStatus() == 1) {
             application.toastLong("短信已发送");
             countTimer.start();
-            LoginServerce.reflag=false;
+            LoginServerce.reflag = false;
         }
     }
+
     @Override
     public void Error(Throwable e) {
         application.toastLong(e.getMessage());
     }
+
     //#cae2dbe2
     @Override
     public void LoginScuess(Object o) {
@@ -116,15 +119,27 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
         if (loginBean.getStatus() == 0) {
             //失败
             user.add("login", "err");
-            LoginServerce.reflag=false;
+            LoginServerce.reflag = false;
             setButton(1);
             application.toastLong(loginBean.getMessage());
         } else if (loginBean.getStatus() == 1) {
             //成功
-
             application.toastLong("登陆成功,跳转登录页面");
-            EventBus.getDefault().post(loginBean.getResult());
-            SystemClock.sleep(1000);
+            EventBus.getDefault().postSticky(loginBean.getResult());
+            user.add("token", loginBean.getResult().get(0).getToken());
+            user.add("phone", loginBean.getResult().get(0).getTelephone());
+            user.add("icon", loginBean.getResult().get(0).getCode_url());
+            user.add("username", loginBean.getResult().get(0).getUsername());
+            user.add("code_url", loginBean.getResult().get(0).getCode_url());
+            user.add("bis_id", loginBean.getResult().get(0).getBis_id() + "");
+            user.add("meM_id", loginBean.getResult().get(0).getMem_id() + "");
+            BaseActivity.phone = loginBean.getResult().get(0).getTelephone();
+            BaseActivity.token = loginBean.getResult().get(0).getToken();
+            BaseActivity.bis_id = loginBean.getResult().get(0).getBis_id() + "";
+            BaseActivity.meM_id = loginBean.getResult().get(0).getMem_id() + "";
+            BaseActivity.codeUrl = loginBean.getResult().get(0).getCode_url();
+            BaseActivity.username = loginBean.getResult().get(0).getUsername();
+            SystemClock.sleep(500);
             finishLogin("scuess");
         }
     }
@@ -142,6 +157,7 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
                 break;
             case R.id.login_btn:
                 setButton(0);
+//                user.query("phone"),user.query("code_url")
                 App.getPresenter(this).LoginPre(telephone.getText().toString().trim(), regCode.getText().toString().trim());
                 break;
             case R.id.regmax:

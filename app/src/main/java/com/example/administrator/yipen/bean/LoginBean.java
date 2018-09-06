@@ -1,22 +1,16 @@
 package com.example.administrator.yipen.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class LoginBean {
 
-    @Override
-    public String toString() {
-        return "LoginBean{" +
-                "status=" + status +
-                ", message='" + message + '\'' +
-                ", result=" + result +
-                '}';
-    }
 
     /**
      * status : 1
      * message : 登录成功
-     * result : [{"bis_id":0,"mem_id":0,"username":null,"code_url":"https://yp.dxshuju.com/static/img/5.jpg","telephone":"18810415234","create_time":"2018-08-30 16:54:53","token":"8c941b0e74928f2d4e594bc67c847e36"}]
+     * result : [{"\u201cbis_id\u201d":"商家id","\u2018\u201dmem_id\u201d":"用户id","username":"用户名","code_url":"图片路径","telephone":"联系电话","create_time":"创建时间","token":"生成的token"}]
      */
 
     private int status;
@@ -48,45 +42,50 @@ public class LoginBean {
     }
 
     public static class ResultBean {
-        /**
-         * bis_id : 0
-         * mem_id : 0
-         * username : null
-         * code_url : https://yp.dxshuju.com/static/img/5.jpg
-         * telephone : 18810415234
-         * create_time : 2018-08-30 16:54:53
-         * token : 8c941b0e74928f2d4e594bc67c847e36
-         */
 
-        private int bis_id;
-        private int mem_id;
-        private Object username;
+        private String bis_id;
+
+        private String mem_id;
+
+        public ResultBean(String bis_id, String mem_id, String username, String code_url, String telephone, String create_time, String token) {
+            this.bis_id = bis_id;
+            this.mem_id = mem_id;
+            this.username = username;
+            this.code_url = code_url;
+            this.telephone = telephone;
+            this.create_time = create_time;
+            this.token = token;
+        }
+
+        public String getBis_id() {
+
+            return bis_id;
+        }
+
+        public void setBis_id(String bis_id) {
+            this.bis_id = bis_id;
+        }
+
+        public String getMem_id() {
+            return mem_id;
+        }
+
+        public void setMem_id(String mem_id) {
+            this.mem_id = mem_id;
+        }
+
+        private String username;
         private String code_url;
         private String telephone;
         private String create_time;
         private String token;
 
-        public int getBis_id() {
-            return bis_id;
-        }
 
-        public void setBis_id(int bis_id) {
-            this.bis_id = bis_id;
-        }
-
-        public int getMem_id() {
-            return mem_id;
-        }
-
-        public void setMem_id(int mem_id) {
-            this.mem_id = mem_id;
-        }
-
-        public Object getUsername() {
+        public String getUsername() {
             return username;
         }
 
-        public void setUsername(Object username) {
+        public void setUsername(String username) {
             this.username = username;
         }
 

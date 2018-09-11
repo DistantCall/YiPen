@@ -64,12 +64,9 @@ public class HomeFragment extends Fragment implements Iview {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         try {
-
             view = inflater.inflate(R.layout.home_layout, container, false);
-
             presenter = App.getPresenter(this);
             EventBus.getDefault().register(this);
-
             initView(view);
             initData();
             setData();
@@ -89,7 +86,7 @@ public class HomeFragment extends Fragment implements Iview {
             presenter.priceCount(BaseActivity.phone, BaseActivity.bis_id, BaseActivity.token);
             presenter.HistoryPay(BaseActivity.phone, BaseActivity.bis_id, BaseActivity.token);
         } else {
-            presenter.bannerPre(BaseActivity.bis_id);
+            presenter.bannerPre("1");
         }
     }
 
@@ -216,35 +213,6 @@ public class HomeFragment extends Fragment implements Iview {
                 }).start();
             }
         });
-        //上滑加载更多
-//        homeView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-//
-//            @Override
-//            public void onScrollStateChanged(RecyclerView recyclerView,
-//                                             int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//                if (adapter != null) {
-//                    if (newState == RecyclerView.SCROLL_STATE_IDLE
-//                            && lastVisibleItem + 1 == adapter.getItemCount()) {
-//                        //访问网络加载下一页数据
-//                        if (mNewsBean != null) {
-//                            if (mNewsBean.data.has_more == 0) {
-//                                //没数据了
-//                                Toast.makeText(getActivity(), "没有更多数据", Toast.LENGTH_SHORT).show();
-//                                mSwiperefresh.setRefreshing(false);
-//
-//                            } else {
-//                                //加载下一页数据
-//                                //拼接url
-//                                isLoading = true;
-//                                page = mNewsBean.data.page + 1;
-//                                getDataFromServer();
-//
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        });
+
     }
 }

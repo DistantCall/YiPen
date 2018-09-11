@@ -54,7 +54,6 @@ public class MineFragment extends Fragment implements Iview {
     private String phone;
     private String username;
     private String token;
-    private String no_addres;
     private String icon;
     private LinearLayout jiaofie;
     private LinearLayout fenqi;

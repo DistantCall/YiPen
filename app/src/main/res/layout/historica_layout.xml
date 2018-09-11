@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:android="http://schemas.android.com/apk/res/android"
 
               android:orientation="horizontal"
               android:layout_width="match_parent"
-    android:layout_marginTop="20px"
-
+                android:layout_marginTop="20px"
               android:layout_height="wrap_content">
-    <View
-        android:layout_width="5px"
-        android:layout_height="match_parent"
-        android:background="@drawable/hisadapterleft"/>
+
     <LinearLayout
 
         android:orientation="vertical"
@@ -27,14 +23,24 @@
               android:text="@string/countprice"
               android:layout_marginBottom="10px"
     />
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                  android:orientation="vertical"
-                  android:background="@drawable/border_shape"
-
-                  android:padding="15px"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/history_bg"
+       android:paddingLeft="20px"
+        android:paddingRight="20px"
     >
+        <LinearLayout
+            android:padding="15px"
+            android:background="@color/colorWirte"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
     <TextView android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:layout_height="wrap_content"
               android:id="@+id/time"
         android:layout_marginTop="10px"
         android:textSize="28px"
@@ -65,9 +71,7 @@
     />
     </LinearLayout>
 
+    </RelativeLayout>
+
     </LinearLayout>
-    <View
-        android:layout_width="5px"
-        android:layout_height="match_parent"
-        android:background="@drawable/hisadapterregiht"/>
 </LinearLayout>

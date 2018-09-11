@@ -146,11 +146,10 @@ public class HomeAdapter extends RecyclerView.Adapter implements OnBannerListene
 
                     setBanner(((BannerHolder) holder).banner);
                 } else if (holder instanceof FunctionHolder) {
-
                     ((FunctionHolder) holder).img1.setImageResource(R.mipmap.guarantee);
                     ((FunctionHolder) holder).img2.setImageResource(R.mipmap.purifier);
                     ((FunctionHolder) holder).img3.setImageResource(R.mipmap.notice);
-                    ((FunctionHolder) holder).img4.setImageResource( R.mipmap.haow);
+                    ((FunctionHolder) holder).img4.setImageResource(R.mipmap.haow);
 
                 } else if (holder instanceof PayHolder) {
 
@@ -178,7 +177,7 @@ public class HomeAdapter extends RecyclerView.Adapter implements OnBannerListene
                     ((FunctionHolder) holder).img1.setImageResource(R.mipmap.guarantee);
                     ((FunctionHolder) holder).img2.setImageResource(R.mipmap.purifier);
                     ((FunctionHolder) holder).img3.setImageResource(R.mipmap.notice);
-                    ((FunctionHolder) holder).img4.setImageResource( R.mipmap.haow);
+                    ((FunctionHolder) holder).img4.setImageResource(R.mipmap.haow);
 
                 } else if (holder instanceof PayHolder) {
 
@@ -200,6 +199,7 @@ public class HomeAdapter extends RecyclerView.Adapter implements OnBannerListene
 
                     setBanner(((BannerHolder) holder).banner);
                 } else if (holder instanceof HistoricaHolder) {
+
                     for (int i = 0; i < resultBean.size(); i++) {
                         ((HistoricaHolder) holder).time.setText("截止日期:" + resultBean.get(i).getArea_name() + ":" + resultBean.get(i).getStart_time() + "—" + resultBean.get(i).getStop_time());
                         ((HistoricaHolder) holder).domicile.setText("地址: " + resultBean.get(i).getArea_name() + " " + resultBean.get(i).getFloor() + "单元 " + resultBean.get(i).getUnit() + "号楼 " + resultBean.get(i).getRoom() + "室");
@@ -225,7 +225,7 @@ public class HomeAdapter extends RecyclerView.Adapter implements OnBannerListene
                 ((FunctionHolder) holder).img1.setImageResource(R.mipmap.guarantee);
                 ((FunctionHolder) holder).img2.setImageResource(R.mipmap.purifier);
                 ((FunctionHolder) holder).img3.setImageResource(R.mipmap.notice);
-                ((FunctionHolder) holder).img4.setImageResource( R.mipmap.haow);
+                ((FunctionHolder) holder).img4.setImageResource(R.mipmap.haow);
             } else if (holder instanceof PayHolder) {
 
                 ((PayHolder) holder).textView2.setText("0.00元");
@@ -272,7 +272,7 @@ public class HomeAdapter extends RecyclerView.Adapter implements OnBannerListene
     @Override
     public int getItemCount() {
         if (reflag) {
-            if (resultBean.size() >= 0) {
+            if (resultBean.size() == 0) {
                 return 3;
             } else {
                 return 5;
@@ -293,6 +293,7 @@ public class HomeAdapter extends RecyclerView.Adapter implements OnBannerListene
         List<String> list_title = new ArrayList<>();
 
         for (int i = 0; i < imgs.size(); i++) {
+            Log.e(imgs.get(i), "msg");
             list_title.add("");
         }
         //设置内置样式，共有六种可以点入方法内逐一体验使用。
@@ -316,96 +317,96 @@ public class HomeAdapter extends RecyclerView.Adapter implements OnBannerListene
                 //必须最后调用的方法，启动轮播图。
                 .start();
 
-
     }
 
     //自定义的图片加载器
     private class MyLoader extends ImageLoader {
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
+            Log.e("tag", (String) path);
             Glide.with(context).load((String) path).into(imageView);
         }
     }
 
 
-class BannerHolder extends RecyclerView.ViewHolder {
+    class BannerHolder extends RecyclerView.ViewHolder {
 
-    Banner banner;
+        Banner banner;
 
-    public BannerHolder(@NonNull View itemView) {
-        super(itemView);
-        banner = itemView.findViewById(R.id.banner);
-    }
-}
-
-class ButtonHolder extends RecyclerView.ViewHolder {
-    Button NoLogin;
-
-    public ButtonHolder(View itemView) {
-        super(itemView);
-        NoLogin = itemView.findViewById(R.id.goto_login);
-    }
-}
-
-class FunctionHolder extends RecyclerView.ViewHolder {
-    SimpleDraweeView img1;
-    SimpleDraweeView img2;
-    SimpleDraweeView img3;
-    SimpleDraweeView img4;
-
-
-    public FunctionHolder(@NonNull View itemView) {
-        super(itemView);
-        img1 = itemView.findViewById(R.id.textImg1);
-        img2 = itemView.findViewById(R.id.textImg2);
-        img3 = itemView.findViewById(R.id.textImg3);
-        img4 = itemView.findViewById(R.id.textImg4);
-
+        public BannerHolder(@NonNull View itemView) {
+            super(itemView);
+            banner = itemView.findViewById(R.id.banner);
+        }
     }
 
-}
+    class ButtonHolder extends RecyclerView.ViewHolder {
+        Button NoLogin;
 
-class PayHolder extends RecyclerView.ViewHolder {
-    TextView textView1;
-    TextView textView2;
-    Button btn1;
-    Button btn2;
-
-    public PayHolder(@NonNull View itemView) {
-        super(itemView);
-        textView1 = itemView.findViewById(R.id.text_pay1);
-        textView2 = itemView.findViewById(R.id.text_pay2);
-        btn1 = itemView.findViewById(R.id.btn_pay1);
-        btn2 = itemView.findViewById(R.id.btn_pay2);
+        public ButtonHolder(View itemView) {
+            super(itemView);
+            NoLogin = itemView.findViewById(R.id.goto_login);
+        }
     }
-}
 
-class ShouldHolder extends RecyclerView.ViewHolder {
+    class FunctionHolder extends RecyclerView.ViewHolder {
+        SimpleDraweeView img1;
+        SimpleDraweeView img2;
+        SimpleDraweeView img3;
+        SimpleDraweeView img4;
 
-    RecyclerView shouldRecy;
 
-    public ShouldHolder(@NonNull View itemView) {
-        super(itemView);
-        shouldRecy = itemView.findViewById(R.id.should_recy);
+        public FunctionHolder(@NonNull View itemView) {
+            super(itemView);
+            img1 = itemView.findViewById(R.id.textImg1);
+            img2 = itemView.findViewById(R.id.textImg2);
+            img3 = itemView.findViewById(R.id.textImg3);
+            img4 = itemView.findViewById(R.id.textImg4);
+
+        }
+
     }
-}
 
-class HistoricaHolder extends RecyclerView.ViewHolder {
+    class PayHolder extends RecyclerView.ViewHolder {
+        TextView textView1;
+        TextView textView2;
+        Button btn1;
+        Button btn2;
 
-    TextView time;
-    TextView domicile;
-    TextView userName;
-    TextView sum;
-    TextView area;
-
-    public HistoricaHolder(@NonNull View itemView) {
-        super(itemView);
-        time = itemView.findViewById(R.id.time);
-        domicile = itemView.findViewById(R.id.domicile);
-        userName = itemView.findViewById(R.id.userName);
-        sum = itemView.findViewById(R.id.sum);
-        area = itemView.findViewById(R.id.area);
+        public PayHolder(@NonNull View itemView) {
+            super(itemView);
+            textView1 = itemView.findViewById(R.id.text_pay1);
+            textView2 = itemView.findViewById(R.id.text_pay2);
+            btn1 = itemView.findViewById(R.id.btn_pay1);
+            btn2 = itemView.findViewById(R.id.btn_pay2);
+        }
     }
-}
+
+    class ShouldHolder extends RecyclerView.ViewHolder {
+
+        RecyclerView shouldRecy;
+
+        public ShouldHolder(@NonNull View itemView) {
+            super(itemView);
+            shouldRecy = itemView.findViewById(R.id.should_recy);
+        }
+    }
+
+    class HistoricaHolder extends RecyclerView.ViewHolder {
+
+        TextView time;
+        TextView domicile;
+        TextView userName;
+        TextView sum;
+        TextView area;
+
+        public HistoricaHolder(@NonNull View itemView) {
+            super(itemView);
+            time = itemView.findViewById(R.id.time);
+            domicile = itemView.findViewById(R.id.domicile);
+            userName = itemView.findViewById(R.id.userName);
+            sum = itemView.findViewById(R.id.sum);
+            area = itemView.findViewById(R.id.area);
+        }
+    }
 
 }

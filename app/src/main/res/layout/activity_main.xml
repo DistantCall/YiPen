@@ -6,16 +6,16 @@
         android:layout_height="match_parent"
         xmlns:hjm="http://schemas.android.com/apk/res-auto">
     <com.hjm.bottomtabbar.BottomTabBar
-            android:layout_marginTop="30px"
+            android:layout_marginTop="@dimen/dp_15"
             android:id="@+id/bottom_tab_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            hjm:tab_font_size="16px"
-            hjm:tab_img_height="40px"
-            hjm:tab_img_width="50px"
+            hjm:tab_font_size="@dimen/dp_10"
+            hjm:tab_img_height="@dimen/dp_20"
+            hjm:tab_img_width="@dimen/dp_24"
             hjm:tab_isshow_divider="false"
-            hjm:tab_padding_bottom="2px"
-            hjm:tab_padding_top="2px"
+            hjm:tab_padding_bottom="@dimen/dp_1"
+            hjm:tab_padding_top="@dimen/dp_2"
             hjm:tab_bar_background="#FFF"
         />
 </LinearLayout>

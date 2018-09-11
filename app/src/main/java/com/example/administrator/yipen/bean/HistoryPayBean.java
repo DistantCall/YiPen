@@ -5,6 +5,15 @@ import java.util.List;
 public class HistoryPayBean {
 
 
+    @Override
+    public String toString() {
+        return "HistoryPayBean{" +
+                "status=" + status +
+                ", message='" + message + '\'' +
+                ", res=" + res +
+                '}';
+    }
+
     /**
      * status : 1
      * message : 历史欠费信息以查询成功
@@ -40,6 +49,21 @@ public class HistoryPayBean {
     }
 
     public static class ResBean {
+        @Override
+        public String toString() {
+            return "ResBean{" +
+                    "truename=" + truename +
+                    ", start_time='" + start_time + '\'' +
+                    ", stop_time='" + stop_time + '\'' +
+                    ", area_name='" + area_name + '\'' +
+                    ", floor=" + floor +
+                    ", unit='" + unit + '\'' +
+                    ", room='" + room + '\'' +
+                    ", area='" + area + '\'' +
+                    ", assessment='" + assessment + '\'' +
+                    '}';
+        }
+
         /**
          * truename : null
          * start_time : 2018-09-09

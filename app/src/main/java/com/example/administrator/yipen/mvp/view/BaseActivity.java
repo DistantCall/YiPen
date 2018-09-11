@@ -23,6 +23,7 @@ public abstract class BaseActivity extends AutoLayoutActivity implements Iview {
     public static String user_Icon;
     public static String codeUrl = "604709";
     public static String username = "用户";
+    public static String nickName ="user";
 
     //布局文件ID
     protected abstract int getContentViewId();

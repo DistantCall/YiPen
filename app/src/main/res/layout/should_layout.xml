@@ -2,31 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="20px"
-
     android:orientation="vertical"
-    android:padding="20px">
-
-    <LinearLayout
+    >
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/border_shape"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5px"
+        android:layout_marginTop="15px"
+        android:gravity="center"
+        android:text="@string/historica"
+        android:textSize="28px" />
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5px"
-            android:layout_marginTop="15px"
-            android:gravity="center"
-            android:text="@string/historica"
-            android:textSize="28px" />
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/should_recy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10px"></android.support.v7.widget.RecyclerView>
-    </LinearLayout>
+
+
+
+
 </LinearLayout>

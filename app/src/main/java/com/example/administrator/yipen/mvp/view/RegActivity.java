@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.administrator.yipen.app.App;
 import com.example.administrator.yipen.bean.LoginBean;
 import com.example.administrator.yipen.bean.RegBean;
+import com.example.administrator.yipen.constance.ConstanceClass;
 import com.example.administrator.yipen.server.LoginServerce;
 import com.example.administrator.yipen.utils.SmartroInter;
 import com.example.myapplication.R;
@@ -163,14 +164,16 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
             user.add("phone", loginBean.getResult().get(0).getTelephone());
             user.add("user_icon", loginBean.getResult().get(0).getCode_url());
             user.add("username", loginBean.getResult().get(0).getUsername());
+            user.add("nickName",loginBean.getResult().get(0).getUsername());
             user.add("bis_id", loginBean.getResult().get(0).getBis_id() + "");
             user.add("meM_id", loginBean.getResult().get(0).getMem_id() + "");
             BaseActivity.phone = loginBean.getResult().get(0).getTelephone();
             BaseActivity.token = loginBean.getResult().get(0).getToken();
             BaseActivity.bis_id = loginBean.getResult().get(0).getBis_id() + "";
             BaseActivity.meM_id = loginBean.getResult().get(0).getMem_id() + "";
-            BaseActivity.codeUrl = loginBean.getResult().get(0).getCode_url();
+            BaseActivity.codeUrl = ConstanceClass.LOCTIONPATH+"/img/"+loginBean.getResult().get(0).getCode_url();
             BaseActivity.username = loginBean.getResult().get(0).getUsername();
+            BaseActivity.nickName=loginBean.getResult().get(0).getUsername();
             SystemClock.sleep(500);
             finishLogin("scuess");
         }

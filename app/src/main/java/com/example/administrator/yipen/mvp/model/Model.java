@@ -160,10 +160,6 @@ public class Model {
     }
 
     public void updateUserInfo(String phone, String token, Map<String, String> map) {
-//        map = new HashMap<>();
-//        map.put("telephone", phone);
-//        map.put("token", token);
-
         retrofitAPI.updateUserInfo(phone, token, map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<UserUpdateInfo>() {

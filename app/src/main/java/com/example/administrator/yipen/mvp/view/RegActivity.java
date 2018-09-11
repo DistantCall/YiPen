@@ -82,12 +82,11 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
     @Override
     protected void onResume() {
         super.onResume();
-        if (getIntent() != null) {
-            if (getIntent().getIntExtra("requestCode", 0) != 0) {
-                if (getIntent().getIntExtra("requestCode", 0) == 22) {
-                    requestCode = 22;
+
+            if (getIntent().getStringExtra("requestCode")!=null) {
+                if(getIntent().getStringExtra("requestCode").equals("22")){
+                    requestCode=22;
                 }
-            }
         }
 
     }
@@ -155,15 +154,15 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
             LoginServerce.reflag = false;
             setButton(1);
             application.toastLong(loginBean.getMessage());
+
         } else if (loginBean.getStatus() == 1) {
             //成功
             application.toastLong("登陆成功,跳转登录页面");
             EventBus.getDefault().postSticky(loginBean.getResult());
             user.add("token", loginBean.getResult().get(0).getToken());
             user.add("phone", loginBean.getResult().get(0).getTelephone());
-            user.add("icon", loginBean.getResult().get(0).getCode_url());
+            user.add("user_icon", loginBean.getResult().get(0).getCode_url());
             user.add("username", loginBean.getResult().get(0).getUsername());
-            user.add("code_url", loginBean.getResult().get(0).getCode_url());
             user.add("bis_id", loginBean.getResult().get(0).getBis_id() + "");
             user.add("meM_id", loginBean.getResult().get(0).getMem_id() + "");
             BaseActivity.phone = loginBean.getResult().get(0).getTelephone();
@@ -179,6 +178,7 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
 
     @Override
     public void LoginErr(Throwable t) {
+
     }
 
     //点击注册/登录按钮响应事件
@@ -194,7 +194,6 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
                 break;
             case R.id.login_btn:
                 setButton(0);
-//                user.query("phone"),user.query("code_url")
                 App.getPresenter(this).LoginPre(telephone.getText().toString().trim(), regCode.getText().toString().trim());
                 break;
             case R.id.regmax:
@@ -215,7 +214,6 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
     }
 
     private void finishLogin(String function) {
-
         user.add("login", function);
         if (function.equals("scuess")) {
             LoginServerce.reflag = true;
@@ -223,7 +221,6 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
             LoginServerce.reflag = false;
         }
         finish();
-
     }
 
     //下次登录判断

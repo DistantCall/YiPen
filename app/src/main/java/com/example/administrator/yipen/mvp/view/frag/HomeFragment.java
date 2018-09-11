@@ -38,7 +38,7 @@ import java.util.List;
 public class HomeFragment extends Fragment implements Iview {
 
     List<String> imgs = new ArrayList<>();
-    List<String> beanList = new ArrayList<>();
+
     List<SelectInfo.ResultBean> userBeans = new ArrayList<>();
     private View view;
     private RecyclerView homeView;
@@ -64,6 +64,7 @@ public class HomeFragment extends Fragment implements Iview {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         try {
+
             view = inflater.inflate(R.layout.home_layout, container, false);
 
             presenter = App.getPresenter(this);
@@ -82,19 +83,14 @@ public class HomeFragment extends Fragment implements Iview {
     @Override
     public void onResume() {
         super.onResume();
-
         if (LoginServerce.reflag) {
             presenter.bannerPre(BaseActivity.bis_id);
             presenter.selectInfo(BaseActivity.phone, BaseActivity.bis_id, BaseActivity.token);
             presenter.priceCount(BaseActivity.phone, BaseActivity.bis_id, BaseActivity.token);
             presenter.HistoryPay(BaseActivity.phone, BaseActivity.bis_id, BaseActivity.token);
-
         } else {
             presenter.bannerPre(BaseActivity.bis_id);
-
         }
-
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
@@ -119,11 +115,7 @@ public class HomeFragment extends Fragment implements Iview {
 
     public void initData() {
 
-        beanList.add(IMG.LGO01);
-        beanList.add(IMG.LGO02);
-        beanList.add(IMG.LGO03);
-        beanList.add(IMG.LOG04);
-    refreshData();
+         refreshData();
     }
 
     @Override
@@ -133,13 +125,12 @@ public class HomeFragment extends Fragment implements Iview {
             if (bannerDataBean.getStatus() == 1) {
                 List<BannerDataBean.ResultBean> dataBeanResult = bannerDataBean.getResult();
                 for (int i = 0; i < dataBeanResult.size(); i++) {
-                    imgs.add(dataBeanResult.get(i).getImage().replace("\\", "/"));
+                    Log.e("i",dataBeanResult.get(i).getImage());
+                    imgs.add(dataBeanResult.get(i).getImage());
                 }
             }
-//            imgs.add(BANNERONE);
-//            imgs.add(BANNERTWO);
-//            imgs.add(BANNERHREE);
-//            imgs.add(BANNERFOUR);
+
+
         } else if (requestCode == 10004) {
 
             SelectInfo selectInfo = (SelectInfo) o;
@@ -167,10 +158,10 @@ public class HomeFragment extends Fragment implements Iview {
             }
         }
         if (LoginServerce.reflag) {
-            homeAdapter = new HomeAdapter(getActivity(), beanList, imgs, userBeans, result, resultBean, true);
+            homeAdapter = new HomeAdapter(getActivity(), imgs, userBeans, result, resultBean, true);
             homeView.setAdapter(homeAdapter);
         } else {
-            homeAdapter = new HomeAdapter(getActivity(), beanList, imgs, false);
+            homeAdapter = new HomeAdapter(getActivity(), imgs, false);
             homeView.setAdapter(homeAdapter);
         }
 

@@ -6,32 +6,97 @@
               android:layout_marginTop="10px"
               android:padding="10px"
               android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
         <com.facebook.drawee.view.SimpleDraweeView
                 android:layout_margin="5px"
                 android:layout_weight="1"
                 android:id="@+id/textImg1"
-                android:layout_width="80px"
-                android:layout_height="80px"
+                android:layout_width="120px"
+                android:layout_height="120px"
                 fresco:roundAsCircle="true" />
+        <TextView
+            android:layout_marginTop="10px"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保修"
+            />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
         <com.facebook.drawee.view.SimpleDraweeView
                 android:layout_margin="5px"
                 android:layout_weight="1"
                 android:id="@+id/textImg2"
-                android:layout_width="80px"
-                android:layout_height="80px"
+                android:layout_width="120px"
+                android:layout_height="120px"
                 fresco:roundAsCircle="true" />
+        <TextView
+            android:layout_marginTop="10px"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保洁"
+            />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
         <com.facebook.drawee.view.SimpleDraweeView
                 android:layout_margin="5px"
                 android:layout_weight="1"
                 android:id="@+id/textImg3"
-                android:layout_width="80px"
-                android:layout_height="80px"
+                android:layout_width="120px"
+                android:layout_height="120px"
                 fresco:roundAsCircle="true" />
+        <TextView
+            android:layout_marginTop="10px"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="公告"
+            />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
         <com.facebook.drawee.view.SimpleDraweeView
                 android:layout_margin="5px"
                 android:layout_weight="1"
                 android:id="@+id/textImg4"
-                android:layout_width="80px"
-                android:layout_height="80px"
+                android:layout_width="120px"
+                android:layout_height="120px"
                 fresco:roundAsCircle="true" />
+        <TextView
+            android:layout_marginTop="10px"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="好物"
+            />
+        </LinearLayout>
 </LinearLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="7px">
+
+    <TextView
+        android:id="@+id/ratenum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="暂无数据"
+        android:textSize="28px" />
+
+    <TextView
+        android:id="@+id/ratemoney"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="暂无数据"
+        android:textSize="28px" />
+
+    <TextView
+        android:id="@+id/count_reta_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="暂无数据"
+        android:textSize="28px" />
+
+    <TextView
+        android:id="@+id/money_reta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="暂无数据"
+        android:textSize="28px" />
+</LinearLayout>

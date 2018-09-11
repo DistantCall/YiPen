@@ -16,13 +16,14 @@ public abstract class BaseActivity extends AutoLayoutActivity implements Iview {
 
     public static App application;
     public static SharePUtils user;
-    public static String token="8a23d1e8c41df3318b3a8058a0b85870";
-    public static String phone="18810415234";
-    public static String bis_id=1+"";
+    public static String token = "8a23d1e8c41df3318b3a8058a0b85870";
+    public static String phone = "18810415234";
+    public static String bis_id = 1 + "";
     public static String meM_id;
     public static String user_Icon;
-    public static String codeUrl="604709";
-    public static String username="用户";
+    public static String codeUrl = "604709";
+    public static String username = "用户";
+
     //布局文件ID
     protected abstract int getContentViewId();
 
@@ -48,19 +49,25 @@ public abstract class BaseActivity extends AutoLayoutActivity implements Iview {
     }
 
     private void loginInfo() {
-        Log.e("BaseActivity",LoginServerce.reflag+"");
+        Log.e("BaseActivity", LoginServerce.reflag + "");
 
         if (user.query("login").equals("err")) {
 
             LoginServerce.reflag = false;
         } else if (user.query("login").equals("scuess")) {
 
-             token= user.query("token");
-             phone= user.query("phone");
-            bis_id = user.query("bis_id");
+            token = user.query("token");
+            phone = user.query("phone");
+            if (user.query("bis_id").equals("err")) {
+                 bis_id=1+"";
+            }else{
+                bis_id = user.query("bis_id");
+            }
+
             meM_id = user.query("meM_id");
-            codeUrl=user.query("code_url");
-            LoginServerce.reflag=true;
+            codeUrl = user.query("code_url");
+
+            LoginServerce.reflag = true;
 
         }
     }
@@ -68,6 +75,7 @@ public abstract class BaseActivity extends AutoLayoutActivity implements Iview {
     private void NotLoginOr() {
         user = new SharePUtils(this, "user");
     }
+
     private void closeTitleBar() {
         App.setTitFlag(this);
 
@@ -75,10 +83,12 @@ public abstract class BaseActivity extends AutoLayoutActivity implements Iview {
             getSupportActionBar().hide();
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
+
     //返回键返回事件
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

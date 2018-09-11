@@ -5,4 +5,6 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorWirte">#FFF</color>
     <color name="backgroud">#bef5f5f5</color>
+    <color name="colorPay">#4BBF49</color>
+    <color name="colorGlay">#777</color>
 </resources>

@@ -45,13 +45,12 @@ public class MineFragment extends Fragment implements Iview {
 
     private View view;
     private SimpleDraweeView userIcon;
-    private ImageView msg;
     private TextView userPhone;
     private TextView userName;
     private LoginBean.ResultBean resultBean;
 
     private Presenter presenter;
-    private String code_url;
+
     private String phone;
     private String username;
     private String token;
@@ -93,20 +92,24 @@ public class MineFragment extends Fragment implements Iview {
         if (reflag) {
             if (resultBean != null) {
                 phone = resultBean.getTelephone();
-                code_url = resultBean.getCode_url();
                 token = resultBean.getToken();
-                no_addres = resultBean.getCreate_time();
                 icon = resultBean.getCode_url();
                 username = (String) resultBean.getUsername();
             } else {
                 phone = BaseActivity.user.query("phone");
-                code_url = BaseActivity.user.query("code_url");
                 token = BaseActivity.user.query("token");
-                icon = BaseActivity.user.query("icon");
+                icon = BaseActivity.user.query("user_icon");
                 username = BaseActivity.user.query("username");
             }
             if (username != null) {
-                String username1 = username.equals("err") ? "用户" : username;
+
+                String username1;
+                if(username.equals("err")){
+                    username1="用户名";
+                }else{
+                 username1=username;
+                }
+                Log.e("err", username1);
                 userName.setText(username1);
             } else {
                 userName.setText("用户");
@@ -116,8 +119,8 @@ public class MineFragment extends Fragment implements Iview {
             } else {
                 userName.setText("手机号");
             }
-            if (code_url != null) {
-                userIcon.setImageURI(ConstanceClass.LOCTIONPATH + code_url);
+            if (icon != null) {
+                userIcon.setImageURI(ConstanceClass.LOCTIONPATH + icon);
             } else {
                 userIcon.setImageResource(R.drawable.user_icon);
             }
@@ -129,11 +132,6 @@ public class MineFragment extends Fragment implements Iview {
 
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-    }
 
     private void initView() {
 
@@ -142,7 +140,7 @@ public class MineFragment extends Fragment implements Iview {
         userIcon = view.findViewById(R.id.user_icon);
         userPhone = view.findViewById(R.id.user_phone);
         userName = view.findViewById(R.id.user_Namne);
-        msg = view.findViewById(R.id.user_msg);
+
         finish = (TextView) view.findViewById(R.id.freishLogin);
 
     }
@@ -162,9 +160,14 @@ public class MineFragment extends Fragment implements Iview {
                 BaseActivity.phone = null;
                 BaseActivity.token = null;
                 SharePUtils user = new SharePUtils(getActivity(), "user");
-                user.add("login", "err");
+                user.add("login", null);
+                user.add("token", null);
+                user.add("phone", null);
+                user.add("user_icon", null);
+                user.add("bis_id", null);
+                user.add("mem_id", null);
                 getActivity().finish();
-                getActivity().startActivity(new Intent(getActivity(), RegActivity.class).putExtra("requestCode",22));
+                getActivity().startActivity(new Intent(getActivity(), RegActivity.class).putExtra("requestCode", "22"));
 
             }
         });
@@ -203,8 +206,7 @@ public class MineFragment extends Fragment implements Iview {
         userPhone.setText(phone);
         userIcon.setImageURI(icon);
         final Intent intent = new Intent(getActivity(), SetActivity.class);
-        BaseActivity.user.add("user_icon", ConstanceClass.LOCTIONPATH + code_url);
-        BaseActivity.user.add("addres", no_addres);
+        intent.putExtra("requestCode", "22");
         userIcon.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
@@ -224,12 +226,7 @@ public class MineFragment extends Fragment implements Iview {
                 startActivity(intent);
             }
         });
-        msg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(intent);
-            }
-        });
+
         jiaofie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -249,6 +246,7 @@ public class MineFragment extends Fragment implements Iview {
     public void notLogin() {
         userName.setText("手机号");
         userPhone.setText("用户");
+
         userIcon.setImageResource(R.mipmap.user_icon);
         userIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -268,12 +266,7 @@ public class MineFragment extends Fragment implements Iview {
                 startActivity(new Intent(getActivity(), RegActivity.class));
             }
         });
-        msg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), RegActivity.class));
-            }
-        });
+
         jiaofie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

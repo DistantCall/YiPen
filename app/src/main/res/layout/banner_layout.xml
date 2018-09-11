@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
-    <com.stx.xhb.xbanner.XBanner
-            android:id="@+id/banner"
-            android:layout_width="match_parent"
-            android:layout_height="200px"
-            app:AutoPlayTime="3000"
-            app:pointsContainerBackground="#44AAAAAA"
-            app:pointContainerPosition="BOTTOM"
-            app:pointsPosition="CENTER"
-            app:pointsVisibility="false"
-            app:tipTextColor="#FFFFFFFF"
-            android:layout_marginBottom="10px"
-            app:tipTextSize="28px"/>
+
+    <com.youth.banner.Banner
+        android:layout_marginBottom="10px"
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="200px" />
 </LinearLayout>

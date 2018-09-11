@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:background="@mipmap/bg_ruenng"
+
         android:layout_width="match_parent"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:padding="15px"
-        android:layout_height="wrap_content">
+        android:layout_height="300px">
         />
 <GridLayout
+
             android:horizontalSpacing="15px"
             android:verticalSpacing="5px"
             android:orientation="vertical"
-            android:background="@drawable/border_shape"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
     <TextView
@@ -17,11 +20,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/paystr"
+        android:textColor="@color/colorWirte"
             android:id="@+id/text_pay1"
             android:gravity="center"
             android:textSize="28px"
     ></TextView>
     <TextView
+        android:textColor="@color/colorWirte"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/text_pay2"
@@ -31,28 +36,31 @@
             android:textSize="35px"
     ></TextView>
     <LinearLayout
-    android:layout_width="match_parent"
+        android:layout_gravity="center"
+    android:layout_width="360px"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_marginTop="20px"
-    android:padding="15px"
+        android:padding="10px"
     >
-        <Button android:layout_width="80px"
-                android:layout_height="wrap_content"
-        android:text="@string/gomoney"
+
+        <Button
+        android:textColor="@color/colorWirte"
+            android:id="@+id/btn_pay1"
+            android:layout_width="0dp"
+            android:layout_height="60px"
+            android:layout_marginRight="35px"
+            android:layout_weight="1"
+            android:background="@drawable/btn_selecter"
+            android:text="@string/gomoney"
+            android:textSize="28px" />
+        <Button android:layout_width="0px"
+            android:textColor="@color/colorWirte"
                 android:background="@drawable/btn_selecter"
-                android:layout_weight="1"
-                android:id="@+id/btn_pay1"
-                android:textSize="28px"
-                android:layout_marginRight="15px"
-                android:textColor="#0f0"
-        />
-        <Button android:layout_width="80px"
-                android:background="@drawable/btn_selecter"
-                android:layout_height="wrap_content"
+                android:layout_height="60px"
                 android:text="@string/server"
                 android:textSize="28px"
-                android:layout_marginLeft="10px"
+                android:layout_marginLeft="35px"
                 android:layout_weight="1"
                 android:id="@+id/btn_pay2"
         />

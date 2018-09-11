@@ -1,16 +1,24 @@
 package com.example.administrator.yipen.bean;
 
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class LoginBean {
-
+    @Override
+    public String toString() {
+        return "LoginBean{" +
+                "status=" + status +
+                ", message='" + message + '\'' +
+                ", result=" + result +
+                '}';
+    }
 
     /**
      * status : 1
      * message : 登录成功
-     * result : [{"\u201cbis_id\u201d":"商家id","\u2018\u201dmem_id\u201d":"用户id","username":"用户名","code_url":"图片路径","telephone":"联系电话","create_time":"创建时间","token":"生成的token"}]
+     * result : [{"bis_id":"商家id","mem_id\u201d":"用户id","username":"用户名","code_url":"图片路径","telephone":"联系电话","create_time":"创建时间","token":"生成的token"}]
      */
 
     private int status;
@@ -42,24 +50,39 @@ public class LoginBean {
     }
 
     public static class ResultBean {
+        @Override
+        public String toString() {
+            return "ResultBean{" +
+                    "bis_id='" + bis_id + '\'' +
+                    ", _$Mem_id224='" + mem_id + '\'' +
+                    ", username='" + username + '\'' +
+                    ", code_url='" + code_url + '\'' +
+                    ", telephone='" + telephone + '\'' +
+                    ", create_time='" + create_time + '\'' +
+                    ", token='" + token + '\'' +
+                    '}';
+        }
 
+        /**
+         * bis_id : 商家id
+         * mem_id” : 用户id
+         * username : 用户名
+         * code_url : 图片路径
+         * telephone : 联系电话
+         * create_time : 创建时间
+         * token : 生成的token
+         */
 
         private String bis_id;
 
         private String mem_id;
-
-        public ResultBean(String bis_id, String mem_id, String username, String code_url, String telephone, String create_time, String token) {
-            this.bis_id = bis_id;
-            this.mem_id = mem_id;
-            this.username = username;
-            this.code_url = code_url;
-            this.telephone = telephone;
-            this.create_time = create_time;
-            this.token = token;
-        }
+        private String username;
+        private String code_url;
+        private String telephone;
+        private String create_time;
+        private String token;
 
         public String getBis_id() {
-
             return bis_id;
         }
 
@@ -71,16 +94,9 @@ public class LoginBean {
             return mem_id;
         }
 
-        public void setMem_id(String mem_id) {
-            this.mem_id = mem_id;
+        public void setMem_id(String _$Mem_id224) {
+            this.mem_id = _$Mem_id224;
         }
-
-        private String username;
-        private String code_url;
-        private String telephone;
-        private String create_time;
-        private String token;
-
 
         public String getUsername() {
             return username;

@@ -28,15 +28,10 @@ import com.example.administrator.yipen.utils.OnPopListener;
 import com.example.administrator.yipen.utils.UserInfo;
 import com.example.myapplication.R;
 import com.facebook.drawee.view.SimpleDraweeView;
-
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Set;
 
-import static com.example.administrator.yipen.constance.ConstanceClass.LOCTIONPATH;
-import static com.example.administrator.yipen.constance.ConstanceClass.USERICON;
 
 public class SetActivity extends BaseActivity implements View.OnClickListener {
 
@@ -76,7 +71,7 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
 
-        }
+     }
 
     @Override
     protected int getContentViewId() {
@@ -112,7 +107,7 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
             userInfo = (UserInfo) o;
             if (userInfo.getStatus() == 1) {
                 Log.e("data", userInfo.toString());
-                userIcon.setImageURI(LOCTIONPATH + USERICON + userInfo.getRes().get(0).getCode_url());
+                userIcon.setImageURI(userInfo.getRes().get(0).getCode_url());
 
                 if (userInfo.getRes().get(0).getNickname() == null) {
                     nickName.setText("用户");
@@ -125,21 +120,19 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
                 } else {
                     userNmae.setText(userInfo.getRes().get(0).getTruename());
                 }
-            }
 
+            }
+            BaseActivity.user.add("user_icon",userInfo.getRes().get(0).getCode_url());
+            BaseActivity.user.add("bis_id",userInfo.getRes().get(0).getUsername());
         } else if (requestCode == 10001) {
             FileBean fileBean = (FileBean) o;
             Log.e("fileBean", fileBean.toString());
+            userIcon.setImageURI(fileBean.getResult());
+            user.add("user_icon",fileBean.getResult());
             Toast.makeText(SetActivity.this, fileBean.toString(), Toast.LENGTH_LONG).show();
         }
     }
 
-    @Override
-    public void finish() {
-        user_Icon = LOCTIONPATH + USERICON +codeUrl;
-        super.finish();
-
-    }
 
     @Override
     public void Error(Throwable e) {
@@ -169,14 +162,10 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
                 alertDiaLogFouction();
                 break;
             case R.id.update_nickName:
-                intent.putExtra("phone", phone);
-                intent.putExtra("token", token);
                 intent.putExtra("data", "nickname");
                 startActivityForResult(intent, 20000);
                 break;
             case R.id.up_trueName:
-                intent.putExtra("phone", phone);
-                intent.putExtra("token", token);
                 intent.putExtra("data", "truename");
                 startActivityForResult(intent, 20000);
                 break;
@@ -274,9 +263,13 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
                     presenter.fileMultPart(phone,file,token);
                 }
                 break;
+            case 20000:
+               presenter.userInfoPre(phone,token);
+                break;
         }
     }
 public void alertDiaLogFouction(){
+        String path="storage/emulated/0/a.jpg";
     AlertDialog.Builder builder=new AlertDialog.Builder(this)
             .setIcon(R.mipmap.ic_launcher)
             .setTitle("选择图片：")
@@ -287,11 +280,21 @@ public void alertDiaLogFouction(){
                 public void onClick(DialogInterface dialog, int which) {
                     switch (which) {
                         case 0:
-                            getPicFromCamera();
+//                            getPicFromCamera();
+                            File Camera = new File(path);
+                            Log.e("isnull",Camera.exists()+"");
+                            Log.e("isnull",phone);
+                            Log.e("isnull",token);
+                            presenter.fileMultPart(phone,Camera,token);
 
                             break;
                         case 1:
-                            getPicFromAlbm();
+//                            getPicFromAlbm();
+                            File Albm = new File(path);
+                            Log.e("isnull",Albm.exists()+"");
+                            Log.e("isnull",phone);
+                            Log.e("isnull",token);
+                            presenter.fileMultPart(phone,Albm,token);
                             break;
                         default:
 

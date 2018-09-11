@@ -37,8 +37,7 @@ public class UpUserInfoActivity extends BaseActivity implements View.OnClickList
     private Button edit;
     private String data;
     private Presenter presenter;
-    private String phone;
-    private String token;
+
 
     @Override
     protected int getContentViewId() {
@@ -57,21 +56,16 @@ public class UpUserInfoActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onResume() {
         super.onResume();
-        if (getIntent().getStringExtra("phone") != null) {
+        if (getIntent().getStringExtra("data") != null) {
             data = getIntent().getStringExtra("data");
-            phone = getIntent().getStringExtra("phone");
-            token = getIntent().getStringExtra("token");
         } else {
             data = user.query("data");
-            phone = user.query("phone");
-            token = user.query("token");
         }
 
     }
 
     @Override
     protected void initData() {
-
         data_content.setText(data);
         back.setOnClickListener(this);
         edit.setOnClickListener(this);
@@ -80,14 +74,11 @@ public class UpUserInfoActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
     public void Scuess(Object o, int requestCode) {
         if (requestCode == 10002) {
-
             UserUpdateInfo updateInfo = (UserUpdateInfo) o;
             if (updateInfo.getStatus()==1){
                 application.toastLong(updateInfo.getMessage());

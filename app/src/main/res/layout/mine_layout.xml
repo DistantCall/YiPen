@@ -1,149 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:animateLayoutChanges="true"
     android:background="#F5F5F5"
     android:orientation="vertical">
 
-
     <RelativeLayout
-        android:id="@+id/login"
         android:layout_width="match_parent"
-        android:layout_height="250px"
-        android:background="#12DDB5">
+        android:layout_height="450px">
 
         <ImageView
-            android:id="@+id/user_msg"
-            android:layout_width="60px"
-            android:layout_height="60px"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10px"
-            android:layout_marginTop="10px"
-            android:src="@mipmap/img13" />
-
-        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/user_msg"
-            android:orientation="horizontal">
+            android:layout_height="300px"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/userinfo_bg" />
 
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/user_icon"
-                android:layout_width="52px"
-                android:layout_height="52px"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="40px"
-                fresco:placeholderImage="@mipmap/user_icon"
-                fresco:roundAsCircle="true" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="350px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:background="@mipmap/bg_qiang"
+           >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="80px"
                 android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/user_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="手机号"
-                    android:textColor="@color/colorWirte" />
-
                 <TextView
                     android:id="@+id/user_Namne"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10px"
-                    android:text="注册/登录"
-                    android:textColor="@color/colorWirte" />
+                    android:gravity="center"
+                    android:textSize="28px"
+                    android:text="user"
+                    />
+                <TextView
+                    android:layout_marginTop="20px"
+                    android:id="@+id/user_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="登录"
+                    android:textSize="28px"
+                    android:gravity="center"
+                   />
+
+
 
             </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
+<LinearLayout
+    android:id="@+id/count_font"
+    android:layout_alignParentBottom="true"
+    android:layout_marginBottom="20px"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/jiaofei"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <ImageView
+
+            android:layout_width="80px"
+            android:layout_height="80px"
+            android:layout_gravity="center"
+            android:src="@mipmap/jiaof" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10px"
+            android:gravity="center"
+            android:text="缴费记录"
+            android:textSize="28px" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/fenqi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="80px"
+            android:layout_height="80px"
+            android:layout_gravity="center"
+            android:src="@mipmap/fenq" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10px"
+            android:gravity="center"
+            android:text="分期记录"
+            android:textSize="28px" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="80px"
+            android:layout_height="80px"
+            android:layout_gravity="center"
+            android:src="@mipmap/dingd" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10px"
+            android:gravity="center"
+            android:text="我的订单"
+            android:textSize="28px" />
+    </LinearLayout>
+</LinearLayout>
+
+
+        <com.facebook.drawee.view.SimpleDraweeView
+
+            fresco:roundTopLeft="true"
+            fresco:roundTopRight="true"
+            fresco:roundBottomLeft="true"
+            fresco:roundBottomRight="true"
+
+            android:id="@+id/user_icon"
+            android:layout_width="120px"
+            android:layout_height="120px"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="51px"
+            android:layout_weight="1"
+            fresco:roundAsCircle="true" />
+
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWirte"
-        android:orientation="horizontal"
-        android:padding="30px">
 
-        <LinearLayout
-            android:id="@+id/jiaofei"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <ImageView
-
-                android:layout_width="60px"
-                android:layout_height="60px"
-                android:layout_gravity="center"
-                android:src="@mipmap/img1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10px"
-                android:gravity="center"
-                android:text="缴费记录"
-                android:textSize="28px" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/fenqi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="60px"
-                android:layout_height="60px"
-                android:layout_gravity="center"
-                android:src="@mipmap/img2" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10px"
-                android:gravity="center"
-                android:text="分期记录"
-                android:textSize="28px" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="60px"
-                android:layout_height="60px"
-                android:layout_gravity="center"
-                android:src="@mipmap/img3" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10px"
-                android:gravity="center"
-                android:text="我的订单"
-                android:textSize="28px" />
-        </LinearLayout>
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10px"
+        android:layout_marginTop="25px"
         android:background="@color/colorWirte"
         android:orientation="vertical">
 
@@ -195,39 +208,6 @@
         android:background="@color/colorWirte"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-
-            android:layout_height="wrap_content"
-            android:layout_margin="8px"
-
-            >
-
-            <ImageView
-                android:layout_width="30px"
-                android:layout_height="30px"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10px"
-                android:src="@mipmap/img5" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="46px"
-                android:text="我的地址"
-                android:textSize="28px"
-
-                />
-
-            <ImageView
-                android:layout_width="30px"
-                android:layout_height="60px"
-                android:layout_alignParentRight="true"
-
-                />
-        </RelativeLayout>
-
         <View
             android:layout_width="match_parent"
             android:layout_height="2px"
@@ -237,9 +217,11 @@
             android:background="#4f666666" />
     </LinearLayout>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:background="@color/colorWirte"
         android:orientation="vertical">
 
@@ -247,39 +229,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8px"
-
-            >
-
-            <ImageView
-                android:layout_width="30px"
-                android:layout_height="60px"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10px"
-                android:src="@mipmap/img6" />
-
-            <ImageView
-                android:layout_width="30px"
-                android:layout_height="60px"
-                android:layout_alignParentRight="true"
-
-                />
-        </RelativeLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10px"
-        android:background="@color/colorWirte"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-
-            android:layout_height="wrap_content"
-            android:layout_margin="8px"
-
             >
 
             <ImageView
@@ -405,20 +354,18 @@
         </RelativeLayout>
 
     </LinearLayout>
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/freishLogin"
-       android:layout_centerVertical="true"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="50px"
-        android:layout_marginBottom="40px"
-        android:layout_marginTop="10px"
-        android:background="@color/colorWirte"
-        android:gravity="center"
-        android:padding="15px"
-        android:text="安全退出" />
-</RelativeLayout>
+  
+        <TextView
+            android:id="@+id/freishLogin"
+            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="70px"
+            android:layout_marginBottom="40px"
+            android:layout_marginTop="10px"
+            android:background="@color/colorWirte"
+            android:gravity="center"
+            android:padding="15px"
+            android:text="安全退出" />
+
 </LinearLayout>

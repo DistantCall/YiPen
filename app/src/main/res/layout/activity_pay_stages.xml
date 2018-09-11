@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#F4F4F4"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<com.example.administrator.yipen.ui.MyscrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <com.youth.banner.Banner
+        android:id="@+id/pay_baner"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
+    <LinearLayout
+     android:layout_marginTop="280px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/pay_reta_shape"
+        android:orientation="vertical">
+
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25px"
+            android:gravity="center"
+            android:text="@string/pay_str"
+            android:textSize="28px" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5px"
+            android:layout_marginBottom="15px"
+            android:gravity="center"
+            android:text="200000"
+            android:textSize="38px" />
+
+        <View
+            android:layout_margin="30px"
+            android:layout_width="220px"
+            android:layout_height="2px"
+            android:layout_gravity="center"
+            android:layout_marginTop="15px"
+            android:background="#F4F4F4" />
+
+        <TextView
+            android:layout_margin="15px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           android:layout_marginTop="15px"
+            android:gravity="center"
+            android:text="@string/paytest_str"
+            android:textSize="28px" />
+
+        <LinearLayout
+            android:layout_marginTop="30px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="200px"
+                android:layout_height="60px"
+                android:layout_margin="15px"
+                android:background="@drawable/shape_selecter"
+                android:gravity="center"
+                android:text="3" />
+
+            <TextView
+                android:layout_width="200px"
+                android:layout_height="60px"
+                android:layout_margin="15px"
+                android:background="@drawable/shape_selecter"
+                android:gravity="center"
+                android:text="6" />
+
+            <TextView
+                android:layout_width="200px"
+                android:layout_height="60px"
+                android:layout_margin="15px"
+                android:background="@drawable/shape_selecter"
+                android:gravity="center"
+                android:text="9" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/pay_num"
+                android:textColor="#999"
+                android:textSize="28px" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/pay_money"
+                android:textColor="#999"
+                android:textSize="28px" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/pay_countPrice"
+                android:textColor="#999"
+                android:textSize="28px" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/pay_money_rate"
+                android:textColor="#999"
+                android:textSize="28px" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/pay_rate_recy"
+            android:layout_width="match_parent"
+            android:layout_height="300px"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="96px"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:layout_marginTop="20px"
+            android:background="@drawable/payactivity_edit_shape"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="20px">
+
+            <ImageView
+                android:layout_width="56px"
+                android:layout_height="64px"
+                android:src="@drawable/pay_edit" />
+
+            <EditText
+                style="?android:attr/textViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="64px"
+                android:background="@null"
+                android:hint="请输入本人常用手机号"
+                android:textSize="36px" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30px"
+            android:background="@drawable/payactivity_btn"
+            android:text="我要分期付款"
+            android:textColor="@color/colorWirte"
+            android:textSize="36px" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="30px">
+
+            <View
+                android:layout_width="200px"
+                android:layout_height="2px"
+                android:layout_alignParentRight="true"
+                android:background="#999" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="授权金融服务"
+                android:textSize="28px" />
+
+            <View
+                android:layout_width="200px"
+                android:layout_height="2px"
+
+                android:background="#999" />
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>
+    </LinearLayout>
+</com.example.administrator.yipen.ui.MyscrollView>
+</LinearLayout>

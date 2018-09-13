@@ -2,29 +2,24 @@ package com.example.administrator.yipen.mvp.view.frag;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.FileProvider;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.administrator.yipen.app.App;
 import com.example.administrator.yipen.bean.LoginBean;
 import com.example.administrator.yipen.constance.ConstanceClass;
+import com.example.administrator.yipen.constance.SharePUtils;
 import com.example.administrator.yipen.mvp.presenter.Presenter;
 import com.example.administrator.yipen.mvp.view.BaseActivity;
 import com.example.administrator.yipen.mvp.view.DidivActivity;
@@ -34,9 +29,7 @@ import com.example.administrator.yipen.mvp.view.PayActivity;
 import com.example.administrator.yipen.mvp.view.RegActivity;
 
 import com.example.administrator.yipen.mvp.view.SetActivity;
-import com.example.administrator.yipen.utils.OnPopListener;
-import com.example.administrator.yipen.utils.PhotoUtils;
-import com.example.administrator.yipen.utils.RewritePopwindow;
+import com.example.administrator.yipen.mvp.view.StartActivity;
 import com.example.myapplication.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -44,10 +37,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.File;
 import java.util.List;
 
-import static android.app.Activity.RESULT_OK;
 import static com.example.administrator.yipen.server.LoginServerce.reflag;
 
 public class MineFragment extends Fragment implements Iview {
@@ -68,6 +59,7 @@ public class MineFragment extends Fragment implements Iview {
     private String icon;
     private LinearLayout jiaofie;
     private LinearLayout fenqi;
+    private TextView finish;
 
 
     @Nullable
@@ -137,6 +129,12 @@ public class MineFragment extends Fragment implements Iview {
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }
+
     private void initView() {
 
         jiaofie = view.findViewById(R.id.jiaofei);
@@ -145,6 +143,7 @@ public class MineFragment extends Fragment implements Iview {
         userPhone = view.findViewById(R.id.user_phone);
         userName = view.findViewById(R.id.user_Namne);
         msg = view.findViewById(R.id.user_msg);
+        finish = (TextView) view.findViewById(R.id.freishLogin);
 
     }
 
@@ -152,16 +151,35 @@ public class MineFragment extends Fragment implements Iview {
     @SuppressLint("ResourceType")
     private void initData() {
         presenter = App.getPresenter(this);
+        finish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BaseActivity.username = null;
+                BaseActivity.user = null;
+                BaseActivity.bis_id = null;
+                BaseActivity.codeUrl = null;
+                BaseActivity.meM_id = null;
+                BaseActivity.phone = null;
+                BaseActivity.token = null;
+                SharePUtils user = new SharePUtils(getActivity(), "user");
+                user.add("login", "err");
+                getActivity().finish();
+                getActivity().startActivity(new Intent(getActivity(), RegActivity.class).putExtra("requestCode",22));
 
+            }
+        });
     }
 
     @Override
     public void Scuess(Object o, int requestCode) {
+
         App application = (App) App.getApplication();
         if (requestCode == 3) {
             String msg = (String) o;
+
             application.toastLong(msg);
         }
+
     }
 
     @Override
@@ -215,7 +233,7 @@ public class MineFragment extends Fragment implements Iview {
         jiaofie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              startActivity(new Intent(getActivity(), DidivActivity.class));
+                startActivity(new Intent(getActivity(), DidivActivity.class));
 
             }
         });
@@ -259,7 +277,7 @@ public class MineFragment extends Fragment implements Iview {
         jiaofie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),RegActivity.class));
+                startActivity(new Intent(getActivity(), RegActivity.class));
 
             }
         });

@@ -10,5 +10,5 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100px"
         android:text="登录"
-        android:textSize="25px" />
+        android:textSize="28px" />
 </RelativeLayout>

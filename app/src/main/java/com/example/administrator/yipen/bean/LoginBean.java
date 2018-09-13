@@ -43,6 +43,7 @@ public class LoginBean {
 
     public static class ResultBean {
 
+
         private String bis_id;
 
         private String mem_id;

@@ -20,6 +20,7 @@ public abstract class BaseActivity extends AutoLayoutActivity implements Iview {
     public static String phone="18810415234";
     public static String bis_id=1+"";
     public static String meM_id;
+    public static String user_Icon;
     public static String codeUrl="604709";
     public static String username="用户";
     //布局文件ID

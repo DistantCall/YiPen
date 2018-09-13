@@ -9,21 +9,21 @@
         android:id="@+id/historytime"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="22px" />
+        android:textSize="28px" />
 
     <TextView
         android:id="@+id/historydomicile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20px"
-        android:textSize="22px" />
+        android:textSize="28px" />
 
     <TextView
         android:layout_marginTop="10px"
         android:id="@+id/historyuserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="22px" />
+        android:textSize="28px" />
 
     <TextView
         android:layout_marginTop="10px"
@@ -36,5 +36,5 @@
         android:id="@+id/historysum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="22px" />
+        android:textSize="28px" />
 </LinearLayout>

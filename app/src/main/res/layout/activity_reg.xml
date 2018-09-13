@@ -91,6 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5px"
+                android:textSize="28px"
                 android:layout_marginLeft="20px"
                 android:gravity="center_vertical"
                 android:text="验证码" />
@@ -109,6 +110,7 @@
             android:id="@+id/regmax"
             android:layout_width="200px"
             android:layout_height="80px"
+            android:textSize="28px"
             android:layout_marginLeft="10px"
             android:background="#F08"
             android:text="获取验证码"
@@ -121,6 +123,7 @@
         android:layout_height="90px"
         android:layout_margin="10px"
         android:background="#F08"
+        android:textSize="28px"
         android:text="登录"
         android:textColor="#fff" />
 

@@ -1,14 +1,17 @@
 package com.example.administrator.yipen.mvp.view;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v4.content.FileProvider;
 
+import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -17,44 +20,52 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.administrator.yipen.app.App;
 import com.example.administrator.yipen.bean.FileBean;
 import com.example.administrator.yipen.mvp.presenter.Presenter;
 import com.example.administrator.yipen.utils.OnPopListener;
-import com.example.administrator.yipen.utils.PhotoUtils;
-import com.example.administrator.yipen.utils.RewritePopwindow;
 
 import com.example.administrator.yipen.utils.UserInfo;
 import com.example.myapplication.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
-import java.util.List;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Set;
+
+import static com.example.administrator.yipen.constance.ConstanceClass.LOCTIONPATH;
+import static com.example.administrator.yipen.constance.ConstanceClass.USERICON;
 
 public class SetActivity extends BaseActivity implements View.OnClickListener {
-    private RewritePopwindow finishProjectPopupWindows;
 
     Presenter presenter;
-    private static final int CODE_GALLERY_REQUEST = 0xa0;
-    private static final int CODE_CAMERA_REQUEST = 0xa1;
-    private static final int CODE_RESULT_REQUEST = 0xa2;
-    private File fileUri = new File(Environment.getExternalStorageDirectory().getPath() + "/photo.jpg");
-    private File fileCropUri = new File(Environment.getExternalStorageDirectory().getPath() + "/crop_photo.jpg");
-    private Uri imageUri;
-    private Uri cropImageUri;
+    private static final int CAMERA_REQUEST_CODE = 0xa0;
+    private static final int ALBUM_REQUEST_CODE = 0xa1;
+    private static final int CROP_REQUEST_CODE = 0xa2;
+
     private View view;
     private SimpleDraweeView userIcon;
     private TextView nickName;
     private TextView userNmae;
     private TextView up_phone;
     private Intent intent;
+    private RelativeLayout up_nickame;
+    private RelativeLayout up_trueName;
+    private RelativeLayout up_icon;
+    private UserInfo userInfo;
+   private File tempFile;
+    private ImageView back;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         initUserInfo();
     }
+
+
 
     private void initUserInfo() {
         presenter = App.getPresenter(this);
@@ -65,9 +76,7 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
 
-        presenter.userInfoPre(BaseActivity.phone, BaseActivity.token);
-
-    }
+        }
 
     @Override
     protected int getContentViewId() {
@@ -81,24 +90,29 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
         nickName = (TextView) findViewById(R.id.nickName);
         userNmae = (TextView) findViewById(R.id.up_userNmae);
         up_phone = (TextView) findViewById(R.id.up_phone);
+        up_nickame = (RelativeLayout) findViewById(R.id.update_nickName);
+        up_trueName = (RelativeLayout) findViewById(R.id.up_trueName);
+        up_icon = (RelativeLayout) findViewById(R.id.set_nickName);
+        back = (ImageView) findViewById(R.id.set_back);
     }
 
     @Override
     protected void initData() {
         intent = new Intent(this, UpUserInfoActivity.class);
-        userIcon.setOnClickListener(this);
-        nickName.setOnClickListener(this);
-        userNmae.setOnClickListener(this);
+        up_icon.setOnClickListener(this);
+        up_nickame.setOnClickListener(this);
+        up_trueName.setOnClickListener(this);
+        back.setOnClickListener(this);
     }
 
 
     @Override
     public void Scuess(Object o, int requestCode) {
         if (requestCode == 10000) {
-            UserInfo userInfo = (UserInfo) o;
+            userInfo = (UserInfo) o;
             if (userInfo.getStatus() == 1) {
-                Log.e("token",userInfo.toString());
-                userIcon.setImageURI(userInfo.getRes().get(0).getCode_url());
+                Log.e("data", userInfo.toString());
+                userIcon.setImageURI(LOCTIONPATH + USERICON + userInfo.getRes().get(0).getCode_url());
 
                 if (userInfo.getRes().get(0).getNickname() == null) {
                     nickName.setText("用户");
@@ -112,121 +126,30 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
                     userNmae.setText(userInfo.getRes().get(0).getTruename());
                 }
             }
+
         } else if (requestCode == 10001) {
             FileBean fileBean = (FileBean) o;
             Log.e("fileBean", fileBean.toString());
             Toast.makeText(SetActivity.this, fileBean.toString(), Toast.LENGTH_LONG).show();
         }
     }
+
+    @Override
+    public void finish() {
+        user_Icon = LOCTIONPATH + USERICON +codeUrl;
+        super.finish();
+
+    }
+
     @Override
     public void Error(Throwable e) {
     }
-    /**
-     * 拍照
-     *
-     * @param view
-     */
-    public void takePhoto(View view) {
-        if (hasSdcard()) {
-            imageUri = Uri.fromFile(fileUri);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                //通过FileProvider创建一个content类型的Uri
-                imageUri = FileProvider.getUriForFile(this, "com.MainActivity.provider", fileUri);
-            PhotoUtils.takePicture(this, imageUri, CODE_CAMERA_REQUEST);
-        } else {
-            Toast.makeText(this, "设备没有SD卡！", Toast.LENGTH_SHORT).show();
-            Log.e("asd", "设备没有SD卡");
-        }
-    }
-    /**
-     * 调用系统相册
-     *
-     * @param view
-     */
-    public void getPhoto(View view) {
-        PhotoUtils.openPic(this, CODE_GALLERY_REQUEST);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        int output_X = 480, output_Y = 480;
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case CODE_CAMERA_REQUEST://拍照完成回调
-                    cropImageUri = Uri.fromFile(fileCropUri);
-                    PhotoUtils.cropImageUri(this, imageUri, cropImageUri, 1, 1, output_X, output_Y, CODE_RESULT_REQUEST);
-                    break;
-                case CODE_GALLERY_REQUEST://访问相册完成回调
-                    if (hasSdcard()) {
-                        cropImageUri = Uri.fromFile(fileCropUri);
-                        Uri newUri = Uri.parse(PhotoUtils.getPath(this, data.getData()));
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                            newUri = FileProvider.getUriForFile(this, "com.MainActivity.provider", new File(newUri.getPath()));
-                        PhotoUtils.cropImageUri(this, newUri, cropImageUri, 1, 1, output_X, output_Y, CODE_RESULT_REQUEST);
-                    } else {
-                        Toast.makeText(this, "设备没有SD卡!", Toast.LENGTH_SHORT).show();
-                    }
-
-                    break;
-                case CODE_RESULT_REQUEST:
-                    Bitmap bitmap = PhotoUtils.getBitmapFromUri(cropImageUri, this);
-                    if (bitmap != null) {
-                        showImages(bitmap);
-                    }
-                    break;
-                case 20000:
-                    presenter.userInfoPre(BaseActivity.phone, BaseActivity.token);
-                    break;
-            }
-        }
-    }
-
-    /**
-     * 展示图片
-     *
-     * @param bitmap
-     */
-    private void showImages(Bitmap bitmap) {
-        userIcon.setImageBitmap(bitmap);
-    }
 
 
-    /**
-     * 检查设备是否存在SDCard的工具方法
-     */
-    public static boolean hasSdcard() {
-        String state = Environment.getExternalStorageState();
-        return state.equals(Environment.MEDIA_MOUNTED);
-    }
 
-    private void showPopwindow() {
-        finishProjectPopupWindows = new RewritePopwindow(this, new OnPopListener() {
-            @Override
-            public void comera() {
-//                takePhoto(userIcon);
 
-                File file = new File("/storage/emulated/0/Pictures/a.jpg");
-                Log.e("path", "" + file.exists());
-                presenter.fileMultPart(phone, file, token);
-            }
 
-            @Override
-            public void compture() {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_PICK);
-                startActivityForResult(intent, CODE_GALLERY_REQUEST);
-            }
 
-            @Override
-            public void back() {
-                finishProjectPopupWindows.dismiss();
-            }
-        });
-        finishProjectPopupWindows.showAtLocation(view,
-                Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-    }
 
     @Override
     public void LoginScuess(Object o) {
@@ -242,21 +165,160 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.up_user_icon:
-                showPopwindow();
+            case R.id.set_nickName:
+                alertDiaLogFouction();
                 break;
-            case R.id.nickName:
+            case R.id.update_nickName:
                 intent.putExtra("phone", phone);
                 intent.putExtra("token", token);
-                intent.putExtra("data","nickname");
-                startActivityForResult(intent,20000);
+                intent.putExtra("data", "nickname");
+                startActivityForResult(intent, 20000);
                 break;
-            case R.id.up_userNmae:
+            case R.id.up_trueName:
                 intent.putExtra("phone", phone);
                 intent.putExtra("token", token);
-                intent.putExtra("data","truename");
-                startActivityForResult(intent,20000);
+                intent.putExtra("data", "truename");
+                startActivityForResult(intent, 20000);
+                break;
+            case  R.id.set_back:
+                finish();
                 break;
         }
+    }
+
+    /**
+     * 从相机获取图片
+     */
+    private void getPicFromCamera() {
+        //用于保存调用相机拍照后所生成的文件
+        tempFile = new File(Environment.getExternalStorageDirectory().getPath(), System.currentTimeMillis() + ".jpg");
+        //跳转到调用系统相机
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //判断版本
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {   //如果在Android7.0以上,使用FileProvider获取Uri
+            intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            Uri contentUri = FileProvider.getUriForFile(this, "com.example.administrator.yipen.fileprovider", tempFile);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
+            Log.e("dasd", contentUri.toString());
+        } else {    //否则使用Uri.fromFile(file)方法获取Uri
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
+        }
+        startActivityForResult(intent, CAMERA_REQUEST_CODE);
+    }
+
+    /**
+     * 从相册获取图片
+     */
+    private void getPicFromAlbm() {
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, ALBUM_REQUEST_CODE);
+    }
+
+
+    /**
+     * 裁剪图片
+     */
+    private void cropPhoto(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+
+        intent.putExtra("outputX", 300);
+        intent.putExtra("outputY", 300);
+        intent.putExtra("return-data", true);
+
+        startActivityForResult(intent, CROP_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        switch (requestCode) {
+            case CAMERA_REQUEST_CODE:   //调用相机后返回
+                if (resultCode == RESULT_OK) {
+                    //用相机返回的照片去调用剪裁也需要对Uri进行处理
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        Uri contentUri = FileProvider.getUriForFile(this, "com.hansion.chosehead", tempFile);
+                        cropPhoto(contentUri);
+                    } else {
+                        cropPhoto(Uri.fromFile(tempFile));
+                    }
+                }
+                break;
+            case ALBUM_REQUEST_CODE:    //调用相册后返回
+                if (resultCode == RESULT_OK) {
+                    Uri uri = intent.getData();
+                    cropPhoto(uri);
+                }
+                break;
+            case CROP_REQUEST_CODE:     //调用剪裁后返回
+                Bundle bundle = intent.getExtras();
+                if (bundle != null) {
+                    //在这里获得了剪裁后的Bitmap对象，可以用于上传
+                    Bitmap image = bundle.getParcelable("data");
+                    //设置到ImageView上
+
+                    //也可以进行一些保存、压缩等操作后上传
+                    String  path = saveImage("crop",image);
+
+
+
+                    File file = new File(path);
+                    Log.e("isnull",file.exists()+"");
+                    Log.e("isnull",phone);
+                    Log.e("isnull",token);
+                    presenter.fileMultPart(phone,file,token);
+                }
+                break;
+        }
+    }
+public void alertDiaLogFouction(){
+    AlertDialog.Builder builder=new AlertDialog.Builder(this)
+            .setIcon(R.mipmap.ic_launcher)
+            .setTitle("选择图片：")
+            //设置两个item
+            .setItems(new String[]{"相机","图库"}, new android.content.DialogInterface.OnClickListener(){
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case 0:
+                            getPicFromCamera();
+
+                            break;
+                        case 1:
+                            getPicFromAlbm();
+                            break;
+                        default:
+
+                            break;
+                    }
+
+                }});
+    builder.create().show();
+}
+
+
+    public String saveImage(String name, Bitmap bmp) {
+        File appDir = new File(Environment.getExternalStorageDirectory().getPath());
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        String fileName = name + ".jpg";
+        File file = new File(appDir, fileName);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            fos.flush();
+            fos.close();
+            return file.getAbsolutePath();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

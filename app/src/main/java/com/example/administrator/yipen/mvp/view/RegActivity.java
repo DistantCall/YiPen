@@ -1,10 +1,14 @@
 package com.example.administrator.yipen.mvp.view;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -39,6 +43,8 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
 
     private TextView title;
     CountTimer countTimer = new CountTimer(3000, 1000);
+    private int requestCode = 0;
+
 
     @Override
     protected int getContentViewId() {
@@ -71,6 +77,33 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
         reg.setOnClickListener(this);
         reg_back.setOnClickListener(this);
         login.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (getIntent() != null) {
+            if (getIntent().getIntExtra("requestCode", 0) != 0) {
+                if (getIntent().getIntExtra("requestCode", 0) == 22) {
+                    requestCode = 22;
+                }
+            }
+        }
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (KeyEvent.KEYCODE_BACK == keyCode) {
+            if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+                if (requestCode == 22) {
+                    RegActivity.this.startActivity(new Intent(RegActivity.this, MainActivity.class));
+                }
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override
@@ -153,7 +186,11 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.reg_blak:
-                finishLogin("err");
+                if (requestCode == 22) {
+
+                } else {
+                    finishLogin("err");
+                }
                 break;
             case R.id.login_btn:
                 setButton(0);

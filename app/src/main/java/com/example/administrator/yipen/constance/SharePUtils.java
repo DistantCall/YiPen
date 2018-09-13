@@ -13,15 +13,17 @@ public class SharePUtils {
 
     public SharePUtils(Context context, String tabName) {
         sharedPreferences = context.getSharedPreferences(tabName, Context.MODE_PRIVATE);
-        edit = sharedPreferences.edit();
+
     }
 
     public  void add(String key,String value){
+        edit = sharedPreferences.edit();
         edit.putString(key,value);
         edit.commit();
 }
 
     public  void delete(String key){
+        edit = sharedPreferences.edit();
         edit.remove(key);
         edit.commit();
     }

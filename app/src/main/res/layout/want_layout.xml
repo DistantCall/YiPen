@@ -19,7 +19,7 @@
             android:text="@string/paystr"
             android:id="@+id/text_pay1"
             android:gravity="center"
-            android:textSize="24px"
+            android:textSize="28px"
     ></TextView>
     <TextView
             android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                 android:background="@drawable/btn_selecter"
                 android:layout_weight="1"
                 android:id="@+id/btn_pay1"
-                android:textSize="22px"
+                android:textSize="28px"
                 android:layout_marginRight="15px"
                 android:textColor="#0f0"
         />
@@ -51,7 +51,7 @@
                 android:background="@drawable/btn_selecter"
                 android:layout_height="wrap_content"
                 android:text="@string/server"
-                android:textSize="22px"
+                android:textSize="28px"
                 android:layout_marginLeft="10px"
                 android:layout_weight="1"
                 android:id="@+id/btn_pay2"

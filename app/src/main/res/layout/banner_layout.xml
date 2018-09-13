@@ -15,5 +15,5 @@
             app:pointsVisibility="false"
             app:tipTextColor="#FFFFFFFF"
             android:layout_marginBottom="10px"
-            app:tipTextSize="16.0px"/>
+            app:tipTextSize="28px"/>
 </LinearLayout>

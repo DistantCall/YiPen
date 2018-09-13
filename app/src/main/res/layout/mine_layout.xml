@@ -91,7 +91,7 @@
                 android:layout_marginTop="10px"
                 android:gravity="center"
                 android:text="缴费记录"
-                android:textSize="20px" />
+                android:textSize="28px" />
         </LinearLayout>
 
         <LinearLayout
@@ -114,7 +114,7 @@
                 android:layout_marginTop="10px"
                 android:gravity="center"
                 android:text="分期记录"
-                android:textSize="20px" />
+                android:textSize="28px" />
         </LinearLayout>
 
         <LinearLayout
@@ -136,7 +136,7 @@
                 android:layout_marginTop="10px"
                 android:gravity="center"
                 android:text="我的订单"
-                android:textSize="20px" />
+                android:textSize="28px" />
         </LinearLayout>
     </LinearLayout>
 
@@ -163,12 +163,12 @@
                 android:src="@mipmap/img4" />
 
             <TextView
-                android:layout_width="100px"
-                android:layout_height="30px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="46px"
                 android:text="我的优惠卷"
-                android:textSize="18px"
+                android:textSize="28px"
 
                 />
 
@@ -211,12 +211,12 @@
                 android:src="@mipmap/img5" />
 
             <TextView
-                android:layout_width="100px"
-                android:layout_height="30px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="46px"
                 android:text="我的地址"
-                android:textSize="18px"
+                android:textSize="28px"
 
                 />
 
@@ -292,12 +292,12 @@
                 android:src="@mipmap/img7" />
 
             <TextView
-                android:layout_width="100px"
-                android:layout_height="30px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="46px"
                 android:text="微信公众号"
-                android:textSize="18px"
+                android:textSize="28px"
 
                 />
 
@@ -340,12 +340,12 @@
                 android:src="@mipmap/img8" />
 
             <TextView
-                android:layout_width="100px"
-                android:layout_height="30px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="46px"
                 android:text="我的客服"
-                android:textSize="18px"
+                android:textSize="28px"
 
                 />
 
@@ -387,12 +387,12 @@
                 android:src="@mipmap/img9" />
 
             <TextView
-                android:layout_width="100px"
-                android:layout_height="30px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="46px"
                 android:text="关于我们"
-                android:textSize="18px"
+                android:textSize="28px"
 
                 />
 
@@ -405,14 +405,20 @@
         </RelativeLayout>
 
     </LinearLayout>
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <TextView
+        android:id="@+id/freishLogin"
+       android:layout_centerVertical="true"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="50px"
-        android:layout_gravity="bottom"
+        android:layout_marginBottom="40px"
         android:layout_marginTop="10px"
         android:background="@color/colorWirte"
         android:gravity="center"
-        android:padding="5px"
+        android:padding="15px"
         android:text="安全退出" />
+</RelativeLayout>
 </LinearLayout>

@@ -8,7 +8,7 @@ public class StagesBean {
 
     @Override
     public String toString() {
-        Spinner
+
         return "StagesBean{" +
                 "status=" + status +
                 ", message='" + message + '\'' +

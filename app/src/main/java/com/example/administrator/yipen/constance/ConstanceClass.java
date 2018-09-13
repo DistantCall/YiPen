@@ -12,4 +12,5 @@ public class ConstanceClass {
     public static final String BANNERPATH = "user/member/getBannerInfo ";
     public static final String USERINFO = "user/member/selectMember";
     public static final String ORDERFORM = "user/finance/selectFinanceInfo";
+    public static final String USERICON="img/";
 }

@@ -42,7 +42,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20px"
             android:text="@string/paystr"
-            android:textSize="24px" />
+            android:textSize="28px" />
 
         <TextView
             android:id="@+id/countPrice"

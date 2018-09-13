@@ -123,34 +123,6 @@ public class UpUserInfoActivity extends BaseActivity implements View.OnClickList
             case R.id.edit_up:
                 Map<String,String> map = new HashMap<>();
                 map.put(data,data_content.getText().toString().trim());
-//                HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-//                    @Override
-//                    public void log(String message) {
-//                        Log.e("msg",message);
-//                    }
-//                });
-//                OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build();
-//
-//                FormBody body = new FormBody.Builder()
-//                        .add("telephone", phone)
-//                        .add("token", token)
-//                        .add(data, data_content.getText().toString().trim())
-//                        .build();
-//
-//                Request request= new Request.Builder().url(LOCTIONPATH+UPDATEUSERINFO).post(body).build();
-//
-//                okHttpClient.newCall(request).enqueue(new Callback() {
-//                    @Override
-//                    public void onFailure(Call call, IOException e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onResponse(Call call, Response response) throws IOException {
-//                        String string = response.body().string();
-//                        Log.e("str",string);
-//                    }
-//                });
                 presenter.updateUserInfo(phone,token,map);
                 break;
         }

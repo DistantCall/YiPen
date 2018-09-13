@@ -13,7 +13,6 @@ public class SharePUtils {
 
     public SharePUtils(Context context, String tabName) {
         sharedPreferences = context.getSharedPreferences(tabName, Context.MODE_PRIVATE);
-
     }
 
     public  void add(String key,String value){
@@ -29,6 +28,6 @@ public class SharePUtils {
     }
     public  String query(String str)
     {
-       return sharedPreferences.getString(str,"err");
+       return sharedPreferences.getString(str,"1");
     }
 }

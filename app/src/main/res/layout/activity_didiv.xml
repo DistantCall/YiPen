@@ -9,8 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:background="#000">
+>
 
         <ImageView
             android:id="@+id/history_back"
@@ -20,20 +19,29 @@
             android:src="@mipmap/ic_back" />
 
         <TextView
-
             android:layout_margin="@dimen/dp_5"
-            android:textColor="#FFF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="缴费记录"
-            android:textSize="36px" />
+            android:textSize="@dimen/sp_14" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
+        android:layout_margin="@dimen/dp_10"
+        android:background="@drawable/history_bg"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_5">
+        android:layout_height="wrap_content">
+<RelativeLayout
+    android:paddingBottom="@dimen/dp_10"
+    android:paddingTop="@dimen/dp_10"
+    android:layout_marginLeft="@dimen/dp_10"
+    android:layout_marginRight="@dimen/dp_10"
+    android:background="@color/colorWirte"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
 
         <TextView
             android:id="@+id/didiv_history"
@@ -44,28 +52,30 @@
             android:text="@string/paystr"
             android:textSize="28px" />
 
-        <TextView
-            android:id="@+id/countPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/didiv_history"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp_12"
-            android:text="0.00元"
-            android:textSize="@dimen/dp_10" />
+    <TextView
+        android:id="@+id/countPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/didiv_history"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_17"
+        android:text="0.00元"
+        android:textSize="@dimen/sp_14" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_35"
+            android:gravity="center"
             android:layout_below="@id/countPrice"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp_20"
             android:background="@drawable/btn_selecter"
-            android:padding="10px"
+            android:padding="@dimen/dp_5"
             android:text="@string/gomoney"
             android:textColor="#0F8"
-            android:textSize="36px" />
-    </RelativeLayout>
+            android:textSize="@dimen/sp_22" />
+</RelativeLayout>
+    </LinearLayout>>
 
     <TabHost
         android:id="@+id/tthost"
@@ -84,7 +94,7 @@
                 android:padding="@dimen/dp_15"></TabWidget>
 
             <FrameLayout
-                android:id="@android:id/tabcontent"
+                android:id="@+id/tabcontent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></FrameLayout>
 

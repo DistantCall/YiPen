@@ -7,7 +7,7 @@
     <string name="historica">历史欠费项目</string>
     <string name="reg">手机验证</string>
     <string name="pay_str">最高可借额度(元)</string>
-<string name="paytest_str">1千元借12个月,日费用最低2毛7</string>
+    <string name="paytest_str">1千元借12个月,日费用最低2毛7</string>
     <string name="pay_num">期数</string>
     <string name="pay_money">还款额</string>
     <string name="pay_countPrice">本金</string>

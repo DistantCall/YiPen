@@ -34,23 +34,23 @@ public class DidivActivity extends BaseActivity {
     @Override
     protected void initView() {
         back = (ImageView) findViewById(R.id.history_back);
+
+    }
+
+    @Override
+    protected void initData() {
         back.setColorFilter(Color.WHITE);
         //初始化TabHost组件
         tabhost = (TabHost) findViewById(R.id.tthost);
         tabhost.setup();
         //声明并实例化一个LayoutInflater对象
         LayoutInflater inflater = LayoutInflater.from(this);
-        inflater.inflate(R.layout.jinqi_layout, tabhost.getTabContentView());
         inflater.inflate(R.layout.lishi_layout, tabhost.getTabContentView());
+        inflater.inflate(R.layout.lishi_layout1, tabhost.getTabContentView());
         //添加第一个标签页
         tabhost.addTab(tabhost.newTabSpec("tab").setIndicator("近期记录").setContent(R.id.linearLayout01));
         //添加第二个标签页
         tabhost.addTab(tabhost.newTabSpec("tab1").setIndicator("历史记录").setContent(R.id.linearLayout02));
-
-    }
-
-    @Override
-    protected void initData() {
 
         //设置tabhost大小
         TabWidget tabWidget = tabhost.getTabWidget();
@@ -60,10 +60,10 @@ public class DidivActivity extends BaseActivity {
         }
 
         odernumber = tabhost.findViewById(R.id.histopry_odernumber);
-        time = tabhost.findViewById(R.id.histopry_time);
-        pat = tabhost.findViewById(R.id.histopry_pat);
-        address = tabhost.findViewById(R.id.history_addres);
+
         recyclerView = tabhost.findViewById(R.id.didiv_recycleView);
+        recyclerView = tabhost.findViewById(R.id.didiv_recycleView1);
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

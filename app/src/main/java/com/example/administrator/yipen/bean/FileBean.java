@@ -2,15 +2,6 @@ package com.example.administrator.yipen.bean;
 
 public class FileBean {
 
-    /**
-     * status : 1
-     * message : 图片上传成功
-     * result : 20180827\3445029d365ced723dfebd498a38cca3.jpg
-     */
-
-    private int status;
-    private String message;
-
     @Override
     public String toString() {
         return "FileBean{" +
@@ -20,6 +11,14 @@ public class FileBean {
                 '}';
     }
 
+    /**
+     * status : 1
+     * message : 图片上传成功
+     * result : https://yp.dxshuju.com/img/20180901/0f395ee27e066d9c01255af18231e1af.jpg
+     */
+
+    private int status;
+    private String message;
     private String result;
 
     public int getStatus() {

@@ -4,10 +4,11 @@ import java.util.List;
 
 public class SelectInfo {
 
+
     /**
      * status : 1
      * message : 用户信息查询成功
-     * result : [{"truename":null,"start_time":"2018-09-09","stop_time":"2018-09-16","area_name":"长丰元1区","floor":1,"unit":"2","room":"2309","area":"98","assessment":"1.00"},{"truename":null,"start_time":"2018-09-09","stop_time":"2018-09-16","area_name":"波普中心","floor":312,"unit":"321","room":"11","area":"123","assessment":null}]
+     * result : [{"truename":"用户名","start_time":"开始时间","stop_time":"结束时间","area_name":"哪个小区","floor":"几单元","unit":"几号楼","room":"房间号","area":"多少平米","assessment":"所需缴费金额"}]
      */
 
     private int status;
@@ -40,32 +41,32 @@ public class SelectInfo {
 
     public static class ResultBean {
         /**
-         * truename : null
-         * start_time : 2018-09-09
-         * stop_time : 2018-09-16
-         * area_name : 长丰元1区
-         * floor : 1
-         * unit : 2
-         * room : 2309
-         * area : 98
-         * assessment : 1.00
+         * truename : 用户名
+         * start_time : 开始时间
+         * stop_time : 结束时间
+         * area_name : 哪个小区
+         * floor : 几单元
+         * unit : 几号楼
+         * room : 房间号
+         * area : 多少平米
+         * assessment : 所需缴费金额
          */
 
-        private Object truename;
+        private String truename;
         private String start_time;
         private String stop_time;
         private String area_name;
-        private int floor;
+        private String floor;
         private String unit;
         private String room;
         private String area;
         private String assessment;
 
-        public Object getTruename() {
+        public String getTruename() {
             return truename;
         }
 
-        public void setTruename(Object truename) {
+        public void setTruename(String truename) {
             this.truename = truename;
         }
 
@@ -93,11 +94,11 @@ public class SelectInfo {
             this.area_name = area_name;
         }
 
-        public int getFloor() {
+        public String getFloor() {
             return floor;
         }
 
-        public void setFloor(int floor) {
+        public void setFloor(String floor) {
             this.floor = floor;
         }
 

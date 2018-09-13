@@ -12,5 +12,7 @@ public class ConstanceClass {
     public static final String BANNERPATH = "user/member/getBannerInfo";
     public static final String USERINFO = "user/member/selectMember";
     public static final String ORDERFORM = "user/finance/selectFinanceInfo";
+    public static final String PREMARY="user/apppay/wx";
+    public static final String WXMONEY="user/apppay/wxpay";
 
 }

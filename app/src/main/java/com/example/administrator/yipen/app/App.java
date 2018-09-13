@@ -7,14 +7,16 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.example.administrator.yipen.bean.WeiXin;
 import com.example.administrator.yipen.constance.SharePUtils;
 import com.example.administrator.yipen.mvp.presenter.Presenter;
 import com.example.administrator.yipen.mvp.view.Iview;
-import com.example.administrator.yipen.server.LoginServerce;
-import com.facebook.drawee.backends.pipeline.Fresco;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -23,16 +25,14 @@ import okhttp3.RequestBody;
 public class App extends Application {
     private static App app;
     private static Presenter presenter;
-
+    public static String WXAPPID;
 
     @Override
     public void onCreate() {
         super.onCreate();
         app = this;
         SharePUtils user = new SharePUtils(this, "user");
-//        user.add("phone", "18810415234");
-//        user.add("token", "4169408932ba7b3f70f2f7ba049db494");
-//        user.add("code_url", "604709");
+
         if (user.query("login") == null) {
             user.add("login", "err");
         }
@@ -86,6 +86,21 @@ public class App extends Application {
 
         return presenter;
     }
+
+public  void get(WeiXin bean){
+    IWXAPI wxapi = WXAPIFactory.createWXAPI(this, null);  //应用ID 即微信开放平台审核通过的应用APPID
+    wxapi.registerApp(bean.getResult().getAppid());    //应用ID
+    PayReq payReq = new PayReq();
+    payReq.appId =bean.getResult().getAppid();        //应用ID
+    payReq.partnerId = bean.getResult().getPartnerid();      //商户号 即微信支付分配的商户号
+    payReq.prepayId =bean.getResult().getPrepayid();        //预支付交易会话ID
+    payReq.packageValue =bean.getResult().getPackageX();    //扩展字段
+    payReq.nonceStr =bean.getResult().getNoncestr();        //随机字符串不长于32位。
+    payReq.timeStamp =bean.getResult().getTimestamp()+""; //时间戳
+    payReq.sign = bean.getResult().getSign();             //签名
+    wxapi.sendReq(payReq);
+}
+
 }
 
 

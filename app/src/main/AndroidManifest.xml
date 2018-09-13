@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.myapplication">
 
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEM" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -22,23 +24,6 @@
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data
-            android:name="design_width"
-            android:value="768" />
-        <meta-data
-            android:name="design_height"
-            android:value="1280" />
-
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.example.administrator.yipen.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
-
         <activity
             android:name="com.example.administrator.yipen.mvp.view.StartActivity"
             android:launchMode="singleTask">
@@ -72,10 +57,13 @@
             android:launchMode="singleTask" />
         <activity
             android:name="com.example.administrator.yipen.mvp.view.PayStagesActivity"
-            android:launchMode="singleTask"
-            >
+            android:launchMode="singleTask"></activity>
+        <!-- 微信支付 -->
 
-        </activity>
+        <activity
+            android:name="com.example.administrator.yipen.wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"/>
     </application>
 
 </manifest>

@@ -27,10 +27,10 @@ import com.example.administrator.yipen.mvp.view.BaseActivity;
 import com.example.administrator.yipen.mvp.view.Iview;
 import com.example.administrator.yipen.server.LoginServerce;
 import com.example.myapplication.R;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+//
+//import org.greenrobot.eventbus.EventBus;
+//import org.greenrobot.eventbus.Subscribe;
+//import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment implements Iview {
     private Presenter presenter;
 
     private HomeAdapter homeAdapter;
-    private LoginBean.ResultBean o;
+    //    private LoginBean.ResultBean o;
     private String result;
     private HistoryPayBean historyPayBean;
     private CountPriceBena countPriceBena;
@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment implements Iview {
         try {
             view = inflater.inflate(R.layout.home_layout, container, false);
             presenter = App.getPresenter(this);
-            EventBus.getDefault().register(this);
+//            EventBus.getDefault().register(this);
             initView(view);
             initData();
             setData();
@@ -81,25 +81,44 @@ public class HomeFragment extends Fragment implements Iview {
     public void onResume() {
         super.onResume();
         if (LoginServerce.reflag) {
-            presenter.bannerPre(BaseActivity.bis_id);
-            presenter.selectInfo(BaseActivity.phone, BaseActivity.bis_id, BaseActivity.token);
-            presenter.priceCount(BaseActivity.phone, BaseActivity.bis_id, BaseActivity.token);
-            presenter.HistoryPay(BaseActivity.phone, BaseActivity.bis_id, BaseActivity.token);
+            if (imgs.size() == 0) {
+                new Thread() {
+                    @Override
+                    public void run() {
+                        super.run();
+                        presenter.bannerPre(BaseActivity.bis_id);
+                        presenter.selectInfo(BaseActivity.phone, BaseActivity.bis_id, BaseActivity.token);
+                        presenter.priceCount(BaseActivity.phone, BaseActivity.bis_id, BaseActivity.token);
+                        presenter.HistoryPay(BaseActivity.phone, BaseActivity.bis_id, BaseActivity.token);
+
+                    }
+                }.start();
+            }
+
         } else {
-            presenter.bannerPre("1");
+            new Thread() {
+                @Override
+                public void run() {
+                    super.run();
+                    presenter.bannerPre("1");
+                }
+            }.start();
+
+
         }
+
+
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void getData(List<LoginBean.ResultBean> resultBeanList) {
-        o = resultBeanList.get(0);
-    }
+//    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+//    public void getData(List<LoginBean.ResultBean> resultBeanList) {
+//        o = resultBeanList.get(0);
+//    }
 
     public void setData() {
-        mSwiperefresh.setColorSchemeResources(android.R.color.holo_blue_light,android.R.color.holo_red_light,android.R.color.holo_orange_light,android.R.color.holo_green_light);
+        mSwiperefresh.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_red_light, android.R.color.holo_orange_light, android.R.color.holo_green_light);
         mSwiperefresh.setProgressViewOffset(true, 0, 100);//设置加载圈是否有缩放效果，后两个参数是展示的位置y轴坐标
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         homeView.setLayoutManager(linearLayoutManager);
 
     }
@@ -112,20 +131,13 @@ public class HomeFragment extends Fragment implements Iview {
 
     public void initData() {
 
-         refreshData();
+        refreshData();
     }
 
     @Override
     public void Scuess(Object o, int requestCode) {
         if (requestCode == 9998) {
-            BannerDataBean bannerDataBean = (BannerDataBean) o;
-            if (bannerDataBean.getStatus() == 1) {
-                List<BannerDataBean.ResultBean> dataBeanResult = bannerDataBean.getResult();
-                for (int i = 0; i < dataBeanResult.size(); i++) {
-                    Log.e("i",dataBeanResult.get(i).getImage());
-                    imgs.add(dataBeanResult.get(i).getImage());
-                }
-            }
+            imgs = (List<String>) o;
 
 
         } else if (requestCode == 10004) {
@@ -134,35 +146,54 @@ public class HomeFragment extends Fragment implements Iview {
             if (((SelectInfo) o).getStatus() == 1) {
                 userBeans = selectInfo.getResult();
             } else {
-                Toast.makeText(getActivity(), selectInfo.getMessage(), Toast.LENGTH_LONG).show();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), selectInfo.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
             }
         } else if (requestCode == 10003) {
 
             countPriceBena = (CountPriceBena) o;
             if (countPriceBena.getStatus() == 1) {
                 result = countPriceBena.getResult();
-                Log.e("result", countPriceBena.toString());
+
             } else {
-                Toast.makeText(getActivity(), countPriceBena.getMessage(), Toast.LENGTH_LONG).show();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), countPriceBena.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         } else if (requestCode == 10005) {
             historyPayBean = (HistoryPayBean) o;
-            Log.e("history", historyPayBean.toString());
             if (historyPayBean.getStatus() == 1) {
                 resultBean = historyPayBean.getRes();
             } else {
-                Toast.makeText(getActivity(), historyPayBean.getMessage(), Toast.LENGTH_LONG).show();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), historyPayBean.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         }
-        if (LoginServerce.reflag) {
-            homeAdapter = new HomeAdapter(getActivity(), imgs, userBeans, result, resultBean, true);
-            homeView.setAdapter(homeAdapter);
-        } else {
-            homeAdapter = new HomeAdapter(getActivity(), imgs, false);
-            homeView.setAdapter(homeAdapter);
-        }
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (LoginServerce.reflag) {
 
-
+                    homeAdapter = new HomeAdapter(getActivity(), imgs, userBeans, result, resultBean, true);
+                    homeView.setAdapter(homeAdapter);
+                } else {
+                    homeAdapter = new HomeAdapter(getActivity(), imgs, false);
+                    homeView.setAdapter(homeAdapter);
+                }
+            }
+        });
     }
 
     @Override

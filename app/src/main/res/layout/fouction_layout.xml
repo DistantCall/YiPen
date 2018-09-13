@@ -3,8 +3,7 @@
               xmlns:fresco="http://schemas.android.com/apk/res-auto"
               android:orientation="horizontal"
               android:layout_width="match_parent"
-              android:layout_marginTop="10px"
-              android:padding="10px"
+              android:padding="@dimen/dp_10"
               android:layout_height="wrap_content">
         <LinearLayout
             android:layout_gravity="center"
@@ -15,15 +14,15 @@
             android:layout_height="wrap_content">
 
 
-        <com.facebook.drawee.view.SimpleDraweeView
-                android:layout_margin="5px"
-                android:layout_weight="1"
-                android:id="@+id/textImg1"
-                android:layout_width="120px"
-                android:layout_height="120px"
-                fresco:roundAsCircle="true" />
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_margin="@dimen/dp_5"
+                    android:layout_weight="1"
+                    android:id="@+id/textImg1"
+                    android:layout_width="@dimen/dp_100"
+                    android:layout_height="@dimen/dp_100"
+                    fresco:roundAsCircle="true" />
         <TextView
-            android:layout_marginTop="10px"
+            android:layout_marginTop="@dimen/dp_10"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,14 +38,14 @@
             android:layout_height="wrap_content">
 
         <com.facebook.drawee.view.SimpleDraweeView
-                android:layout_margin="5px"
+                android:layout_margin="@dimen/dp_5"
                 android:layout_weight="1"
                 android:id="@+id/textImg2"
-                android:layout_width="120px"
-                android:layout_height="120px"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_100"
                 fresco:roundAsCircle="true" />
         <TextView
-            android:layout_marginTop="10px"
+            android:layout_marginTop="@dimen/dp_10"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,14 +61,14 @@
             android:layout_height="wrap_content">
 
         <com.facebook.drawee.view.SimpleDraweeView
-                android:layout_margin="5px"
+                android:layout_margin="@dimen/dp_5"
                 android:layout_weight="1"
                 android:id="@+id/textImg3"
-                android:layout_width="120px"
-                android:layout_height="120px"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_100"
                 fresco:roundAsCircle="true" />
         <TextView
-            android:layout_marginTop="10px"
+            android:layout_marginTop="@dimen/dp_10"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -85,14 +84,14 @@
             android:layout_height="wrap_content">
 
         <com.facebook.drawee.view.SimpleDraweeView
-                android:layout_margin="5px"
+                android:layout_margin="@dimen/dp_5"
                 android:layout_weight="1"
                 android:id="@+id/textImg4"
-                android:layout_width="120px"
-                android:layout_height="120px"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_100"
                 fresco:roundAsCircle="true" />
         <TextView
-            android:layout_marginTop="10px"
+            android:layout_marginTop="@dimen/dp_10"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

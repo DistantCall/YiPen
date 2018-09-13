@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="7px">
+    android:padding="@dimen/dp_5">
 
     <TextView
         android:id="@+id/ratenum"
@@ -12,7 +12,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="暂无数据"
-        android:textSize="28px" />
+        android:textSize="@dimen/sp_14" />
 
     <TextView
         android:id="@+id/ratemoney"
@@ -21,7 +21,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="暂无数据"
-        android:textSize="28px" />
+        android:textSize="@dimen/sp_14" />
 
     <TextView
         android:id="@+id/count_reta_price"
@@ -30,7 +30,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="暂无数据"
-        android:textSize="28px" />
+        android:textSize="@dimen/sp_14" />
 
     <TextView
         android:id="@+id/money_reta"
@@ -39,5 +39,5 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="暂无数据"
-        android:textSize="28px" />
+        android:textSize="@dimen/sp_14" />
 </LinearLayout>

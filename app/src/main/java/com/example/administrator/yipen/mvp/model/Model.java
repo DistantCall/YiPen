@@ -10,10 +10,12 @@ import com.example.administrator.yipen.bean.FileBean;
 import com.example.administrator.yipen.bean.HistoryPayBean;
 import com.example.administrator.yipen.bean.LoginBean;
 import com.example.administrator.yipen.bean.OrderForm;
+import com.example.administrator.yipen.bean.PreMaryBean;
 import com.example.administrator.yipen.bean.RegBean;
 import com.example.administrator.yipen.bean.SelectInfo;
 import com.example.administrator.yipen.bean.StagesBean;
 import com.example.administrator.yipen.bean.UserUpdateInfo;
+import com.example.administrator.yipen.bean.WeiXin;
 import com.example.administrator.yipen.constance.ConstanceClass;
 import com.example.administrator.yipen.mvp.presenter.Ipre;
 import com.example.administrator.yipen.server.LoginServerce;
@@ -22,12 +24,15 @@ import com.example.administrator.yipen.utils.RetrofitUtils;
 import com.example.administrator.yipen.utils.UserInfo;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.http.PUT;
 import rx.Observer;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -94,6 +99,7 @@ public class Model {
 
                     @Override
                     public void onNext(LoginBean loginBean) {
+                        Log.e("err", loginBean.toString());
                         presenter.LoginScuess(loginBean);
                         if (loginBean.getStatus() == 1) {
                             LoginServerce.reflag = true;
@@ -245,7 +251,6 @@ public class Model {
         map.put("telephone", phone);
         map.put("member_id", member_id);
         map.put("token", token);
-        Log.e("data", phone + "-----" + member_id + "----" + token);
         retrofitAPI.selsectInfo(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<SelectInfo>() {
@@ -285,13 +290,65 @@ public class Model {
 
                     @Override
                     public void onNext(BannerDataBean bannerDataBean) {
-                        Log.e("banner", bannerDataBean.toString());
-                        presenter.Scuess(bannerDataBean, 9998);
+                        Log.e("ss", bannerDataBean.toString());
+                        List<String> imgs = new ArrayList<>();
+                        for (int i = 0; i < bannerDataBean.getResult().size(); i++) {
+                            imgs.add(bannerDataBean.getResult().get(i).getImage());
+                            Log.e("imgs" + i, imgs.get(i));
+                        }
+                        presenter.Scuess(imgs, 9998);
                     }
                 });
     }
 
-    public void OrderForm(String phone,  String token) {
+    public void wxMoneyModel(String order_no) {
+
+        retrofitAPI.wxMoney(order_no).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<WeiXin>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(WeiXin weiXin) {
+                        Log.e("data", weiXin.getResult().toString());
+                        presenter.Scuess(weiXin, 10008);
+                    }
+                });
+
+    }
+
+    public void preMary(String telephone, String token) {
+        retrofitAPI.preMary(telephone,token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<PreMaryBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(PreMaryBean preMaryBean) {
+                        Log.e("data", preMaryBean.toString() + "");
+                        presenter.Scuess(preMaryBean, 10007);
+                    }
+                });
+    }
+
+    public void OrderForm(String phone, String token) {
         retrofitAPI.OrderForm(phone, token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -308,7 +365,7 @@ public class Model {
 
                     @Override
                     public void onNext(StagesBean stagesBean) {
-                        Log.e("data",stagesBean.getRes().get(0).toString());
+                        Log.e("data", stagesBean.getRes().get(0).toString());
                         presenter.Scuess(stagesBean, 10006);
                     }
                 });

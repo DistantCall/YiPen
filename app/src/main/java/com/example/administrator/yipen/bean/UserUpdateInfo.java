@@ -4,16 +4,10 @@ import java.util.List;
 
 public class UserUpdateInfo {
 
-    public UserUpdateInfo(int status, String message, List<ResultBean> result) {
-        this.status = status;
-        this.message = message;
-        this.result = result;
-    }
-
     /**
      * status : 1
      * message : 数据修改成功
-     * result : [{"username":"用户名","nickname":"昵称","truename":"真实姓名","sex":"性别","type":"用户类型","email":"邮箱","age":"年龄","team_status":"是否加入组织","address":"地址","create_time":"创建时间","last_login_time":"最后登录时间","is_fenxiao":"是否为分销会员","code_url":"图片地址","token":"生成的token"}]
+     * result : [{"username":null,"nickname":null,"truename":null,"sex":"男","type":"普通会员","email":"","age":null,"team_status":"未加入组织","address":"00","create_time":"2018-09-01 19:35:51","last_login_time":"2018-09-01 19:35:51","is_fenxiao":"不是分销会员","code_url":"https://yp.dxshuju.com/static/img/5.jpg","token":"b19cf8204fef84fc7e093efa03fb2c22"}]
      */
 
     private int status;
@@ -45,67 +39,30 @@ public class UserUpdateInfo {
     }
 
     public static class ResultBean {
-        @Override
-        public String toString() {
-            return "ResultBean{" +
-                    "username='" + username + '\'' +
-                    ", nickname='" + nickname + '\'' +
-                    ", truename='" + truename + '\'' +
-                    ", sex='" + sex + '\'' +
-                    ", type='" + type + '\'' +
-                    ", email='" + email + '\'' +
-                    ", age='" + age + '\'' +
-                    ", team_status='" + team_status + '\'' +
-                    ", address='" + address + '\'' +
-                    ", create_time='" + create_time + '\'' +
-                    ", last_login_time='" + last_login_time + '\'' +
-                    ", is_fenxiao='" + is_fenxiao + '\'' +
-                    ", code_url='" + code_url + '\'' +
-                    ", token='" + token + '\'' +
-                    '}';
-        }
-
-        public ResultBean(String username, String nickname, String truename, String sex, String type, String email, String age, String team_status, String address, String create_time, String last_login_time, String is_fenxiao, String code_url, String token) {
-            this.username = username;
-            this.nickname = nickname;
-            this.truename = truename;
-            this.sex = sex;
-            this.type = type;
-            this.email = email;
-            this.age = age;
-            this.team_status = team_status;
-            this.address = address;
-            this.create_time = create_time;
-            this.last_login_time = last_login_time;
-            this.is_fenxiao = is_fenxiao;
-            this.code_url = code_url;
-            this.token = token;
-        }
-
         /**
-         * username : 用户名
-         * nickname : 昵称
-         * truename : 真实姓名
-         * sex : 性别
-         * type : 用户类型
-         * email : 邮箱
-         * age : 年龄
-         * team_status : 是否加入组织
-         * address : 地址
-         * create_time : 创建时间
-         * last_login_time : 最后登录时间
-         * is_fenxiao : 是否为分销会员
-         * code_url : 图片地址
-         * token : 生成的token
+         * username : null
+         * nickname : null
+         * truename : null
+         * sex : 男
+         * type : 普通会员
+         * email :
+         * age : null
+         * team_status : 未加入组织
+         * address : 00
+         * create_time : 2018-09-01 19:35:51
+         * last_login_time : 2018-09-01 19:35:51
+         * is_fenxiao : 不是分销会员
+         * code_url : https://yp.dxshuju.com/static/img/5.jpg
+         * token : b19cf8204fef84fc7e093efa03fb2c22
          */
 
-        private String username;
-        private String nickname;
-        private String truename;
+        private Object username;
+        private Object nickname;
+        private Object truename;
         private String sex;
         private String type;
         private String email;
-        private String age;
+        private Object age;
         private String team_status;
         private String address;
         private String create_time;
@@ -114,27 +71,27 @@ public class UserUpdateInfo {
         private String code_url;
         private String token;
 
-        public String getUsername() {
+        public Object getUsername() {
             return username;
         }
 
-        public void setUsername(String username) {
+        public void setUsername(Object username) {
             this.username = username;
         }
 
-        public String getNickname() {
+        public Object getNickname() {
             return nickname;
         }
 
-        public void setNickname(String nickname) {
+        public void setNickname(Object nickname) {
             this.nickname = nickname;
         }
 
-        public String getTruename() {
+        public Object getTruename() {
             return truename;
         }
 
-        public void setTruename(String truename) {
+        public void setTruename(Object truename) {
             this.truename = truename;
         }
 
@@ -162,11 +119,11 @@ public class UserUpdateInfo {
             this.email = email;
         }
 
-        public String getAge() {
+        public Object getAge() {
             return age;
         }
 
-        public void setAge(String age) {
+        public void setAge(Object age) {
             this.age = age;
         }
 

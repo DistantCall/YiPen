@@ -31,8 +31,8 @@ import com.example.administrator.yipen.utils.UserInfo;
 import com.example.myapplication.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+//import org.greenrobot.eventbus.Subscribe;
+//import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -79,22 +79,8 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-
-        String username1;
-        if (BaseActivity.username.equals("err")) {
-            username1 = "用户名";
-        } else {
-            username1 = username;
-        }
-        userNmae.setText(username1);
-        nickName.setText(BaseActivity.nickName);
-        up_phone.setText(BaseActivity.phone);
-
-
-            Log.e("img",BaseActivity.codeUrl);
-
-            userIcon.setImageURI(ConstanceClass.LOCTIONPATH + "/img/" + BaseActivity.codeUrl);
-
+        userIcon.setImageURI(ConstanceClass.LOCTIONPATH + "/img/" + BaseActivity.codeUrl);
+        presenter.userInfoPre(phone,token);
 
     }
 
@@ -145,10 +131,9 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
                 } else {
                     userNmae.setText(userInfo.getRes().get(0).getTruename());
                 }
-
+                userIcon.setImageURI(ConstanceClass.LOCTIONPATH + "/img/" +userInfo.getRes().get(0).getCode_url());
             }
             BaseActivity.user.add("user_icon", userInfo.getRes().get(0).getCode_url());
-            BaseActivity.user.add("bis_id", userInfo.getRes().get(0).getUsername());
         } else if (requestCode == 10001) {
             FileBean fileBean = (FileBean) o;
 

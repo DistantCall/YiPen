@@ -17,7 +17,7 @@ public class HistoryPayBean {
     /**
      * status : 1
      * message : 历史欠费信息以查询成功
-     * res : [{"truename":null,"start_time":"2018-09-09","stop_time":"2018-09-16","area_name":"长丰元1区","floor":1,"unit":"2","room":"2309","area":"98","assessment":"100.00"},{"truename":null,"start_time":"2018-09-09","stop_time":"2018-09-16","area_name":"波普中心","floor":312,"unit":"321","room":"11","area":"123","assessment":"30052.30"}]
+     * res : [{"truename":"用户名","start_time":"开始时间","stop_time":"结束时间","area_name":"哪个小区","floor":"几单元","unit":"几号楼","room":"房间号","area":"多少平米","assessment":"所欠金额"}]
      */
 
     private int status;
@@ -52,11 +52,11 @@ public class HistoryPayBean {
         @Override
         public String toString() {
             return "ResBean{" +
-                    "truename=" + truename +
+                    "truename='" + truename + '\'' +
                     ", start_time='" + start_time + '\'' +
                     ", stop_time='" + stop_time + '\'' +
                     ", area_name='" + area_name + '\'' +
-                    ", floor=" + floor +
+                    ", floor='" + floor + '\'' +
                     ", unit='" + unit + '\'' +
                     ", room='" + room + '\'' +
                     ", area='" + area + '\'' +
@@ -65,32 +65,32 @@ public class HistoryPayBean {
         }
 
         /**
-         * truename : null
-         * start_time : 2018-09-09
-         * stop_time : 2018-09-16
-         * area_name : 长丰元1区
-         * floor : 1
-         * unit : 2
-         * room : 2309
-         * area : 98
-         * assessment : 100.00
+         * truename : 用户名
+         * start_time : 开始时间
+         * stop_time : 结束时间
+         * area_name : 哪个小区
+         * floor : 几单元
+         * unit : 几号楼
+         * room : 房间号
+         * area : 多少平米
+         * assessment : 所欠金额
          */
 
-        private Object truename;
+        private String truename;
         private String start_time;
         private String stop_time;
         private String area_name;
-        private int floor;
+        private String floor;
         private String unit;
         private String room;
         private String area;
         private String assessment;
 
-        public Object getTruename() {
+        public String getTruename() {
             return truename;
         }
 
-        public void setTruename(Object truename) {
+        public void setTruename(String truename) {
             this.truename = truename;
         }
 
@@ -118,11 +118,11 @@ public class HistoryPayBean {
             this.area_name = area_name;
         }
 
-        public int getFloor() {
+        public String getFloor() {
             return floor;
         }
 
-        public void setFloor(int floor) {
+        public void setFloor(String floor) {
             this.floor = floor;
         }
 

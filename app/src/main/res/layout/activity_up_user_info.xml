@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="30px"
+    android:layout_marginTop="@dimen/dp_30"
     android:background="#f4f4f4"
     android:orientation="vertical">
 
@@ -16,20 +16,20 @@
 
         <ImageView
             android:id="@+id/up_icback"
-            android:layout_width="34px"
-            android:layout_height="34px"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
             android:layout_gravity="center_vertical"
-            android:layout_margin="10px"
+            android:layout_margin="@dimen/dp_10"
             android:src="@mipmap/ic_back" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10px"
+            android:layout_marginLeft="@dimen/dp_10"
             android:text="更改名字"
             android:textColor="#FFF"
-            android:textSize="30px" />
+            android:textSize="@dimen/sp_20" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -37,18 +37,18 @@
 
             <Button
                 android:id="@+id/edit_up"
-                android:layout_width="128px"
-                android:layout_height="48px"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_40"
                 android:layout_alignParentRight="true"
-                android:layout_margin="10px"
+                android:layout_margin="@dimen/dp_10"
                 android:background="@drawable/btn_shape"
                 android:text="保存"
-                android:textSize="28px" />
+                android:textSize="@dimen/sp_14" />
         </RelativeLayout>
     </LinearLayout>
 
     <EditText
-        android:layout_margin="30px"
+        android:layout_margin="@dimen/dp_10"
         android:id="@+id/Updata_Content"
         style="@null"
         android:background="@drawable/edit_bottom_border"

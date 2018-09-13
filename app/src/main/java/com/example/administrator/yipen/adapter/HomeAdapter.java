@@ -1,8 +1,10 @@
 package com.example.administrator.yipen.adapter;
 
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,8 +19,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import com.example.administrator.yipen.app.App;
 import com.example.administrator.yipen.bean.HistoryPayBean;
+import com.example.administrator.yipen.bean.PreMaryBean;
 import com.example.administrator.yipen.bean.SelectInfo;
+import com.example.administrator.yipen.bean.WeiXin;
+import com.example.administrator.yipen.mvp.presenter.Presenter;
+import com.example.administrator.yipen.mvp.view.BaseActivity;
+import com.example.administrator.yipen.mvp.view.Iview;
 import com.example.administrator.yipen.mvp.view.PayStagesActivity;
 import com.example.administrator.yipen.mvp.view.RegActivity;
 
@@ -37,7 +45,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeAdapter extends RecyclerView.Adapter implements OnBannerListener {
+public class HomeAdapter extends RecyclerView.Adapter implements OnBannerListener, Iview {
     private List<HistoryPayBean.ResBean> historyPayList;
     private List<String> imgs;
     private List<SelectInfo.ResultBean> resultBean;
@@ -45,6 +53,7 @@ public class HomeAdapter extends RecyclerView.Adapter implements OnBannerListene
 
     private String ResultPrice;
     private boolean reflag;
+    Presenter presenter;
 
     public HomeAdapter(Context context, List<String> imgs, List<SelectInfo.ResultBean> resultBean, String ResultPrice, List<HistoryPayBean.ResBean> historyPayList, boolean reflag) {
         this.context = context;
@@ -58,7 +67,6 @@ public class HomeAdapter extends RecyclerView.Adapter implements OnBannerListene
 
     public HomeAdapter(Context context, List<String> imgs, boolean reflag) {
         this.context = context;
-
         this.imgs = imgs;
         this.reflag = reflag;
     }
@@ -158,6 +166,10 @@ public class HomeAdapter extends RecyclerView.Adapter implements OnBannerListene
                         @Override
                         public void onClick(View v) {
 
+                            Log.e(BaseActivity.phone, BaseActivity.token);
+                            presenter.preMaryModel(BaseActivity.phone, BaseActivity.token);
+
+
                         }
                     });
                     ((PayHolder) holder).btn2.setOnClickListener(new View.OnClickListener() {
@@ -185,6 +197,8 @@ public class HomeAdapter extends RecyclerView.Adapter implements OnBannerListene
                     ((PayHolder) holder).btn1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            Log.e(BaseActivity.phone, BaseActivity.token);
+                            presenter.preMaryModel(BaseActivity.phone, BaseActivity.token);
 
                         }
                     });
@@ -200,18 +214,22 @@ public class HomeAdapter extends RecyclerView.Adapter implements OnBannerListene
                     setBanner(((BannerHolder) holder).banner);
                 } else if (holder instanceof HistoricaHolder) {
 
-                    for (int i = 0; i < resultBean.size(); i++) {
-                        ((HistoricaHolder) holder).time.setText("截止日期:" + resultBean.get(i).getArea_name() + ":" + resultBean.get(i).getStart_time() + "—" + resultBean.get(i).getStop_time());
-                        ((HistoricaHolder) holder).domicile.setText("地址: " + resultBean.get(i).getArea_name() + " " + resultBean.get(i).getFloor() + "单元 " + resultBean.get(i).getUnit() + "号楼 " + resultBean.get(i).getRoom() + "室");
-                        ((HistoricaHolder) holder).userName.setText("业主:" + resultBean.get(i).getTruename());
-                        ((HistoricaHolder) holder).area.setText("面积:" + resultBean.get(i).getArea() + "平方");
-                        ((HistoricaHolder) holder).sum.setText("待缴金额: " + resultBean.get(i).getAssessment() + "元");
-                    }
+//                    for (int i = 0; i < resultBean.size(); i++) {
+//                        ((HistoricaHolder) holder).time.setText("截止日期:" + resultBean.get(i).getArea_name() + ":" + resultBean.get(i).getStart_time() + "—" + resultBean.get(i).getStop_time());
+//                        ((HistoricaHolder) holder).domicile.setText("地址: " + resultBean.get(i).getArea_name() + " " + resultBean.get(i).getFloor() + "单元 " + resultBean.get(i).getUnit() + "号楼 " + resultBean.get(i).getRoom() + "室");
+//                        ((HistoricaHolder) holder).userName.setText("业主:" + resultBean.get(i).getTruename());
+//                        ((HistoricaHolder) holder).area.setText("面积:" + resultBean.get(i).getArea() + "平方");
+//                        ((HistoricaHolder) holder).sum.setText("待缴金额: " + resultBean.get(i).getAssessment() + "元");
+                    HistoryAdapter historyAdapter = new HistoryAdapter(context, historyPayList,1);
+                    ((HistoricaHolder) holder).recyclerView.addItemDecoration(new ChatDetailItemDecoration(30));
+                    ((HistoricaHolder) holder).recyclerView.setLayoutManager(new CustomLinearLayoutManager(context));
+                       ((HistoricaHolder) holder).recyclerView.setAdapter(historyAdapter);
+//                    }
 
 
                 } else if (holder instanceof ShouldHolder) {
 
-                    HistoryAdapter historyAdapter = new HistoryAdapter(context, historyPayList);
+                    HistoryAdapter historyAdapter = new HistoryAdapter(context,resultBean);
                     ((ShouldHolder) holder).shouldRecy.addItemDecoration(new ChatDetailItemDecoration(30));
                     ((ShouldHolder) holder).shouldRecy.setLayoutManager(new CustomLinearLayoutManager(context));
                     ((ShouldHolder) holder).shouldRecy.setAdapter(historyAdapter);
@@ -243,10 +261,6 @@ public class HomeAdapter extends RecyclerView.Adapter implements OnBannerListene
                 });
 
             } else if (holder instanceof BannerHolder) {
-
-                if (((BannerHolder) holder).banner != null) {
-                    ((BannerHolder) holder).banner.removeAllViews();
-                }
                 setBanner(((BannerHolder) holder).banner);
             } else if (holder instanceof ButtonHolder) {
                 if (((ButtonHolder) holder).NoLogin != null) {
@@ -265,12 +279,15 @@ public class HomeAdapter extends RecyclerView.Adapter implements OnBannerListene
     //根据条件返回条目的类型
     @Override
     public int getItemViewType(int position) {
-
+        Log.e("count",getItemCount()+"");
+        Log.e("count",position+"");
         return position;
     }
 
     @Override
     public int getItemCount() {
+
+        presenter = new Presenter(HomeAdapter.this);
         if (reflag) {
             if (resultBean.size() == 0) {
                 return 3;
@@ -280,7 +297,6 @@ public class HomeAdapter extends RecyclerView.Adapter implements OnBannerListene
         } else {
             return 4;
         }
-
     }
 
     //轮播图的监听方法
@@ -319,12 +335,70 @@ public class HomeAdapter extends RecyclerView.Adapter implements OnBannerListene
 
     }
 
+    @Override
+    public void Scuess(Object o, int requestCode) {
+        if (requestCode == 10007) {
+            PreMaryBean preMaryBean = (PreMaryBean) o;
+            if (preMaryBean.getStatus() == 1) {
+                Log.e("message", preMaryBean.getResult().getOrder_no());
+                presenter.wxMoneyPre(preMaryBean.getResult().getOrder_no());
+            }
+        } else if (requestCode == 10008) {
+            WeiXin weiXin = (WeiXin) o;
+            Log.e("tag", weiXin.getMessage());
+            if (weiXin.getStatus() == 1) {
+                Log.e("tag", weiXin.getMessage());
+                App application = (App) App.getApplication();
+                application.get(weiXin);
+            }
+        }
+    }
+
+    @Override
+    public void Error(Throwable e) {
+
+    }
+
+    @Override
+    public void LoginScuess(Object o) {
+
+    }
+
+    @Override
+    public void LoginErr(Throwable t) {
+
+    }
+
     //自定义的图片加载器
-    private class MyLoader extends ImageLoader {
+    public class MyLoader extends ImageLoader {
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
-            Log.e("tag", (String) path);
-            Glide.with(context).load((String) path).into(imageView);
+            /**
+             注意：
+             1.图片加载器由自己选择，这里不限制，只是提供几种使用方法
+             2.返回的图片路径为Object类型，由于不能确定你到底使用的那种图片加载器，
+             传输的到的是什么格式，那么这种就使用Object接收和返回，你只需要强转成你传输的类型就行，
+             切记不要胡乱强转！
+             */
+
+
+            //Glide 加载图片简单用法
+            Glide.with(context).load(path).into(imageView);
+
+            //Picasso 加载图片简单用法
+//            Picasso.with(context).load(path).into(imageView);
+
+            //用fresco加载图片简单用法，记得要写下面的createImageView方法
+            Uri uri = Uri.parse((String) path);
+            imageView.setImageURI(uri);
+        }
+
+        //提供createImageView 方法，如果不用可以不重写这个方法，主要是方便自定义ImageView的创建
+        @Override
+        public ImageView createImageView(Context context) {
+            //使用fresco，需要创建它提供的ImageView，当然你也可以用自己自定义的具有图片加载功能的ImageView
+            SimpleDraweeView simpleDraweeView=new SimpleDraweeView(context);
+            return simpleDraweeView;
         }
     }
 
@@ -392,20 +466,23 @@ public class HomeAdapter extends RecyclerView.Adapter implements OnBannerListene
     }
 
     class HistoricaHolder extends RecyclerView.ViewHolder {
+       RecyclerView recyclerView;
 
-        TextView time;
-        TextView domicile;
-        TextView userName;
-        TextView sum;
-        TextView area;
+//        TextView time;
+//        TextView domicile;
+//        TextView userName;
+//        TextView sum;
+//        TextView area;
 
         public HistoricaHolder(@NonNull View itemView) {
             super(itemView);
-            time = itemView.findViewById(R.id.time);
-            domicile = itemView.findViewById(R.id.domicile);
-            userName = itemView.findViewById(R.id.userName);
-            sum = itemView.findViewById(R.id.sum);
-            area = itemView.findViewById(R.id.area);
+            recyclerView = itemView.findViewById(R.id.recycleView);
+//            time = itemView.findViewById(R.id.time);
+//            domicile = itemView.findViewById(R.id.domicile);
+//            userName = itemView.findViewById(R.id.userName);
+//            sum = itemView.findViewById(R.id.sum);
+//            area = itemView.findViewById(R.id.area);
+
         }
     }
 

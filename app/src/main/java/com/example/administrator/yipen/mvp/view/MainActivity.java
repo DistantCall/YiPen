@@ -3,6 +3,7 @@ package com.example.administrator.yipen.mvp.view;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.view.KeyEvent;
 
 import com.example.administrator.yipen.mvp.view.frag.HomeFragment;
 import com.example.administrator.yipen.mvp.view.frag.MineFragment;
@@ -28,15 +29,27 @@ public class MainActivity extends BaseActivity {
     protected void initView() {
     }
 
+    //返回键返回事件
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (KeyEvent.KEYCODE_BACK == keyCode) {
+            if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+                System.exit(0);
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     @Override
     protected void initData() {
         int argen = Color.parseColor("#F59A24");
         BottomTabBar mBottomTabBar = (BottomTabBar) findViewById(R.id.bottom_tab_bar);
         mBottomTabBar.init(getSupportFragmentManager())
-                .setChangeColor( argen,Color.BLACK)
+                .setChangeColor(argen, Color.BLACK)
                 .addTabItem("首页", R.mipmap.mainchenge, R.mipmap.main, HomeFragment.class)
                 .addTabItem("商城", R.mipmap.shopchenge, R.mipmap.shop, ShopFragment.class)
-                .addTabItem("我的", R.mipmap.minechenge, R.mipmap.mine, MineFragment.class).setChangeColor(Color.BLUE, Color.BLACK);
+                .addTabItem("我的", R.mipmap.minechenge, R.mipmap.mine, MineFragment.class);
     }
 
 

@@ -12,10 +12,10 @@ import java.lang.ref.WeakReference;
 import java.util.Map;
 
 public class Presenter implements Ipre {
-    public Iview iview;
+    public static Iview iview;
     private final Model model;
 
-    public void DestoryView() {
+    public static void DestoryView() {
         if (iview != null) {
             WeakReference<Iview> iviewWeakReference = new WeakReference<>(iview);
         }
@@ -25,7 +25,9 @@ public class Presenter implements Ipre {
         this.iview = iview;
         model = new Model(this);
     }
-
+public void wxMoneyPre(String parms){
+        model.wxMoneyModel(parms);
+}
     public void RegPre(String phone) {
         model.RegModle(phone);
     }
@@ -37,7 +39,9 @@ public class Presenter implements Ipre {
     public void fileMultPart(String phone, File f, String token) {
         model.upDataIcon(phone, f, token);
     }
-
+        public void preMaryModel(String phone,String token){
+        model.preMary(phone,token);
+        }
     public void updateUserInfo(String phone, String token, Map<String, String> map) {
         model.updateUserInfo(phone, token, map);
     }

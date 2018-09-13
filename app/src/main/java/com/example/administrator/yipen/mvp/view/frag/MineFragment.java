@@ -2,6 +2,7 @@ package com.example.administrator.yipen.mvp.view.frag;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,11 +32,16 @@ import com.example.administrator.yipen.mvp.view.RegActivity;
 import com.example.administrator.yipen.mvp.view.SetActivity;
 import com.example.administrator.yipen.mvp.view.StartActivity;
 import com.example.myapplication.R;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.controller.AbstractDraweeController;
+import com.facebook.drawee.generic.GenericDraweeHierarchy;
+import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
+import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+//import org.greenrobot.eventbus.EventBus;
+//import org.greenrobot.eventbus.Subscribe;
+//import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -65,23 +71,17 @@ public class MineFragment extends Fragment implements Iview {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.mine_layout, container, false);
 
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
         initView();
         initData();
         return view;
     }
 
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void getData(List<LoginBean.ResultBean> resultBeanList) {
-        resultBean = resultBeanList.get(0);
-        Log.e("Mine_data", resultBean.toString());
-    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
     }
 
 
@@ -89,46 +89,44 @@ public class MineFragment extends Fragment implements Iview {
     public void onResume() {
         super.onResume();
         if (reflag) {
-            if (resultBean != null) {
-                phone = resultBean.getTelephone();
-                token = resultBean.getToken();
-                icon = resultBean.getCode_url();
-                username = (String) resultBean.getUsername();
-            } else {
-                phone = BaseActivity.user.query("phone");
-                token = BaseActivity.user.query("token");
-                icon = BaseActivity.user.query("user_icon");
-                username = BaseActivity.user.query("username");
-            }
-            if (username != null) {
-
-                String username1;
-                if(username.equals("err")){
-                    username1="用户名";
-                }else{
-                 username1=username;
-                }
-                Log.e("err", username1);
-                userName.setText(username1);
-            } else {
-                userName.setText("用户");
-            }
-            if (phone != null) {
-                userPhone.setText(phone);
-            } else {
-                userName.setText("手机号");
-            }
-            if (icon != null) {
-                userIcon.setImageURI(ConstanceClass.LOCTIONPATH + icon);
-            } else {
-                userIcon.setImageResource(R.drawable.user_icon);
-            }
+            phone = BaseActivity.phone;
+            token = BaseActivity.token;
+            icon = BaseActivity.codeUrl;
+            username = BaseActivity.username;
+            userName.setText(username);
+            userPhone.setText(phone);
+            userName.setText("手机号");
+            setIcon(icon);
             login();
         } else {
             notLogin();
         }
 
 
+    }
+
+    private void setIcon(String url) {
+        int alpha = Color.parseColor("#00FFFFFF");
+        AbstractDraweeController controller = Fresco.newDraweeControllerBuilder()
+                //图片地址
+                .setUri(url)
+                //播放gif 图片
+                //     .setAutoPlayAnimations(true)
+                //点击重新加载时 可以重新加载4 次
+                .setTapToRetryEnabled(true)
+                .build();
+        RoundingParams rp = new RoundingParams();
+//设置边框颜色 宽度
+        rp.setBorder(alpha, 2);
+//设置圆角
+        rp.setRoundAsCircle(true);
+        GenericDraweeHierarchy build = GenericDraweeHierarchyBuilder.newInstance(getActivity().getResources())
+                // .setRoundingParams(RoundingParams.asCircle()) //直接设置圆角
+                .setRoundingParams(rp)
+                .build();
+//图片
+        userIcon.setController(controller);
+        userIcon.setHierarchy(build);
     }
 
 
@@ -159,14 +157,9 @@ public class MineFragment extends Fragment implements Iview {
                 BaseActivity.phone = null;
                 BaseActivity.token = null;
                 SharePUtils user = new SharePUtils(getActivity(), "user");
-                user.add("login", null);
-                user.add("token", null);
-                user.add("phone", null);
-                user.add("user_icon", null);
-                user.add("bis_id", null);
-                user.add("mem_id", null);
+                user.delete("login");
                 getActivity().finish();
-                getActivity().startActivity(new Intent(getActivity(), RegActivity.class).putExtra("requestCode", "22"));
+                getActivity().startActivity(new Intent(getActivity(), RegActivity.class));
 
             }
         });

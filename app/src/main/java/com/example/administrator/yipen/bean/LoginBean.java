@@ -1,11 +1,10 @@
 package com.example.administrator.yipen.bean;
 
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 public class LoginBean {
+
     @Override
     public String toString() {
         return "LoginBean{" +
@@ -18,7 +17,7 @@ public class LoginBean {
     /**
      * status : 1
      * message : 登录成功
-     * result : [{"bis_id":"商家id","mem_id\u201d":"用户id","username":"用户名","code_url":"图片路径","telephone":"联系电话","create_time":"创建时间","token":"生成的token"}]
+     * result : [{"bis_id":"商家id","mem_id":"用户id","username":"用户名","code_url":"图片路径","telephone":"联系电话","create_time":"创建时间","token":"生成的token"}]
      */
 
     private int status;
@@ -54,7 +53,7 @@ public class LoginBean {
         public String toString() {
             return "ResultBean{" +
                     "bis_id='" + bis_id + '\'' +
-                    ", _$Mem_id224='" + mem_id + '\'' +
+                    ", mem_id='" + mem_id + '\'' +
                     ", username='" + username + '\'' +
                     ", code_url='" + code_url + '\'' +
                     ", telephone='" + telephone + '\'' +
@@ -65,7 +64,7 @@ public class LoginBean {
 
         /**
          * bis_id : 商家id
-         * mem_id” : 用户id
+         * mem_id : 用户id
          * username : 用户名
          * code_url : 图片路径
          * telephone : 联系电话
@@ -74,7 +73,6 @@ public class LoginBean {
          */
 
         private String bis_id;
-
         private String mem_id;
         private String username;
         private String code_url;
@@ -94,8 +92,8 @@ public class LoginBean {
             return mem_id;
         }
 
-        public void setMem_id(String _$Mem_id224) {
-            this.mem_id = _$Mem_id224;
+        public void setMem_id(String mem_id) {
+            this.mem_id = mem_id;
         }
 
         public String getUsername() {

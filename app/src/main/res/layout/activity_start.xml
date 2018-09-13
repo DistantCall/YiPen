@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        android:orientation="vertical"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/start_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/start_img"
->
+        android:scaleType="fitXY"
+        android:src="@drawable/start_img" />
 
-    <TextView android:layout_width="match_parent"
-              android:layout_marginTop="40px"
-              android:layout_height="wrap_content"
-              android:text="倒计时"
-              android:gravity="right"
-              android:layout_marginRight="40px"
-              android:textSize="28px"
-              android:id="@+id/msg"
-              android:textColor="@color/colorAccent"
-    />
-</LinearLayout>
+    <TextView
+        android:id="@+id/msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_20"
+        android:gravity="right"
+        android:text="倒计时"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/sp_14" />
+</RelativeLayout>

@@ -56,15 +56,15 @@ public class RetrofitUtils {
     }
 
     public Retrofit initRetrofit(String url) {
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new inter()).build();
-        OkHttpClient okHttpClient = OkHttpInstance(client);
+//        OkHttpClient client = new OkHttpClient.Builder()
+//                .addInterceptor(new inter()).build();
+//        OkHttpClient okHttpClient = OkHttpInstance(client);
         Retrofit retrofit = new Retrofit
                 .Builder()
                 .baseUrl(url)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(okHttpClient)
+//                .client(okHttpClient)
                 .build();
 
         return retrofit;

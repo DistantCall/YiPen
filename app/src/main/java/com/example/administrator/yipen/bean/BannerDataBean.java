@@ -16,7 +16,7 @@ public class BannerDataBean {
     /**
      * status : 1
      * message : banner获取成功
-     * result : [{"truename":null,"bis_id":1,"image":"https://yp.dxshuju.com/img/20180902\\9629b88822b10266da941d36a215cde9.jpg","rout_ios":null,"rout_android":null},{"truename":null,"bis_id":1,"image":"https://yp.dxshuju.com/img/20180902\\9629b88822b10266da941d36a215cde9.jpg","rout_ios":null,"rout_android":null},{"truename":null,"bis_id":1,"image":"https://yp.dxshuju.com/img/20180902\\9629b88822b10266da941d36a215cde9.jpg","rout_ios":null,"rout_android":null},{"truename":null,"bis_id":1,"image":"https://yp.dxshuju.com/img/20180902\\3d8644097eace43a8d1c36a151657baf.jpg","rout_ios":"www.ios.com","rout_android":"www.android.com"}]
+     * result : [{"truename":"用户名","bis_id":"商户id","image":"图片路径","rout_ios":"ios链接地址","rout_android":"Android链接地址"}]
      */
 
     private int status;
@@ -51,41 +51,41 @@ public class BannerDataBean {
         @Override
         public String toString() {
             return "ResultBean{" +
-                    "truename=" + truename +
-                    ", bis_id=" + bis_id +
+                    "truename='" + truename + '\'' +
+                    ", bis_id='" + bis_id + '\'' +
                     ", image='" + image + '\'' +
-                    ", rout_ios=" + rout_ios +
-                    ", rout_android=" + rout_android +
+                    ", rout_ios='" + rout_ios + '\'' +
+                    ", rout_android='" + rout_android + '\'' +
                     '}';
         }
 
         /**
-         * truename : null
-         * bis_id : 1
-         * image : https://yp.dxshuju.com/img/20180902\9629b88822b10266da941d36a215cde9.jpg
-         * rout_ios : null
-         * rout_android : null
+         * truename : 用户名
+         * bis_id : 商户id
+         * image : 图片路径
+         * rout_ios : ios链接地址
+         * rout_android : Android链接地址
          */
 
-        private Object truename;
-        private int bis_id;
+        private String truename;
+        private String bis_id;
         private String image;
-        private Object rout_ios;
-        private Object rout_android;
+        private String rout_ios;
+        private String rout_android;
 
-        public Object getTruename() {
+        public String getTruename() {
             return truename;
         }
 
-        public void setTruename(Object truename) {
+        public void setTruename(String truename) {
             this.truename = truename;
         }
 
-        public int getBis_id() {
+        public String getBis_id() {
             return bis_id;
         }
 
-        public void setBis_id(int bis_id) {
+        public void setBis_id(String bis_id) {
             this.bis_id = bis_id;
         }
 
@@ -97,19 +97,19 @@ public class BannerDataBean {
             this.image = image;
         }
 
-        public Object getRout_ios() {
+        public String getRout_ios() {
             return rout_ios;
         }
 
-        public void setRout_ios(Object rout_ios) {
+        public void setRout_ios(String rout_ios) {
             this.rout_ios = rout_ios;
         }
 
-        public Object getRout_android() {
+        public String getRout_android() {
             return rout_android;
         }
 
-        public void setRout_android(Object rout_android) {
+        public void setRout_android(String rout_android) {
             this.rout_android = rout_android;
         }
     }

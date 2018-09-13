@@ -1,13 +1,11 @@
 package com.example.administrator.yipen.mvp.view;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
-
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.yipen.adapter.HomeAdapter;
@@ -16,15 +14,14 @@ import com.example.administrator.yipen.app.App;
 import com.example.administrator.yipen.bean.BannerDataBean;
 import com.example.administrator.yipen.bean.StagesBean;
 import com.example.administrator.yipen.mvp.presenter.Presenter;
-
 import com.example.administrator.yipen.ui.RecycleViewDivider;
 import com.example.myapplication.R;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,13 +40,10 @@ public class PayStagesActivity extends BaseActivity implements OnBannerListener 
     }
 
 
-    private void setBanner(List<BannerDataBean.ResultBean> list) {
-        List<String> imgs = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            imgs.add(list.get(i).getImage());
-            Log.e("j", list.get(i).getImage());
-        }
+    private void setBanner(List<String> imgs) {
+
         List<String> list_title = new ArrayList<>();
+
 
         for (int i = 0; i < imgs.size(); i++) {
             list_title.add("");
@@ -81,7 +75,7 @@ public class PayStagesActivity extends BaseActivity implements OnBannerListener 
 
     @Override
     protected void initView() {
-        banner = (Banner) findViewById(R.id.pay_baner);
+        banner = (Banner) findViewById(R.id.pay_banner);
         recyclerView = (RecyclerView) findViewById(R.id.pay_rate_recy);
 
     }
@@ -104,11 +98,11 @@ public class PayStagesActivity extends BaseActivity implements OnBannerListener 
     @Override
     public void Scuess(Object o, int requestCode) {
         if (requestCode == 9998) {
-            BannerDataBean bannerDataBean = (BannerDataBean) o;
-
-            setBanner(bannerDataBean.getResult());
+            List<String> imgs = (List<String>) o;
+            setBanner(imgs);
         } else if (requestCode == 10006) {
             StagesBean stagesBean = (StagesBean) o;
+            Log.e("data", stagesBean.getRes().get(0).toString());
             payRetaAdapter = new PayRetaAdapter(this, stagesBean.getRes());
             recyclerView.setAdapter(payRetaAdapter);
         }
@@ -134,11 +128,35 @@ public class PayStagesActivity extends BaseActivity implements OnBannerListener 
 
     }
 
-    //自定义的图片加载器
-    private class MyLoader extends ImageLoader {
+    class MyLoader extends ImageLoader {
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
-            Glide.with(context).load((String) path).into(imageView);
+            /**
+             注意：
+             1.图片加载器由自己选择，这里不限制，只是提供几种使用方法
+             2.返回的图片路径为Object类型，由于不能确定你到底使用的那种图片加载器，
+             传输的到的是什么格式，那么这种就使用Object接收和返回，你只需要强转成你传输的类型就行，
+             切记不要胡乱强转！
+             */
+
+
+            //Glide 加载图片简单用法
+            Glide.with(context).load(path).into(imageView);
+
+            //Picasso 加载图片简单用法
+//            Picasso.with(context).load(path).into(imageView);
+
+            //用fresco加载图片简单用法，记得要写下面的createImageView方法
+            Uri uri = Uri.parse((String) path);
+            imageView.setImageURI(uri);
+        }
+
+        //提供createImageView 方法，如果不用可以不重写这个方法，主要是方便自定义ImageView的创建
+        @Override
+        public ImageView createImageView(Context context) {
+            //使用fresco，需要创建它提供的ImageView，当然你也可以用自己自定义的具有图片加载功能的ImageView
+            SimpleDraweeView simpleDraweeView = new SimpleDraweeView(context);
+            return simpleDraweeView;
         }
     }
 

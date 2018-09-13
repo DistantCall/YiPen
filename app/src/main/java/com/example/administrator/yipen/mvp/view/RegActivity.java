@@ -26,25 +26,21 @@ import com.example.administrator.yipen.server.LoginServerce;
 import com.example.administrator.yipen.utils.SmartroInter;
 import com.example.myapplication.R;
 
-import org.greenrobot.eventbus.EventBus;
+//import org.greenrobot.eventbus.EventBus;
 
 
-public class RegActivity extends BaseActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener, SmartroInter {
-    String tel_uls[] = {"+86", "+886", "+852", "+853"};
+public class RegActivity extends BaseActivity implements View.OnClickListener, SmartroInter {
+
 
     private Button reg;
     private EditText telephone;
-    private Spinner spinner;
     private App application;
-    private String phoneCode = null;
-    private TextView reg_back;
+
     private Button login;
 
     private EditText regCode;
 
-    private TextView title;
     CountTimer countTimer = new CountTimer(3000, 1000);
-    private int requestCode = 0;
 
 
     @Override
@@ -55,65 +51,26 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
 
     @Override
     protected void initView() {
-
-        spinner = (Spinner) findViewById(R.id.spinner);
         reg = (Button) findViewById(R.id.regmax);
         telephone = (EditText) findViewById(R.id.telephone);
-        reg_back = (TextView) findViewById(R.id.reg_blak);
         login = (Button) findViewById(R.id.login_btn);
         regCode = (EditText) findViewById(R.id.regCode);
-        title = (TextView) findViewById(R.id.titleFlag);
+
     }
 
 
     @Override
     protected void initData() {
-
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, tel_uls);
-        /*spDown加载适配器*/
-        spinner.setAdapter(adapter);
-        /*spDown设置监听事件*/
-        spinner.setOnItemSelectedListener(this);
         application = (App) App.getApplication();
         reg.setOnClickListener(this);
-        reg_back.setOnClickListener(this);
         login.setOnClickListener(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-            if (getIntent().getStringExtra("requestCode")!=null) {
-                if(getIntent().getStringExtra("requestCode").equals("22")){
-                    requestCode=22;
-                }
-        }
-
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (KeyEvent.KEYCODE_BACK == keyCode) {
-            if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
-                if (requestCode == 22) {
-                    RegActivity.this.startActivity(new Intent(RegActivity.this, MainActivity.class));
-                }
-                return true;
-            }
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        phoneCode = tel_uls[position];
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-    }
 
     //登录注册逻辑
     @Override
@@ -148,34 +105,45 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
     @Override
     public void LoginScuess(Object o) {
         LoginBean loginBean = (LoginBean) o;
-        Log.e("ss", loginBean.toString());
         if (loginBean.getStatus() == 0) {
             //失败
+
             user.add("login", "err");
             LoginServerce.reflag = false;
-            setButton(1);
-            application.toastLong(loginBean.getMessage());
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    setButton(1);
+                    application.toastLong(loginBean.getMessage());
+                }
+            });
+
 
         } else if (loginBean.getStatus() == 1) {
-            //成功
-            application.toastLong("登陆成功,跳转登录页面");
-            EventBus.getDefault().postSticky(loginBean.getResult());
-            user.add("token", loginBean.getResult().get(0).getToken());
-            user.add("phone", loginBean.getResult().get(0).getTelephone());
-            user.add("user_icon", loginBean.getResult().get(0).getCode_url());
-            user.add("username", loginBean.getResult().get(0).getUsername());
-            user.add("nickName",loginBean.getResult().get(0).getUsername());
-            user.add("bis_id", loginBean.getResult().get(0).getBis_id() + "");
-            user.add("meM_id", loginBean.getResult().get(0).getMem_id() + "");
-            BaseActivity.phone = loginBean.getResult().get(0).getTelephone();
-            BaseActivity.token = loginBean.getResult().get(0).getToken();
-            BaseActivity.bis_id = loginBean.getResult().get(0).getBis_id() + "";
-            BaseActivity.meM_id = loginBean.getResult().get(0).getMem_id() + "";
-            BaseActivity.codeUrl = ConstanceClass.LOCTIONPATH+"/img/"+loginBean.getResult().get(0).getCode_url();
-            BaseActivity.username = loginBean.getResult().get(0).getUsername();
-            BaseActivity.nickName=loginBean.getResult().get(0).getUsername();
-            SystemClock.sleep(500);
-            finishLogin("scuess");
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    //成功
+                    application.toastLong("登陆成功,跳转登录页面");
+//                    EventBus.getDefault().postSticky(loginBean.getResult());
+                    user.add("token", loginBean.getResult().get(0).getToken());
+                    user.add("phone", loginBean.getResult().get(0).getTelephone());
+                    user.add("user_icon", loginBean.getResult().get(0).getCode_url());
+                    user.add("username", loginBean.getResult().get(0).getUsername());
+                    user.add("nickName", loginBean.getResult().get(0).getUsername());
+                    user.add("bis_id", loginBean.getResult().get(0).getBis_id() + "");
+                    user.add("meM_id", loginBean.getResult().get(0).getMem_id() + "");
+                    BaseActivity.phone = loginBean.getResult().get(0).getTelephone();
+                    BaseActivity.token = loginBean.getResult().get(0).getToken();
+                    BaseActivity.bis_id = loginBean.getResult().get(0).getBis_id() + "";
+                    BaseActivity.meM_id = loginBean.getResult().get(0).getMem_id() + "";
+                    BaseActivity.codeUrl = ConstanceClass.LOCTIONPATH + "/img/" + loginBean.getResult().get(0).getCode_url();
+                    BaseActivity.username = loginBean.getResult().get(0).getUsername();
+                    BaseActivity.nickName = loginBean.getResult().get(0).getUsername();
+                    finishLogin("scuess");
+                }
+            });
+
         }
     }
 
@@ -188,19 +156,25 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.reg_blak:
-                if (requestCode == 22) {
-
-                } else {
-                    finishLogin("err");
-                }
-                break;
             case R.id.login_btn:
                 setButton(0);
-                App.getPresenter(this).LoginPre(telephone.getText().toString().trim(), regCode.getText().toString().trim());
+                new Thread() {
+                    @Override
+                    public void run() {
+                        super.run();
+                        App.getPresenter(RegActivity.this).LoginPre(telephone.getText().toString().trim(), regCode.getText().toString().trim());
+
+                    }
+                }.start();
                 break;
             case R.id.regmax:
-                App.getPresenter(this).RegPre(telephone.getText().toString().trim());
+                new Thread() {
+                    @Override
+                    public void run() {
+                        super.run();
+                        App.getPresenter(RegActivity.this).RegPre(telephone.getText().toString().trim());
+                    }
+                }.start();
                 break;
         }
 
@@ -217,14 +191,17 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
     }
 
     private void finishLogin(String function) {
+        Log.e("login", function);
         user.add("login", function);
         if (function.equals("scuess")) {
             LoginServerce.reflag = true;
         } else if (function.equals("err")) {
             LoginServerce.reflag = false;
         }
+        Log.e("login", LoginServerce.reflag + "");
         finish();
     }
+
 
     //下次登录判断
     @Override
@@ -240,19 +217,31 @@ public class RegActivity extends BaseActivity implements AdapterView.OnItemSelec
 
         @Override
         public void onFinish() {// 计时完毕时触发
-            reg.setText("重新验证");
-            int color = Color.parseColor("#FFFF0088");
-            reg.setBackgroundColor(color);
-            reg.setClickable(true);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    reg.setText("重新验证");
+                    int color = Color.parseColor("#FFFF0088");
+                    reg.setBackgroundColor(color);
+                    reg.setClickable(true);
+                }
+            });
+
         }
 
         @SuppressLint("Range")
         @Override
         public void onTick(long millisUntilFinished) {// 计时过程显示
-            reg.setClickable(false);
-            reg.setAlpha(150);
-            reg.setBackgroundColor(Color.GRAY);
-            reg.setText((millisUntilFinished / 1000 + "秒后发送验证码"));
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    reg.setClickable(false);
+                    reg.setAlpha(150);
+                    reg.setBackgroundColor(Color.GRAY);
+                    reg.setText((millisUntilFinished / 1000 + "秒后发送验证码"));
+                }
+            });
+
         }
 
     }

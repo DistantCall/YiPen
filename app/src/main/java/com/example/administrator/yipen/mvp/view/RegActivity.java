@@ -1,22 +1,12 @@
 package com.example.administrator.yipen.mvp.view;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.CountDownTimer;
-import android.os.SystemClock;
-import android.support.annotation.RequiresApi;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.administrator.yipen.app.App;
 import com.example.administrator.yipen.bean.LoginBean;
@@ -26,7 +16,7 @@ import com.example.administrator.yipen.server.LoginServerce;
 import com.example.administrator.yipen.utils.SmartroInter;
 import com.example.myapplication.R;
 
-//import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.EventBus;
 
 
 public class RegActivity extends BaseActivity implements View.OnClickListener, SmartroInter {
@@ -117,7 +107,7 @@ public class RegActivity extends BaseActivity implements View.OnClickListener, S
                     application.toastLong(loginBean.getMessage());
                 }
             });
-
+            LoginServerce.reflag = false;
 
         } else if (loginBean.getStatus() == 1) {
             runOnUiThread(new Runnable() {
@@ -125,7 +115,7 @@ public class RegActivity extends BaseActivity implements View.OnClickListener, S
                 public void run() {
                     //成功
                     application.toastLong("登陆成功,跳转登录页面");
-//                    EventBus.getDefault().postSticky(loginBean.getResult());
+                    EventBus.getDefault().postSticky(loginBean.getResult());
                     user.add("token", loginBean.getResult().get(0).getToken());
                     user.add("phone", loginBean.getResult().get(0).getTelephone());
                     user.add("user_icon", loginBean.getResult().get(0).getCode_url());
@@ -140,7 +130,9 @@ public class RegActivity extends BaseActivity implements View.OnClickListener, S
                     BaseActivity.codeUrl = ConstanceClass.LOCTIONPATH + "/img/" + loginBean.getResult().get(0).getCode_url();
                     BaseActivity.username = loginBean.getResult().get(0).getUsername();
                     BaseActivity.nickName = loginBean.getResult().get(0).getUsername();
-                    finishLogin("scuess");
+                    user.add("login", "scuess");
+                    LoginServerce.reflag = true;
+                    finish();
                 }
             });
 
@@ -182,24 +174,12 @@ public class RegActivity extends BaseActivity implements View.OnClickListener, S
 
     public void setButton(int requestCode) {
         if (requestCode == 0) {
-            this.getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
+//            this.getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
             login.setBackgroundColor(Color.GRAY);
-        } else if (requestCode == 1) {
-            int parseColor = Color.parseColor("#FFFF0088");
-            login.setBackgroundColor(parseColor);
-        }
-    }
 
-    private void finishLogin(String function) {
-        Log.e("login", function);
-        user.add("login", function);
-        if (function.equals("scuess")) {
-            LoginServerce.reflag = true;
-        } else if (function.equals("err")) {
-            LoginServerce.reflag = false;
+        } else if (requestCode == 1) {
+            login.setBackgroundResource(R.color.colorGreen);
         }
-        Log.e("login", LoginServerce.reflag + "");
-        finish();
     }
 
 

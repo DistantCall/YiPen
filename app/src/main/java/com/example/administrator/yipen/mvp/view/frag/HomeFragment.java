@@ -27,10 +27,10 @@ import com.example.administrator.yipen.mvp.view.BaseActivity;
 import com.example.administrator.yipen.mvp.view.Iview;
 import com.example.administrator.yipen.server.LoginServerce;
 import com.example.myapplication.R;
-//
-//import org.greenrobot.eventbus.EventBus;
-//import org.greenrobot.eventbus.Subscribe;
-//import org.greenrobot.eventbus.ThreadMode;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +52,7 @@ public class HomeFragment extends Fragment implements Iview {
     private HistoryPayBean historyPayBean;
     private CountPriceBena countPriceBena;
     private SwipeRefreshLayout mSwiperefresh;
+    private LoginBean.ResultBean o;
 
 
     @Override
@@ -66,7 +67,7 @@ public class HomeFragment extends Fragment implements Iview {
         try {
             view = inflater.inflate(R.layout.home_layout, container, false);
             presenter = App.getPresenter(this);
-//            EventBus.getDefault().register(this);
+            EventBus.getDefault().register(this);
             initView(view);
             initData();
             setData();
@@ -80,6 +81,15 @@ public class HomeFragment extends Fragment implements Iview {
     @Override
     public void onResume() {
         super.onResume();
+        if (LoginServerce.reflag = true) {
+            homeAdapter = new HomeAdapter(getActivity(), imgs, userBeans, result, resultBean, true);
+            homeView.setAdapter(homeAdapter);
+        }
+
+        if (LoginServerce.reflag = false) {
+            homeAdapter = new HomeAdapter(getActivity(), imgs, false);
+            homeView.setAdapter(homeAdapter);
+        }
         if (LoginServerce.reflag) {
             if (imgs.size() == 0) {
                 new Thread() {
@@ -94,6 +104,7 @@ public class HomeFragment extends Fragment implements Iview {
                     }
                 }.start();
             }
+            homeAdapter.notifyDataSetChanged();
 
         } else {
             new Thread() {
@@ -110,10 +121,11 @@ public class HomeFragment extends Fragment implements Iview {
 
     }
 
-//    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-//    public void getData(List<LoginBean.ResultBean> resultBeanList) {
-//        o = resultBeanList.get(0);
-//    }
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void getData(List<LoginBean.ResultBean> resultBeanList) {
+        o = resultBeanList.get(0);
+
+    }
 
     public void setData() {
         mSwiperefresh.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_red_light, android.R.color.holo_orange_light, android.R.color.holo_green_light);
@@ -184,14 +196,7 @@ public class HomeFragment extends Fragment implements Iview {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (LoginServerce.reflag) {
-
-                    homeAdapter = new HomeAdapter(getActivity(), imgs, userBeans, result, resultBean, true);
-                    homeView.setAdapter(homeAdapter);
-                } else {
-                    homeAdapter = new HomeAdapter(getActivity(), imgs, false);
-                    homeView.setAdapter(homeAdapter);
-                }
+                homeAdapter.notifyDataSetChanged();
             }
         });
     }

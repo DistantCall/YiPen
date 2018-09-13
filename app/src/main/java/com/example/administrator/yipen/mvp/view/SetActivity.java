@@ -79,6 +79,7 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
+
         userIcon.setImageURI(ConstanceClass.LOCTIONPATH + "/img/" + BaseActivity.codeUrl);
         presenter.userInfoPre(phone,token);
 

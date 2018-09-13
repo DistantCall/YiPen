@@ -39,9 +39,9 @@ import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.view.SimpleDraweeView;
 
-//import org.greenrobot.eventbus.EventBus;
-//import org.greenrobot.eventbus.Subscribe;
-//import org.greenrobot.eventbus.ThreadMode;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -54,9 +54,7 @@ public class MineFragment extends Fragment implements Iview {
     private TextView userPhone;
     private TextView userName;
     private LoginBean.ResultBean resultBean;
-
     private Presenter presenter;
-
     private String phone;
     private String username;
     private String token;
@@ -71,7 +69,7 @@ public class MineFragment extends Fragment implements Iview {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.mine_layout, container, false);
 
-//        EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
         initView();
         initData();
         return view;
@@ -81,7 +79,7 @@ public class MineFragment extends Fragment implements Iview {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-//        EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
     }
 
 
@@ -89,10 +87,19 @@ public class MineFragment extends Fragment implements Iview {
     public void onResume() {
         super.onResume();
         if (reflag) {
-            phone = BaseActivity.phone;
-            token = BaseActivity.token;
-            icon = BaseActivity.codeUrl;
-            username = BaseActivity.username;
+            if(resultBean==null){
+                phone = BaseActivity.phone;
+                token = BaseActivity.token;
+                icon = BaseActivity.codeUrl;
+                username = BaseActivity.username;
+            }else{
+                phone=resultBean.getTelephone();
+                token=resultBean.getToken();
+                icon= ConstanceClass.LOCTIONPATH + "/img/" +resultBean.getCode_url();
+                username=resultBean.getUsername();
+            }
+
+
             userName.setText(username);
             userPhone.setText(phone);
             userName.setText("手机号");
@@ -121,7 +128,7 @@ public class MineFragment extends Fragment implements Iview {
 //设置圆角
         rp.setRoundAsCircle(true);
         GenericDraweeHierarchy build = GenericDraweeHierarchyBuilder.newInstance(getActivity().getResources())
-                // .setRoundingParams(RoundingParams.asCircle()) //直接设置圆角
+                 .setRoundingParams(RoundingParams.asCircle()) //直接设置圆角
                 .setRoundingParams(rp)
                 .build();
 //图片
@@ -137,7 +144,6 @@ public class MineFragment extends Fragment implements Iview {
         userIcon = view.findViewById(R.id.user_icon);
         userPhone = view.findViewById(R.id.user_phone);
         userName = view.findViewById(R.id.user_Namne);
-
         finish = (TextView) view.findViewById(R.id.freishLogin);
 
     }
@@ -191,14 +197,18 @@ public class MineFragment extends Fragment implements Iview {
     public void LoginErr(Throwable t) {
 
     }
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void getData(List<LoginBean.ResultBean> resultBeanList) {
+        resultBean = resultBeanList.get(0);
 
+    }
 
     public void login() {
         userName.setText(username);
         userPhone.setText(phone);
         userIcon.setImageURI(icon);
         final Intent intent = new Intent(getActivity(), SetActivity.class);
-        intent.putExtra("requestCode", "22");
+
         userIcon.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override

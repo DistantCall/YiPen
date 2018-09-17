@@ -1,12 +1,11 @@
-package com.example.administrator.yipen.utils;
+package com.example.administrrtor.yipen.utils;
 
 import android.util.Log;
 
 
-import com.example.administrator.yipen.app.App;
+import com.example.administrrtor.yipen.app.App;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.*;

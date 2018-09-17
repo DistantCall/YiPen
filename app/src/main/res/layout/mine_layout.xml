@@ -75,7 +75,6 @@
         android:layout_weight="1"
         android:orientation="vertical">
         <ImageView
-
             android:layout_width="@dimen/dp_40"
             android:layout_height="@dimen/dp_40"
             android:layout_gravity="center"

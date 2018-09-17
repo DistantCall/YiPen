@@ -6,6 +6,8 @@
     <color name="colorWirte">#FFF</color>
     <color name="backgroud">#bef5f5f5</color>
     <color name="colorPay">#4BBF49</color>
-    <color name="colorGlay">#777</color>
+    <color name="colorGlay">#db777777</color>
     <color name="colorGreen">#FFFF0088</color>
+    <color name="colOrange">#F5A623</color>
+    <color name="colorBlue">#4C95FF</color>
 </resources>

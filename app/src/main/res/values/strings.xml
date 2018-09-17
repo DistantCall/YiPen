@@ -12,5 +12,7 @@
     <string name="pay_money">还款额</string>
     <string name="pay_countPrice">本金</string>
     <string name="pay_money_rate">息费</string>
-
+<string name="tishi">请注意:信息提交成功不代表的起申请成功</string>
+    <string name="tishi1">后续我们客服人员会和您联系后续事宜</string>
+    <string name="tishi2">若您的资质无法完成分期申请，您仍需全额缴纳</string>
 </resources>

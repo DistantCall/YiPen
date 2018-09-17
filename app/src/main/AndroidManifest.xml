@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.myapplication">
+    package="com.example.administrator.yipen">
 
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEM" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,9 +15,10 @@
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
-        android:name="com.example.administrator.yipen.app.App"
+        android:name="com.example.administrrtor.yipen.app.App"
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
@@ -25,7 +26,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.example.administrator.yipen.mvp.view.StartActivity"
+            android:name="com.example.administrrtor.yipen.VersionOne.view.StartActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,36 +35,45 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.administrator.yipen.mvp.view.MainActivity"
+            android:name="com.example.administrrtor.yipen.VersionOne.view.MainActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.administrator.yipen.mvp.view.RegActivity"
+            android:name="com.example.administrrtor.yipen.VersionOne.view.RegActivity"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name="com.example.administrrtor.yipen.VersionOne.view.SetActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.example.administrator.yipen.mvp.view.SetActivity"
+            android:name="com.example.administrrtor.yipen.VersionOne.view.UpUserInfoActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.example.administrator.yipen.mvp.view.UpUserInfoActivity"
+            android:name="com.example.administrrtor.yipen.VersionOne.view.PayActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.example.administrator.yipen.mvp.view.PayActivity"
+            android:name="com.example.administrrtor.yipen.VersionOne.view.DidivActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.example.administrator.yipen.mvp.view.DidivActivity"
+            android:name="com.example.administrrtor.yipen.VersionOne.view.PayStagesActivity"
             android:launchMode="singleTask" />
-        <activity
-            android:name="com.example.administrator.yipen.mvp.view.PayStagesActivity"
-            android:launchMode="singleTask"></activity>
         <!-- 微信支付 -->
 
         <activity
-            android:name="com.example.administrator.yipen.wxapi.WXPayEntryActivity"
+            android:name="com.example.administrrtor.yipen.wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="wxb80a36968e113605" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.example.administrrtor.yipen.VersionOne.view.EntryActivity"></activity>
     </application>
 
 </manifest>

@@ -1,17 +1,15 @@
-package com.example.administrator.yipen.app;
+package com.example.administrrtor.yipen.app;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Intent;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.example.administrator.yipen.bean.WeiXin;
-import com.example.administrator.yipen.constance.SharePUtils;
-import com.example.administrator.yipen.mvp.presenter.Presenter;
-import com.example.administrator.yipen.mvp.view.Iview;
-
+import com.example.administrrtor.yipen.VersionOne.bean.WeiXin;
+import com.example.administrrtor.yipen.VersionOne.mvp.presenter.Presenter;
+import com.example.administrrtor.yipen.VersionOne.mvp.view.Iview;
+import com.example.administrrtor.yipen.constance.SharePUtils;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -25,8 +23,7 @@ import okhttp3.RequestBody;
 public class App extends Application {
     private static App app;
     private static Presenter presenter;
-    public static String WXAPPID;
-
+    public static final String WX_APP_ID ="wxb80a36968e113605";
     @Override
     public void onCreate() {
         super.onCreate();
@@ -43,7 +40,7 @@ public class App extends Application {
     //判断登陆后下次是否需要重新登录的操作
 
 
-    public static Application getApplication() {
+    public static App getApplication() {
         return app;
     }
 
@@ -87,19 +84,24 @@ public class App extends Application {
         return presenter;
     }
 
-public  void get(WeiXin bean){
-    IWXAPI wxapi = WXAPIFactory.createWXAPI(this, null);  //应用ID 即微信开放平台审核通过的应用APPID
-    wxapi.registerApp(bean.getResult().getAppid());    //应用ID
-    PayReq payReq = new PayReq();
-    payReq.appId =bean.getResult().getAppid();        //应用ID
-    payReq.partnerId = bean.getResult().getPartnerid();      //商户号 即微信支付分配的商户号
-    payReq.prepayId =bean.getResult().getPrepayid();        //预支付交易会话ID
-    payReq.packageValue =bean.getResult().getPackageX();    //扩展字段
-    payReq.nonceStr =bean.getResult().getNoncestr();        //随机字符串不长于32位。
-    payReq.timeStamp =bean.getResult().getTimestamp()+""; //时间戳
-    payReq.sign = bean.getResult().getSign();             //签名
-    wxapi.sendReq(payReq);
-}
+    public void get(Activity activity, WeiXin bean) {
+
+
+        IWXAPI api = WXAPIFactory.createWXAPI(activity, null);//通过工厂创建对象
+        api.registerApp(bean.getResult().getAppid());
+        PayReq request = new PayReq();
+        request.appId = bean.getResult().getAppid();
+        request.partnerId = bean.getResult().getPartnerid().trim();
+        request.prepayId = bean.getResult().getPrepayid().trim();
+        request.nonceStr = bean.getResult().getNoncestr().trim();
+        request.timeStamp = (bean.getResult().getTimestamp() + "").trim();
+        request.packageValue = bean.getResult().getPackageX().trim();
+        request.sign = bean.getResult().getSign().trim();
+//                                request.extData = "app data"; // optional
+        // 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
+        api.sendReq(request);
+    }
+
 
 }
 

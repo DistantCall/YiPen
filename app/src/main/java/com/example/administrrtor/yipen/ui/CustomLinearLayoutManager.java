@@ -1,4 +1,4 @@
-package com.example.administrator.yipen.ui;
+package com.example.administrrtor.yipen.ui;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;

@@ -1,4 +1,4 @@
-package com.example.administrator.yipen.constance;
+package com.example.administrrtor.yipen.constance;
 
 import android.app.Activity;
 import android.content.Context;
